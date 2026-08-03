@@ -9,88 +9,84 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
         body {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 0 20px;
-            line-height: 1.6;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
+            max-width: 620px;
+            margin: 48px auto;
+            padding: 0 24px;
             color: #111;
         }
-        .sub-title {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .sub-heading {
             font-size: 1.5rem;
             color: #333;
-            margin-bottom: 30px;
-        }
-        .disclaimer-top {
-            color: #444;
-            font-size: 1.05rem;
-            margin-bottom: 35px;
+            margin-bottom: 36px;
         }
         #gpInput {
             width: 100%;
-            padding: 16px 14px;
-            font-size: 1.2rem;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            margin-bottom: 12px;
+            padding: 18px 16px;
+            font-size: 1.25rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-bottom: 14px;
         }
         #checkBtn {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background-color: #2563eb;
-            color: white;
+            color: #fff;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 1.3rem;
-            cursor: pointer;
+            font-weight: 500;
         }
         #resultBox {
-            margin-top: 30px;
-            padding: 25px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            margin-top: 32px;
+            padding: 28px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
             display: none;
         }
         #resultBox h2 {
-            margin-bottom: 16px;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
         #resultBox p {
-            font-size: 1.15rem;
-            margin: 8px 0;
+            font-size: 1.2rem;
+            margin: 10px 0;
         }
-        .disclaimer-bottom {
-            margin-top: 35px;
-            font-size: 0.98rem;
+        #resultBox p strong {
+            min-width: 180px;
+            display: inline-block;
+        }
+        .disclaimer-footer {
+            margin-top: 40px;
+            font-size: 0.96rem;
             color: #555;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
     <h1>GemPop Gemstone ID Verification System</h1>
-    <div class="sub-title">Verify Gemstone Details</div>
-
-    <div class="disclaimer-top">
-        Disclaimer: This is GemPop's internal product traceability system only. All grading data is internal factory inspection data. Official laboratory certificates (NGTC / IGI / GIA) is the sole authoritative certification document. This website is not an official third-party gemstone testing laboratory.
-    </div>
+    <div class="sub-heading">Verify Gemstone Details</div>
 
     <input type="text" id="gpInput" placeholder="Input GP ID">
     <button id="checkBtn">Verify Gemstone Details</button>
 
     <div id="resultBox"></div>
 
-    <div class="disclaimer-bottom">
+    <div class="disclaimer-footer">
         Disclaimer: This is GemPop's internal product traceability system only. All grading data is for reference purposes. Official laboratory certificates (NGTC / IGI / GIA) shall be the sole authoritative certification document. This website is not an official third-party gemstone testing laboratory.
     </div>
 
     <script>
-        // 你的json数据保持不变，这里逻辑自动判断证书抬头
         const stoneData = [
             {
                 gpId: "GP090A",
@@ -102,7 +98,6 @@
                 clarity: "VVS1",
                 cut: "Excellent"
             }
-            // 以后新增石头就在这里复制一条加进去就行
         ];
 
         const input = document.getElementById('gpInput');
@@ -119,7 +114,6 @@
                 return;
             }
 
-            // 自动匹配证书前缀
             let certLabel;
             if (findItem.stoneType === "Moissanite") {
                 certLabel = "NGTC Certificate Number";
