@@ -77,28 +77,15 @@
     </div>
 
     <script>
-        const stoneData = [
-            {
-                gpId: "GP090A",
-                certNumber: "NGTC20260802001",
-                stoneType: "Moissanite",
-                carat: "1 ct",
-                shape: "Round",
-                color: "D",
-                clarity: "VVS1",
-                cut: "Excellent"
-            },
-            {
-                gpId: "GP117A",
-                certNumber: "NGTC20260802003",
-                stoneType: "Moissanite",
-                carat: "1.2 ct",
-                shape: "Round",
-                color: "D",
-                clarity: "VVS1",
-                cut: "Excellent"
-            }
-        ];
+        let stoneData = [];
+        fetch('./data.json')
+            .then(res => res.json())
+            .then(data => {
+                stoneData = data;
+            })
+            .catch(err => {
+                console.error("数据文件加载失败", err);
+            });
 
         const input = document.getElementById('gpInput');
         const btn = document.getElementById('checkBtn');
