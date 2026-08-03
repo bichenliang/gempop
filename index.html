@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GemPop Moissanite Verification</title>
+    <title>GemPop Gemstone Verification</title>
     <style>
         * {
             box-sizing: border-box;
@@ -49,10 +49,10 @@
     </style>
 </head>
 <body>
-    <h1>GemPop Moissanite ID Verification System</h1>
+    <h1>GemPop Gemstone ID Verification System</h1>
 
-    <input type="text" id="gpId" placeholder="Enter your Moissanite GP Stone ID (e.g. GP00001)">
-    <button id="verifyBtn">Verify Moissanite Details</button>
+    <input type="text" id="gpId" placeholder="Enter your GP Stone ID (e.g. GP00001)">
+    <button id="verifyBtn">Verify Gemstone Details</button>
 
     <div id="resultBox"></div>
 
@@ -74,10 +74,15 @@
             const findItem = stoneData.find(item => item.gpId.toLowerCase() === inputId.toLowerCase());
 
             if (findItem) {
+                let certLabel = "Certificate Number";
+                if(findItem.stoneType === "moissanite") certLabel = "NGTC - Certificate Number";
+                else if(findItem.stoneType === "lab_grown_diamond") certLabel = "IGI - Certificate Number";
+                else if(findItem.stoneType === "natural_diamond") certLabel = "GIA - Certificate Number";
+
                 resultBox.innerHTML = `
                     <strong>Verification Successful</strong><br>
                     GP ID：${findItem.gpId}<br>
-                    NGTC - Certificate Number：${findItem["NGTC-Cert-Number"] || "Not uploaded"}<br>
+                    ${certLabel}：${findItem["NGTC-Cert-Number"] || "Not uploaded"}<br>
                     Stone Type：${findItem.stoneType}<br>
                     Carat Weight：${findItem.carat} ct<br>
                     Shape：${findItem.shape}<br>
@@ -86,7 +91,7 @@
                     Cut Grade：${findItem.cut}
                 `;
             } else {
-                resultBox.innerText = "This Moissanite GP ID cannot be found in our official database.";
+                resultBox.innerText = "This GP ID cannot be found in our database.";
             }
         });
     </script>
