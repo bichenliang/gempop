@@ -1,4 +1,58 @@
-GemPop Gemstone ID Verification System
-Verify Gemstone Details
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GemPop Gemstone ID Verification System</title>
+</head>
+<body>
+<h1>GemPop Gemstone ID Verification System</h1>
+<h3>Verify Gemstone Details</h3>
+<p>Disclaimer: This is GemPop's internal product traceability system only. All grading data is internal factory inspection data.</p>
 
-Disclaimer: This is GemPop's internal product traceability system only. All grading data is for reference purposes. Official laboratory certificates (NGTC / IGI / GIA) shall be the sole authoritative certification document. This website is not an official third-party gemstone testing laboratory.
+<input type="text" id="gpIdInput" placeholder="Input GP ID">
+<button onclick="searchStone()">Check</button>
+<div id="result"></div>
+
+<script>
+let stoneData = [];
+
+fetch('data.json')
+.then(res => res.json())
+.then(data => {
+    stoneData = data;
+})
+
+function searchStone() {
+    const inputId = document.getElementById('gpIdInput').value.trim().toUpperCase();
+    const target = stoneData.find(item => item.gpId.toUpperCase() === inputId);
+    const resultBox = document.getElementById('result');
+
+    if (!target) {
+        resultBox.innerHTML = "<p>No matching record found</p>";
+        return;
+    }
+
+    let certLabel = "Certificate Number";
+    if (target.stoneType === "moissanite") {
+        certLabel = "NGTC Certificate Number";
+    } else if (target.stoneType === "labgrown") {
+        certLabel = "IGI Certificate Number";
+    } else if (target.stoneType === "natural") {
+        certLabel = "GIA Certificate Number";
+    }
+
+    resultBox.innerHTML = `
+    <p>GP ID: ${target.gpId}</p>
+    <p>Carat: ${target.carat}</p>
+    <p>Shape: ${target.shape}</p>
+    <p>Color: ${target.color}</p>
+    <p>Clarity: ${target.clarity}</p>
+    <p>Cut: ${target.cut}</p>
+    <p>Stone Type: ${target.stoneType}</p>
+    <p>Refractive Index: ${target.refractiveIndex}</p>
+    <p>${certLabel}: ${target["NGTC-Cert-Number"]}</p>
+    `;
+}
+</script>
+</body>
+</html>
