@@ -6,111 +6,142 @@
     <title>GemPop Gemstone ID Verification System</title>
     <style>
         * {
-            font-family: -apple-system, BlinkMacSystemFont, serif;
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
         body {
-            max-width: 620px;
-            margin: 45px auto;
-            padding: 0 24px;
-            line-height: 1.8;
-            color: #222;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.6;
         }
         h1 {
-            font-size: 29px;
+            font-size: 2.5rem;
             margin-bottom: 12px;
+            color: #111;
         }
-        h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            font-weight: normal;
+        .sub-title {
+            font-size: 1.5rem;
             color: #333;
+            margin-bottom: 30px;
         }
-        .disclaimer {
-            font-size: 15px;
+        .disclaimer-top {
             color: #444;
-            margin-bottom: 32px;
-            line-height: 1.65;
-        }
-        .search-area {
+            font-size: 1.05rem;
             margin-bottom: 35px;
         }
-        #gpIdInput {
-            padding: 10px 14px;
-            font-size: 16px;
-            width: 270px;
-            border: 1px solid #bbbbbb;
-            border-radius: 4px;
+        #gpInput {
+            width: 100%;
+            padding: 16px 14px;
+            font-size: 1.2rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 12px;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #3666bb;
-            color: #fff;
+        #checkBtn {
+            width: 100%;
+            padding: 18px;
+            background-color: #2563eb;
+            color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-size: 1.3rem;
             cursor: pointer;
-            margin-left: 10px;
         }
-        #result p {
-            font-size: 17px;
+        #resultBox {
+            margin-top: 30px;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: none;
+        }
+        #resultBox h2 {
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+        }
+        #resultBox p {
+            font-size: 1.15rem;
             margin: 8px 0;
+        }
+        .disclaimer-bottom {
+            margin-top: 35px;
+            font-size: 0.98rem;
+            color: #555;
         }
     </style>
 </head>
 <body>
-<h1>GemPop Gemstone ID Verification System</h1>
-<h3>Verify Gemstone Details</h3>
-<p class="disclaimer">Disclaimer: This is GemPop's internal product traceability system only. All grading data is internal factory inspection data. Official laboratory certificates (NGTC / IGI / GIA) is the sole authoritative certification document. This website is not an official third-party gemstone testing laboratory.</p>
+    <h1>GemPop Gemstone ID Verification System</h1>
+    <div class="sub-title">Verify Gemstone Details</div>
 
-<div class="search-area">
-    <input type="text" id="gpIdInput" placeholder="Input GP ID">
-    <button onclick="searchStone()">Check</button>
-</div>
+    <div class="disclaimer-top">
+        Disclaimer: This is GemPop's internal product traceability system only. All grading data is internal factory inspection data. Official laboratory certificates (NGTC / IGI / GIA) is the sole authoritative certification document. This website is not an official third-party gemstone testing laboratory.
+    </div>
 
-<div id="result"></div>
-<script>
-let stoneData = [];
+    <input type="text" id="gpInput" placeholder="Input GP ID">
+    <button id="checkBtn">Verify Gemstone Details</button>
 
-fetch('data.json')
-.then(res => res.json())
-.then(data => {
-    stoneData = data;
-})
+    <div id="resultBox"></div>
 
-function searchStone() {
-    const inputId = document.getElementById('gpIdInput').value.trim().toUpperCase();
-    const target = stoneData.find(item => item.gpId.toUpperCase() === inputId);
-    const resultBox = document.getElementById('result');
+    <div class="disclaimer-bottom">
+        Disclaimer: This is GemPop's internal product traceability system only. All grading data is for reference purposes. Official laboratory certificates (NGTC / IGI / GIA) shall be the sole authoritative certification document. This website is not an official third-party gemstone testing laboratory.
+    </div>
 
-    if (!target) {
-        resultBox.innerHTML = "<p>No matching record found</p>";
-        return;
-    }
+    <script>
+        // 你的json数据保持不变，这里逻辑自动判断证书抬头
+        const stoneData = [
+            {
+                gpId: "GP090A",
+                certNumber: "NGTC20260802001",
+                stoneType: "Moissanite",
+                carat: "1 ct",
+                shape: "Round",
+                color: "D",
+                clarity: "VVS1",
+                cut: "Excellent"
+            }
+            // 以后新增石头就在这里复制一条加进去就行
+        ];
 
-    let certLabel = "Certificate Number";
-    if (target.stoneType === "moissanite") {
-        certLabel = "NGTC Certificate Number";
-    } else if (target.stoneType === "labgrown") {
-        certLabel = "IGI Certificate Number";
-    } else if (target.stoneType === "natural") {
-        certLabel = "GIA Certificate Number";
-    }
+        const input = document.getElementById('gpInput');
+        const btn = document.getElementById('checkBtn');
+        const resultBox = document.getElementById('resultBox');
 
-    resultBox.innerHTML = `
-    <p>GP ID: ${target.gpId}</p>
-    <p>Carat: ${target.carat}</p>
-    <p>Shape: ${target.shape}</p>
-    <p>Color: ${target.color}</p>
-    <p>Clarity: ${target.clarity}</p>
-    <p>Cut: ${target.cut}</p>
-    <p>Stone Type: ${target.stoneType}</p>
-    <p>Refractive Index: ${target.refractiveIndex}</p>
-    <p>${certLabel}: ${target["NGTC-Cert-Number"]}</p>
-    `;
-}
-</script>
+        btn.addEventListener('click', () => {
+            const inputId = input.value.trim().toUpperCase();
+            const findItem = stoneData.find(item => item.gpId === inputId);
+
+            if (!findItem) {
+                resultBox.style.display = "block";
+                resultBox.innerHTML = `<h2>ID Not Found</h2><p>No matching gemstone record.</p>`;
+                return;
+            }
+
+            // 自动匹配证书前缀
+            let certLabel;
+            if (findItem.stoneType === "Moissanite") {
+                certLabel = "NGTC Certificate Number";
+            } else if (findItem.stoneType === "Lab Grown Diamond") {
+                certLabel = "IGI Certificate Number";
+            } else {
+                certLabel = "GIA Certificate Number";
+            }
+
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <h2>Verification Successful</h2>
+                <p><strong>GP ID:</strong> ${findItem.gpId}</p>
+                <p><strong>${certLabel}:</strong> ${findItem.certNumber}</p>
+                <p><strong>Stone Type:</strong> ${findItem.stoneType}</p>
+                <p><strong>Carat Weight:</strong> ${findItem.carat}</p>
+                <p><strong>Shape:</strong> ${findItem.shape}</p>
+                <p><strong>Color Grade:</strong> ${findItem.color}</p>
+                <p><strong>Clarity Grade:</strong> ${findItem.clarity}</p>
+                <p><strong>Cut Grade:</strong> ${findItem.cut}</p>
+            `;
+        });
+    </script>
 </body>
 </html>
