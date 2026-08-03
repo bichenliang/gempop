@@ -92,12 +92,15 @@
         const resultBox = document.getElementById('resultBox');
         const mainTitle = document.getElementById('mainTitle');
 
-        function updateHeaderByStoneType(type) {
+        function updateHeaderByStoneType(rawType) {
+            // 先去掉首尾空格，再转小写判断
+            const type = rawType.toLowerCase().trim();
             let titleText, btnText;
-            if (type === "Moissanite") {
+
+            if (type === "moissanite") {
                 titleText = "GemPop Moissanite ID Verification System";
                 btnText = "Verify Moissanite Details";
-            } else if (type === "Diamond" || type === "Lab Grown Diamond") {
+            } else if (type === "diamond" || type === "lab grown diamond") {
                 titleText = "GemPop Diamond ID Verification System";
                 btnText = "Verify Diamond Details";
             } else {
@@ -122,10 +125,12 @@
 
             updateHeaderByStoneType(findItem.stoneType);
 
+            // 证书前缀判断同样去除空格+小写
+            const stType = findItem.stoneType.toLowerCase().trim();
             let certPrefix;
-            if (findItem.stoneType === "Moissanite") {
+            if (stType === "moissanite") {
                 certPrefix = "NGTC - Certificate Number";
-            } else if (findItem.stoneType === "Lab Grown Diamond") {
+            } else if (stType === "lab grown diamond") {
                 certPrefix = "IGI - Certificate Number";
             } else {
                 certPrefix = "GIA - Certificate Number";
