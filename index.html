@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GemPop Moissanite ID Verification System</title>
+    <title>GemPop Gemstone ID Verification System</title>
     <style>
         * {
             box-sizing: border-box;
@@ -65,10 +65,10 @@
     </style>
 </head>
 <body>
-    <h1>GemPop Moissanite ID Verification System</h1>
+    <h1 id="mainTitle">GemPop Gemstone ID Verification System</h1>
 
     <input type="text" id="gpInput" placeholder="Input GP ID">
-    <button id="checkBtn">Verify Moissanite Details</button>
+    <button id="checkBtn">Verify Gemstone Details</button>
 
     <div id="resultBox"></div>
 
@@ -90,16 +90,37 @@
         const input = document.getElementById('gpInput');
         const btn = document.getElementById('checkBtn');
         const resultBox = document.getElementById('resultBox');
+        const mainTitle = document.getElementById('mainTitle');
+
+        function updateHeaderByStoneType(type) {
+            let titleText, btnText;
+            if (type === "Moissanite") {
+                titleText = "GemPop Moissanite ID Verification System";
+                btnText = "Verify Moissanite Details";
+            } else if (type === "Diamond" || type === "Lab Grown Diamond") {
+                titleText = "GemPop Diamond ID Verification System";
+                btnText = "Verify Diamond Details";
+            } else {
+                titleText = "GemPop Gemstone ID Verification System";
+                btnText = "Verify Gemstone Details";
+            }
+            mainTitle.innerText = titleText;
+            document.title = titleText;
+            btn.innerText = btnText;
+        }
 
         btn.addEventListener('click', () => {
             const inputId = input.value.trim().toUpperCase();
             const findItem = stoneData.find(item => item.gpId === inputId);
 
             if (!findItem) {
+                updateHeaderByStoneType("default");
                 resultBox.style.display = "block";
                 resultBox.innerHTML = `<h2>ID Not Found</h2><p>No matching gemstone record.</p>`;
                 return;
             }
+
+            updateHeaderByStoneType(findItem.stoneType);
 
             let certPrefix;
             if (findItem.stoneType === "Moissanite") {
