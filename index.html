@@ -2,46 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GemPop Gem Trace System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GemPop Moissanite Verification</title>
     <style>
-        *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
-        body{max-width:600px;margin:50px auto;padding:20px}
-        .box{border:1px solid #eee;padding:30px;border-radius:12px}
-        h1{text-align:center;color:#222;margin-bottom:30px}
-        #gpInput{width:100%;padding:12px 16px;font-size:16px;border:1px solid #ccc;border-radius:6px;margin-bottom:15px}
-        #searchBtn{width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:6px;font-size:16px;cursor:pointer}
-        #result{margin-top:25px;padding:20px;border:1px solid #eee;border-radius:8px;min-height:80px;white-space:pre-line}
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif;
+        }
+        body {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #222;
+            font-size: 28px;
+        }
+        #gpId {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            margin: 20px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        #verifyBtn {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #resultBox {
+            margin-top: 20px;
+            padding: 16px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            min-height: 80px;
+            text-align: left;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
-<div class="box">
-    <h1>GemPop Gem Trace System</h1>
-    <input type="text" id="gpInput" placeholder="Enter your GP Stone ID to verify">
-    <button id="searchBtn">Verify Stone Info</button>
-    <div id="result"></div>
-</div>
+    <h1>GemPop Moissanite ID Verification System</h1>
 
-<script>
-let data = [];
-fetch('./data.json')
-.then(res=>res.json())
-.then(json=>{data=json})
-.catch(()=>{document.getElementById('result').innerText="Data loading failed"});
+    <input type="text" id="gpId" placeholder="Enter your Moissanite GP Stone ID (e.g. GP00001)">
+    <button id="verifyBtn">Verify Moissanite Details</button>
 
-document.getElementById('searchBtn').onclick=()=>{
-    let key = document.getElementById('gpInput').value.trim();
-    let find = data.find(item=>item.gp === key);
-    let resultBox = document.getElementById('result');
-    if(find){
-        let textStr = `GP Stone ID: ${find.gp}
-Carat Weight: ${find.carat}
-Color Grade: ${find.color}
-Clarity Grade: ${find.clarity}
-NGTC Certificate No.: ${find.ngtcCertNo}`;
-        resultBox.innerText = textStr;
-    }else{
-        resultBox.innerText = "This GP Stone ID was not found in our database";
-    }
-}
-</script>
+    <div id="resultBox"></div>
+
+    <script>
+        let stoneData = [];
+        const resultBox = document.getElementById('resultBox');
+
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+                stoneData = data;
+            })
+            .catch(err => {
+                resultBox.innerText = "Unable to load stone database, please refresh later.";
+            });
+
+        document.getElementById('verifyBtn').addEventListener('click', () => {
+            const inputId = document.getElementById('gpId').value.trim();
+            const findItem = stoneData.find(item => item.gpId === inputId);
+
+            if (findItem) {
+                resultBox.innerHTML = `
+                    <strong>Verification Successful</strong><br>
+                    GP ID：${findItem.gpId}<br>
+                    Stone Type：${findItem.stoneType}<br>
+                    Carat Weight：${findItem.carat} ct<br>
+                    Shape：${findItem.shape}<br>
+                    Color Grade：${findItem.color}<br>
+                    Clarity Grade：${findItem.clarity}<br>
+                    Cut Grade：${findItem.cut}
+                `;
+            } else {
+                resultBox.innerText = "This Moissanite GP ID cannot be found in our official database.";
+            }
+        });
+    </script>
+</body>
 </html>
