@@ -1,16 +1,5 @@
 [
-  {
-    "gp":"GP001",
-    "carat":"1.0ct",
-    "color":"D",
-    "clarity":"VVS1",
-    "ngtcCertNo":"NGTC20260801001"
-  },
-  {
-    "gp":"GP002",
-    "carat":"0.8ct",
-    "color":"E",
-    "clarity":"VS1",
-    "ngtcCertNo":"NGTC20260801002"
-  }
+{"gpId":"GP00001","carat":1.0,"shape":"Round","color":"D","clarity":"VS1","cut":"Excellent","stoneType":"Moissanite","refractiveIndex":2.65},
+{"gpId":"GP00002","carat":0.9,"shape":"Round","color":"E","clarity":"VVS1","cut":"Excellent","stoneType":"Moissanite","refractiveIndex":2.65},
+{"gpId":"GP00003","carat":1.2,"shape":"Princess","color":"F","clarity":"SI1","cut":"Very Good","stoneType":"Moissanite","refractiveIndex":2.65}
 ]
