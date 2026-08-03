@@ -46,6 +46,12 @@
             text-align: left;
             line-height: 1.6;
         }
+        .disclaimer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -55,6 +61,13 @@
     <button id="verifyBtn">Verify Gemstone Details</button>
 
     <div id="resultBox"></div>
+
+    <!-- 新增免责声明区域 -->
+    <p class="disclaimer">
+        Disclaimer: This is GemPop's internal product traceability system only. All grading data is for reference purposes.
+        Official laboratory certificates (NGTC / IGI / GIA) shall be the sole authoritative certification document.
+        This website is not an official third-party gemstone testing laboratory.
+    </p>
 
     <script>
         let stoneData = [];
