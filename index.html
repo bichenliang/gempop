@@ -2,17 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GemPop Gemstone ID Verification System</title>
+    <style>
+        * {
+            font-family: -apple-system, BlinkMacSystemFont, serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            max-width: 620px;
+            margin: 45px auto;
+            padding: 0 24px;
+            line-height: 1.8;
+            color: #222;
+        }
+        h1 {
+            font-size: 29px;
+            margin-bottom: 12px;
+        }
+        h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: normal;
+            color: #333;
+        }
+        .disclaimer {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 32px;
+            line-height: 1.65;
+        }
+        .search-area {
+            margin-bottom: 35px;
+        }
+        #gpIdInput {
+            padding: 10px 14px;
+            font-size: 16px;
+            width: 270px;
+            border: 1px solid #bbbbbb;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3666bb;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #result p {
+            font-size: 17px;
+            margin: 8px 0;
+        }
+    </style>
 </head>
 <body>
 <h1>GemPop Gemstone ID Verification System</h1>
 <h3>Verify Gemstone Details</h3>
-<p>Disclaimer: This is GemPop's internal product traceability system only. All grading data is internal factory inspection data.</p>
+<p class="disclaimer">Disclaimer: This is GemPop's internal product traceability system only. All grading data is internal factory inspection data. Official laboratory certificates (NGTC / IGI / GIA) is the sole authoritative certification document. This website is not an official third-party gemstone testing laboratory.</p>
 
-<input type="text" id="gpIdInput" placeholder="Input GP ID">
-<button onclick="searchStone()">Check</button>
+<div class="search-area">
+    <input type="text" id="gpIdInput" placeholder="Input GP ID">
+    <button onclick="searchStone()">Check</button>
+</div>
+
 <div id="result"></div>
-
 <script>
 let stoneData = [];
 
