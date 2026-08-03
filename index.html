@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GemPop Gem Trace System</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
+        body{max-width:600px;margin:50px auto;padding:20px}
+        .box{border:1px solid #eee;padding:30px;border-radius:12px}
+        h1{text-align:center;color:#222;margin-bottom:30px}
+        #gpInput{width:100%;padding:12px 16px;font-size:16px;border:1px solid #ccc;border-radius:6px;margin-bottom:15px}
+        #searchBtn{width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:6px;font-size:16px;cursor:pointer}
+        #result{margin-top:25px;padding:20px;border:1px solid #eee;border-radius:8px;min-height:80px;white-space:pre-line}
+    </style>
+</head>
+<body>
+<div class="box">
+    <h1>GemPop Gem Trace System</h1>
+    <input type="text" id="gpInput" placeholder="Enter your GP Stone ID to verify">
+    <button id="searchBtn">Verify Stone Info</button>
+    <div id="result"></div>
+</div>
+
+<script>
+let data = [];
+fetch('./data.json')
+.then(res=>res.json())
+.then(json=>{data=json})
+.catch(()=>{document.getElementById('result').innerText="Data loading failed"});
+
+document.getElementById('searchBtn').onclick=()=>{
+    let key = document.getElementById('gpInput').value.trim();
+    let find = data.find(item=>item.gp === key);
+    let resultBox = document.getElementById('result');
+    if(find){
+        let textStr = `GP Stone ID: ${find.gp}
+Carat Weight: ${find.carat}
+Color Grade: ${find.color}
+Clarity Grade: ${find.clarity}
+NGTC Certificate No.: ${find.ngtcCertNo}`;
+        resultBox.innerText = textStr;
+    }else{
+        resultBox.innerText = "This GP Stone ID was not found in our database";
+    }
+}
+</script>
+</html>
