@@ -71,7 +71,7 @@
 
         document.getElementById('verifyBtn').addEventListener('click', () => {
             const inputId = document.getElementById('gpId').value.trim();
-            const findItem = stoneData.find(item => item.gpId === inputId);
+            const findItem = stoneData.find(item => item.gpId.toLowerCase() === inputId.toLowerCase());
 
             if (findItem) {
                 resultBox.innerHTML = `
