@@ -3,82 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GemPop Gemstone ID Verification System</title>
+    <title>GemPop Moissanite ID Verification System</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
         body {
-            max-width: 620px;
-            margin: 48px auto;
-            padding: 0 24px;
-            color: #111;
+            max-width: 640px;
+            margin: 50px auto;
+            padding: 0 20px;
         }
         h1 {
-            font-size: 2.6rem;
-            line-height: 1.2;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        .sub-heading {
-            font-size: 1.5rem;
-            color: #333;
+            font-size: 2.2rem;
+            text-align: center;
             margin-bottom: 36px;
+            line-height: 1.3;
+            font-weight: 700;
+            color: #111;
         }
         #gpInput {
             width: 100%;
-            padding: 18px 16px;
-            font-size: 1.25rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            margin-bottom: 14px;
+            padding: 20px 18px;
+            font-size: 1.3rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 16px;
         }
         #checkBtn {
             width: 100%;
-            padding: 20px;
+            padding: 22px;
             background-color: #2563eb;
-            color: #fff;
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.3rem;
-            font-weight: 500;
+            border-radius: 10px;
+            font-size: 1.4rem;
         }
         #resultBox {
             margin-top: 32px;
-            padding: 28px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #eee;
             border-radius: 10px;
+            padding: 30px 24px;
             display: none;
         }
         #resultBox h2 {
             font-size: 1.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
         #resultBox p {
             font-size: 1.2rem;
-            margin: 10px 0;
-        }
-        #resultBox p strong {
-            min-width: 180px;
-            display: inline-block;
+            margin: 11px 0;
         }
         .disclaimer-footer {
-            margin-top: 40px;
-            font-size: 0.96rem;
+            margin-top: 45px;
+            font-size: 0.95rem;
             color: #555;
             line-height: 1.6;
         }
     </style>
 </head>
 <body>
-    <h1>GemPop Gemstone ID Verification System</h1>
-    <div class="sub-heading">Verify Gemstone Details</div>
+    <h1>GemPop Moissanite ID Verification System</h1>
 
     <input type="text" id="gpInput" placeholder="Input GP ID">
-    <button id="checkBtn">Verify Gemstone Details</button>
+    <button id="checkBtn">Verify Moissanite Details</button>
 
     <div id="resultBox"></div>
 
@@ -93,6 +83,16 @@
                 certNumber: "NGTC20260802001",
                 stoneType: "Moissanite",
                 carat: "1 ct",
+                shape: "Round",
+                color: "D",
+                clarity: "VVS1",
+                cut: "Excellent"
+            },
+            {
+                gpId: "GP117A",
+                certNumber: "NGTC20260802003",
+                stoneType: "Moissanite",
+                carat: "1.2 ct",
                 shape: "Round",
                 color: "D",
                 clarity: "VVS1",
@@ -114,26 +114,27 @@
                 return;
             }
 
-            let certLabel;
+            let certPrefix;
             if (findItem.stoneType === "Moissanite") {
-                certLabel = "NGTC Certificate Number";
+                certPrefix = "NGTC - Certificate Number";
             } else if (findItem.stoneType === "Lab Grown Diamond") {
-                certLabel = "IGI Certificate Number";
+                certPrefix = "IGI - Certificate Number";
             } else {
-                certLabel = "GIA Certificate Number";
+                certPrefix = "GIA - Certificate Number";
             }
 
             resultBox.style.display = "block";
             resultBox.innerHTML = `
                 <h2>Verification Successful</h2>
-                <p><strong>GP ID:</strong> ${findItem.gpId}</p>
-                <p><strong>${certLabel}:</strong> ${findItem.certNumber}</p>
-                <p><strong>Stone Type:</strong> ${findItem.stoneType}</p>
-                <p><strong>Carat Weight:</strong> ${findItem.carat}</p>
-                <p><strong>Shape:</strong> ${findItem.shape}</p>
-                <p><strong>Color Grade:</strong> ${findItem.color}</p>
-                <p><strong>Clarity Grade:</strong> ${findItem.clarity}</p>
-                <p><strong>Cut Grade:</strong> ${findItem.cut}</p>
+                <p>GP ID: ${findItem.gpId}</p>
+                <p>${certPrefix}:</p>
+                <p>${findItem.certNumber}</p>
+                <p>Stone Type: ${findItem.stoneType}</p>
+                <p>Carat Weight: ${findItem.carat}</p>
+                <p>Shape: ${findItem.shape}</p>
+                <p>Color Grade: ${findItem.color}</p>
+                <p>Clarity Grade: ${findItem.clarity}</p>
+                <p>Cut Grade: ${findItem.cut}</p>
             `;
         });
     </script>
