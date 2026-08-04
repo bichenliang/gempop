@@ -123,9 +123,11 @@
 
             updateHeaderByStoneType(findItem.stoneType);
 
+            // 重点修改：用方括号读取带横杠的 Cert-Number
             let certLine = "";
-            if (findItem.certNumber && findItem.certNumber && findItem.certNumber !== "undefined" && findItem.certNumber !== "") {
-                certLine = `<p>Gem Inspection Certificate No: ${findItem.certNumber}</p>`;
+            const certNo = findItem["Cert-Number"];
+            if (certNo && certNo !== "") {
+                certLine = `<p>Gem Inspection Certificate No: ${certNo}</p>`;
             }
 
             resultBox.style.display = "block";
