@@ -1,68 +1,9 @@
 [
-  {
-    "gpId": "GP090A",
-    "carat": "1",
-    "shape": "Round",
-    "color": "D",
-    "clarity": "VVS1",
-    "cut": "Excellent",
-    "stoneType": "Moissanite",
-    "refractiveIndex": "2.65",
-    "NGTC-Cert-Number": "NGTC20260802001"
-  },
-  {
-    "gpId": "GP062B",
-    "carat": "1",
-    "shape": "Round",
-    "color": "D",
-    "clarity": "VVS1",
-    "cut": "Excellent",
-    "stoneType": "Moissanite",
-    "refractiveIndex": "2.65",
-    "NGTC-Cert-Number": "NGTC20260802002"
-  },
-  {
-    "gpId": "GP117A",
-    "carat": "1",
-    "shape": "Round",
-    "color": "D",
-    "clarity": "VVS1",
-    "cut": "Excellent",
-    "stoneType": "Moissanite",
-    "refractiveIndex": "2.65",
-    "NGTC-Cert-Number": "NGTC20260802003"
-  },
-  {
-    "gpId": "GP119C",
-    "carat": "1",
-    "shape": "Round",
-    "color": "D",
-    "clarity": "VVS1",
-    "cut": "Excellent",
-    "stoneType": "Moissanite",
-    "refractiveIndex": "2.65",
-    "NGTC-Cert-Number": "NGTC20260802004"
-  },
-  {
-    "gpId": "GP185B",
-    "carat": "1",
-    "shape": "Round",
-    "color": "D",
-    "clarity": "VVS1",
-    "cut": "Excellent",
-    "stoneType": "Moissanite",
-    "refractiveIndex": "2.65",
-    "NGTC-Cert-Number": "NGTC20260802005"
-  },
-  {
-    "gpId": "1111",
-    "carat": "1",
-    "shape": "Round",
-    "color": "D",
-    "clarity": "VVS2",
-    "cut": "Excellent",
-    "stoneType": "Diamond",
-    "refractiveIndex": "2.65",
-    "NGTC-Cert-Number": "0000000000001"
-  }
+{"gpId":"GP090A","carat":1,"shape":"Round","color":"D","clarity":"VVS1","cut":"Excellent","stoneType":"Moissanite","refractiveIndex":2.65,"NGTC-Cert-Number":""},
+{"gpId":"GP062B","carat":1,"shape":"Round","color":"D","clarity":"VVS1","cut":"Excellent","stoneType":"Moissanite","refractiveIndex":2.65,"NGTC-Cert-Number":""},
+{"gpId":"GP117A","carat":1,"shape":"Round","color":"D","clarity":"VVS1","cut":"Excellent","stoneType":"Moissanite","refractiveIndex":2.65,"NGTC-Cert-Number":""},
+{"gpId":"GP119C","carat":1,"shape":"Round","color":"D","clarity":"VVS1","cut":"Excellent","stoneType":"Moissanite","refractiveIndex":2.65,"NGTC-Cert-Number":""},
+{"gpId":"GP185B","carat":1,"shape":"Round","color":"D","clarity":"VVS1","cut":"Excellent","stoneType":"Moissanite","refractiveIndex":2.65,"NGTC-Cert-Number":""},
+{"gpId":1111,"carat":1,"shape":"Round","color":"D","clarity":"VVS1","cut":"Excellent","stoneType":"Diamond","refractiveIndex":2.65,"NGTC-Cert-Number":""},
+{"gpId":2222,"carat":1,"shape":"Round","color":"D","clarity":"VVS2","cut":"Excellent","stoneType":"lab grown Diamond","refractiveIndex":2.65,"NGTC-Cert-Number":""}
 ]
