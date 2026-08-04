@@ -72,7 +72,10 @@
     <div id="resultBox"></div>
 
     <div class="disclaimer-footer">
-        Disclaimer: This system records data from external professional jewelry testing certificates. The certificate only tests gem material and metal setting composition, not including 4C grading items. Physical certificate will be shipped with goods. This website only provides query service and is not a testing organization.
+Disclaimer:
+1. For Natural Diamond & Lab Grown Diamond records: this system synchronizes test data from nationally accredited gemstone testing laboratories with official certification qualifications, which includes standard 4C grading parameters (Color, Clarity, Cut, Carat).
+2. For Moissanite records: moissanite does not follow diamond 4C grading standards, so no official 4C lab grading is provided.
+3. Physical paper test certificate from the accredited lab will be shipped together with the stone order. This website only provides public data inquiry service and is not a testing laboratory itself.
     </div>
 
     <script>
@@ -123,7 +126,6 @@
 
             updateHeaderByStoneType(findItem.stoneType);
 
-            // 重点修改：用方括号读取带横杠的 Cert-Number
             let certLine = "";
             const certNo = findItem["Cert-Number"];
             if (certNo && certNo !== "") {
