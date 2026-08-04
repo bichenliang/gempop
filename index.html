@@ -73,7 +73,7 @@
     <div id="resultBox"></div>
 
     <div class="disclaimer-footer">
-        Disclaimer: This is GemPop's internal product traceability system only. All grading data is for reference purposes. Official laboratory certificates (NGTC / IGI / GIA) shall be the sole authoritative certification document. This website is not an official third-party gemstone testing laboratory.
+        Disclaimer: All data comes from professional jewelry testing certificates issued by external testing bodies. The certificate only identifies gem material and metal setting composition, without professional 4C grading evaluation. Physical certificate will be delivered together with your order. This website only provides data inquiry service and is not a testing institution.
     </div>
 
     <script>
@@ -93,7 +93,6 @@
         const mainTitle = document.getElementById('mainTitle');
 
         function updateHeaderByStoneType(rawType) {
-            // 先去掉首尾空格，再转小写判断
             const type = rawType.toLowerCase().trim();
             let titleText, btnText;
 
@@ -125,23 +124,16 @@
 
             updateHeaderByStoneType(findItem.stoneType);
 
-            // 证书前缀判断同样去除空格+小写
-            const stType = findItem.stoneType.toLowerCase().trim();
-            let certPrefix;
-            if (stType === "moissanite") {
-                certPrefix = "NGTC - Certificate Number";
-            } else if (stType === "lab grown diamond") {
-                certPrefix = "IGI - Certificate Number";
-            } else {
-                certPrefix = "GIA - Certificate Number";
+            let certLine = "";
+            if (findItem.certNumber && findItem.certNumber !== "" && findItem.certNumber !== "undefined") {
+                certLine = `<p>Gem Inspection Certificate No: ${findItem.certNumber}</p>`;
             }
 
             resultBox.style.display = "block";
             resultBox.innerHTML = `
                 <h2>Verification Successful</h2>
                 <p>GP ID: ${findItem.gpId}</p>
-                <p>${certPrefix}:</p>
-                <p>${findItem.certNumber}</p>
+                ${certLine}
                 <p>Stone Type: ${findItem.stoneType}</p>
                 <p>Carat Weight: ${findItem.carat}</p>
                 <p>Shape: ${findItem.shape}</p>
