@@ -57,9 +57,9 @@
         }
         .disclaimer-footer {
             margin-top: 45px;
-            font-size: 0.95rem;
-            color: #555;
-            line-height: 1.6;
+            font-size: 0.92rem;
+            color: #333;
+            line-height: 1.7;
         }
     </style>
 </head>
@@ -73,9 +73,9 @@
 
     <div class="disclaimer-footer">
 Disclaimer:<br>
-1. For Natural Diamond & Lab‑Grown Diamond: Data is synced from accredited gem‑testing labs with official 4C grading. Physical lab certificates are provided for diamond‑related orders only.<br>
-2. For Moissanite: It does not adopt diamond‑standard 4C lab grading. Terms such as D‑E‑F, VVS are for visual reference only. All moissanite specs are industry visual observations, not official lab grades. No accredited‑lab paper certificate is supplied for moissanite.<br>
-3. This site provides internal GemPop GP‑ID lookup only and is not a gem‑testing laboratory.
+1. For Natural Diamond & Lab‑Grown Diamond: Data is synced from accredited gem‑testing laboratories with official 4C grading. Physical accredited‑lab paper certificates are supplied for diamond‑related orders only.<br>
+2. For Moissanite: Moissanite does NOT adopt official diamond‑standard 4C laboratory grading. Terms such as D colour, VVS1 clarity, Excellent cut displayed on this page are purely industry‑standard visual descriptive references for consumer comparison purpose ONLY. These are NOT grades issued by any independent gem‑accredited laboratory. Moissanite is supplied with internal GemPop GP‑ID reference certificate, not third‑party accredited‑lab certificate.<br>
+3. This platform only provides internal GemPop GP‑ID public lookup service. This is NOT an independent gem‑testing laboratory and does not issue any official physical gem‑testing reports.
     </div>
 
     <script>
@@ -97,7 +97,6 @@ Disclaimer:<br>
         function updateHeaderByStoneType(rawType) {
             const type = rawType.toLowerCase().trim();
             let titleText, btnText;
-
             if (type === "moissanite") {
                 titleText = "GemPop Moissanite ID Verification System";
                 btnText = "Verify Moissanite Details";
@@ -116,21 +115,23 @@ Disclaimer:<br>
         btn.addEventListener('click', () => {
             const inputId = input.value.trim().toUpperCase();
             const findItem = stoneData.find(item => item.gpId === inputId);
-
             if (!findItem) {
                 updateHeaderByStoneType("default");
                 resultBox.style.display = "block";
                 resultBox.innerHTML = `<h2>ID Not Found</h2><p>No matching gemstone record.</p>`;
                 return;
             }
-
             updateHeaderByStoneType(findItem.stoneType);
-
             let certLine = "";
             const certNo = findItem["Cert-Number"];
             if (certNo && certNo !== "") {
                 certLine = `<p>Gem Inspection Certificate No: ${certNo}</p>`;
             }
+            const gradeLines = `
+                <p>Color Grade: ${findItem.color}</p>
+                <p>Clarity Grade: ${findItem.clarity}</p>
+                <p>Cut Grade: ${findItem.cut}</p>
+            `;
 
             resultBox.style.display = "block";
             resultBox.innerHTML = `
@@ -140,9 +141,7 @@ Disclaimer:<br>
                 <p>Stone Type: ${findItem.stoneType}</p>
                 <p>Carat Weight: ${findItem.carat}</p>
                 <p>Shape: ${findItem.shape}</p>
-                <p>Color Grade: ${findItem.color}</p>
-                <p>Clarity Grade: ${findItem.clarity}</p>
-                <p>Cut Grade: ${findItem.cut}</p>
+                ${gradeLines}
             `;
         });
     </script>
