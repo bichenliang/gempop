@@ -6,9 +6,9 @@
     "color": "D",
     "clarity": "VVS1",
     "cut": "Excellent",
-    "stoneType": "Diamond",
+    "stoneType": "Moissanite",
     "refractiveIndex": "2.65",
-    "Cert-Number": "GP11110011"
+    "Cert-Number": ""
   },
   {
     "gpId": "GP067D",
@@ -17,9 +17,9 @@
     "color": "D",
     "clarity": "VVS1",
     "cut": "Excellent",
-    "stoneType": "Lab Grown Diamond",
+    "stoneType": "Moissanite",
     "refractiveIndex": "2.65",
-    "Cert-Number": "GP222200022"
+    "Cert-Number": ""
   },
   {
     "gpId": "GP041B",
@@ -174,5 +174,27 @@
     "stoneType": "Moissanite",
     "refractiveIndex": "2.65",
     "Cert-Number": "裸钻"
+  },
+  {
+    "gpId": "gp1111",
+    "carat": "2ct",
+    "shape": "Round",
+    "color": "D",
+    "clarity": "VVS2",
+    "cut": "Excellent",
+    "stoneType": "Diamond",
+    "refractiveIndex": "3.65",
+    "Cert-Number": "测试号天然钻"
+  },
+  {
+    "gpId": "gp2222",
+    "carat": "3ct",
+    "shape": "Round",
+    "color": "D",
+    "clarity": "VVS3",
+    "cut": "Excellent",
+    "stoneType": "Lab-Grown Diamond",
+    "refractiveIndex": "4.65",
+    "Cert-Number": "测试号培育钻"
   }
 ]
