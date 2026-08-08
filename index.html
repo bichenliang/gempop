@@ -114,7 +114,6 @@ Disclaimer:<br>
 
         btn.addEventListener('click', () => {
             const inputId = input.value.trim().toUpperCase();
-            // gpId对比全部转大写，消除大小写导致搜不到
             const findItem = stoneData.find(item => (item.gpId || "").trim().toUpperCase() === inputId);
 
             if (!findItem) {
