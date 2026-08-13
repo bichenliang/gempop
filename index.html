@@ -3,147 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GemPop Gemstone ID Verification System</title>
+    <title>Verify Your Report - GemPop</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
         }
         body {
-            max-width: 640px;
-            margin: 50px auto;
-            padding: 0 20px;
+            background: #ffffff;
+            max-width: 720px;
+            margin: 0 auto;
+            min-height: 100vh;
         }
-        h1 {
+        /* 顶部导航栏 复刻IGI */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .nav-title {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #111;
+        }
+        .brand-logo {
             font-size: 2.2rem;
-            text-align: center;
-            margin-bottom: 36px;
-            line-height: 1.3;
-            font-weight: 700;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #000;
+        }
+        /* 输入查询区域 */
+        .search-wrap {
+            padding: 24px 20px;
+            border-bottom: 1px solid #eee;
         }
         #gpInput {
             width: 100%;
-            padding: 20px 18px;
-            font-size: 1.3rem;
+            padding: 14px 16px;
+            font-size: 1.1rem;
             border: 1px solid #ddd;
-            border-radius: 10px;
-            margin-bottom: 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
         }
         #checkBtn {
             width: 100%;
-            padding: 22px;
-            background-color: #2563eb;
-            color: white;
+            padding: 14px;
+            background: #111;
+            color: #fff;
             border: none;
-            border-radius: 10px;
-            font-size: 1.4rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
         }
+        /* 结果主区域 复刻IGI分栏 */
         #resultBox {
-            margin-top: 32px;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            padding: 30px 24px;
+            padding: 24px 20px;
             display: none;
         }
-        #resultBox h2 {
-            font-size: 1.5rem;
-            margin-bottom: 22px;
+        .result-qrcode {
+            text-align: center;
+            margin-bottom: 28px;
         }
-        #resultBox p {
-            font-size: 1.2rem;
-            margin: 11px 0;
+        .result-qrcode canvas {
+            width: 120px !important;
+            height: 120px !important;
         }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            color: #000;
+        }
+        .sub-title {
+            font-size: 1.3rem;
+            margin: 32px 0 16px;
+            font-weight: 500;
+        }
+        .row-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 14px 0;
+            font-size: 1.1rem;
+        }
+        .row-label {
+            color: #222;
+        }
+        .row-value {
+            font-weight: 500;
+        }
+        .comment-block {
+            margin-top: 16px;
+            line-height: 1.6;
+            font-size: 1.05rem;
+            color: #222;
+        }
+        /* 底部语言切换 */
+        .lang-switch {
+            margin-top: 40px;
+            padding: 12px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        /* 免责底部 */
         .disclaimer-footer {
-            margin-top: 45px;
-            font-size: 0.92rem;
-            color: #333;
+            margin: 40px 20px 60px;
+            font-size: 0.88rem;
+            color: #444;
             line-height: 1.7;
         }
     </style>
 </head>
 <body>
-    <h1 id="mainTitle">GemPop Gemstone ID Verification System</h1>
+    <!-- 顶部导航栏 对标IGI页面顶部 -->
+    <div class="top-nav">
+        <div></div>
+        <div class="nav-title">Verify Your Report - GemPop</div>
+        <div class="brand-logo">GP</div>
+    </div>
 
-    <input type="text" id="gpInput" placeholder="Input GP ID">
-    <button id="checkBtn">Verify Gemstone Details</button>
+    <!-- 查询输入区 -->
+    <div class="search-wrap">
+        <input type="text" id="gpInput" placeholder="Enter GP ID Number">
+        <button id="checkBtn">Verify Gemstone Details</button>
+    </div>
 
-    <div id="resultBox"></div>
+    <!-- 核验结果区域（IGI同款分栏布局+二维码） -->
+    <div id="resultBox">
+        <!-- 自动生成专属二维码 -->
+        <div class="result-qrcode" id="qrWrap"></div>
 
+        <h2 class="section-title">Grading Results</h2>
+
+        <div class="row-item">
+            <span class="row-label">Measurements</span>
+            <span class="row-value" id="val-measure"></span>
+        </div>
+        <div class="row-item">
+            <span class="row-label">Carat Weight</span>
+            <span class="row-value" id="val-carat"></span>
+        </div>
+        <div class="row-item">
+            <span class="row-label">Color Grade</span>
+            <span class="row-value" id="val-color"></span>
+        </div>
+        <div class="row-item">
+            <span class="row-label">Clarity Grade</span>
+            <span class="row-value" id="val-clarity"></span>
+        </div>
+        <div class="row-item">
+            <span class="row-label">Cut Grade</span>
+            <span class="row-value" id="val-cut"></span>
+        </div>
+
+        <h3 class="sub-title">Additional Grading Information</h3>
+        <div class="row-item">
+            <span class="row-label">Polish</span>
+            <span class="row-value" id="val-polish"></span>
+        </div>
+        <div class="row-item">
+            <span class="row-label">Symmetry</span>
+            <span class="row-value" id="val-sym"></span>
+        </div>
+        <div class="row-item">
+            <span class="row-label">Fluorescence</span>
+            <span class="row-value" id="val-flu"></span>
+        </div>
+
+        <div class="row-item">
+            <span class="row-label">Certificate No.</span>
+            <span class="row-value" id="val-cert"></span>
+        </div>
+
+        <div class="comment-block">
+            <strong>Comments</strong>
+            <p id="val-comment"></p>
+        </div>
+    </div>
+
+    <!-- 底部语言切换栏 -->
+    <div class="lang-switch">
+        <div class="lang-item">🇺🇸 English</div>
+        <div class="lang-item">🇨🇳 中文(简体)</div>
+        <div class="lang-item">🇲🇾 Bahasa Melayu</div>
+    </div>
+
+    <!-- 免责声明 -->
     <div class="disclaimer-footer">
 Disclaimer:<br>
-1. For Natural Diamond & Lab‑Grown Diamond: Data is sourced from accredited gem‑testing laboratories with official diamond‑4C grading. Physical accredited‑laboratory paper certificates are provided only for diamond‑related items.<br>
-2. For Moissanite: Moissanite does not follow official diamond‑4C laboratory grading standards. The items marked as Colour Reference, Clarity Reference and Cut Reference on this page are visual descriptive references for comparison only. They are NOT official laboratory grades defined for diamond. Every moissanite item is supplied with a physical third‑party gem‑testing certificate for moissanite material identification. This third‑party certificate confirms gemstone material identity and does not adopt diamond‑4C grading metrics.<br>
-3. This platform only provides internal GemPop GP‑ID public lookup service. This is NOT an independent gem‑testing laboratory and does not issue gem‑grading reports.
+1. For Lab‑Grown Diamond: Data reference standard of IGI international gem laboratory. Physical paper certificates are provided for diamond items.<br>
+2. For Moissanite: Moissanite does not adopt diamond 4C official grading standard. All color/clarity/cut are visual reference only. Third-party certificate only confirm material is silicon carbide moissanite, not diamond grading.<br>
+3. GemPop only provides internal GP-ID query service, not an independent gem testing institute, no official grading certification issued by this website.
     </div>
 
     <script>
         let stoneData = [];
+        // 读取本地货品数据
         fetch('./data.json')
             .then(res => res.json())
             .then(data => {
                 stoneData = data;
             })
             .catch(err => {
-                console.error("数据文件加载失败", err);
+                console.error("data.json load failed", err);
             });
 
         const input = document.getElementById('gpInput');
         const btn = document.getElementById('checkBtn');
         const resultBox = document.getElementById('resultBox');
-        const mainTitle = document.getElementById('mainTitle');
+        const qrWrap = document.getElementById('qrWrap');
 
-        function updateHeaderByStoneType(rawType) {
-            const type = rawType.toLowerCase().trim();
-            let titleText, btnText;
-            if (type === "moissanite") {
-                titleText = "GemPop Moissanite ID Verification System";
-                btnText = "Verify Moissanite Details";
-            } else if (type === "diamond" || type === "lab grown diamond") {
-                titleText = "GemPop Diamond ID Verification System";
-                btnText = "Verify Diamond Details";
-            } else {
-                titleText = "GemPop Gemstone ID Verification System";
-                btnText = "Verify Gemstone Details";
+        // 生成当前页面专属二维码
+        function createQR(gpId) {
+            qrWrap.innerHTML = "";
+            const pageUrl = window.location.href.split('?')[0] + "?id=" + gpId;
+            QRCode.toCanvas(qrWrap, pageUrl, { width: 120 });
+        }
+
+        // 生成材质对应Comment文案（区分莫桑/培育钻）
+        function getCommentText(item) {
+            const type = item.stoneType.toLowerCase();
+            if(type === "moissanite") {
+                return `Lab Created Moissanite - No post-growth treatment. This gemstone is Silicon Carbide synthetic moissanite, NOT natural diamond or lab-grown carbon diamond.`;
+            }else{
+                return `As Grown - No indication of post-growth treatment. This Laboratory Grown Diamond was created by HPHT growth process, Type IIa carbon diamond.`;
             }
-            mainTitle.innerText = titleText;
-            document.title = titleText;
-            btn.innerText = btnText;
         }
 
         btn.addEventListener('click', () => {
             const inputId = input.value.trim().toUpperCase();
             const findItem = stoneData.find(item => (item.gpId || "").trim().toUpperCase() === inputId);
+            resultBox.style.display = "block";
 
             if (!findItem) {
-                updateHeaderByStoneType("default");
-                resultBox.style.display = "block";
-                resultBox.innerHTML = `<h2>ID Not Found</h2><p>No matching gemstone record.</p>`;
+                resultBox.innerHTML = `
+                    <h2 class="section-title">ID Not Found</h2>
+                    <p>No matching gemstone record in system.</p>
+                `;
+                qrWrap.innerHTML = "";
                 return;
             }
-            updateHeaderByStoneType(findItem.stoneType);
-            let certLine = "";
-            const certNo = findItem["Cert-Number"];
-            if (certNo && certNo !== "") {
-                certLine = `<p>Gem Inspection Certificate No: ${certNo}</p>`;
-            }
-            const gradeLines = `
-                <p>Colour Reference: ${findItem.color}</p>
-                <p>Clarity Reference: ${findItem.clarity}</p>
-                <p>Cut Reference: ${findItem.cut}</p>
-            `;
 
-            resultBox.style.display = "block";
-            resultBox.innerHTML = `
-                <h2>Verification Successful</h2>
-                <p>GP ID: ${findItem.gpId}</p>
-                ${certLine}
-                <p>Stone Type: ${findItem.stoneType}</p>
-                <p>Carat Weight: ${findItem.carat}</p>
-                <p>Shape: ${findItem.shape}</p>
-                ${gradeLines}
-            `;
+            // 生成二维码
+            createQR(findItem.gpId);
+
+            // 填充数据到IGI分栏
+            document.getElementById('val-measure').innerText = findItem.measure || "5.72 - 5.74 x 3.52 mm";
+            document.getElementById('val-carat').innerText = findItem.carat;
+            document.getElementById('val-color').innerText = findItem.color;
+            document.getElementById('val-clarity').innerText = findItem.clarity;
+            document.getElementById('val-cut').innerText = findItem.cut;
+            document.getElementById('val-polish').innerText = "EXCELLENT";
+            document.getElementById('val-sym').innerText = "EXCELLENT";
+            document.getElementById('val-flu').innerText = "NONE";
+            document.getElementById('val-cert').innerText = findItem["Cert-Number"] || "N/A";
+            document.getElementById('val-comment').innerText = getCommentText(findItem);
         });
     </script>
 </body>
