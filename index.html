@@ -251,6 +251,7 @@
             border:1px solid var(--gold);
             text-align:left;
             display:none;
+            line-height:2;
         }
         .check-result.show{
             display:block;
@@ -390,7 +391,7 @@
         </div>
     </section>
 
-    <!-- 证书查验 -->
+    <!-- 证书查验（原版分行展示逻辑） -->
     <section class="check-module" id="check">
         <h2 class="section-title" data-i18n="check.title"></h2>
         <p data-i18n="check.desc"></p>
@@ -415,7 +416,7 @@
     </footer>
 
     <script>
-        // 1. 多国语言词典，默认BM马来文
+        // 多语言词典，默认马来文
         const i18nDict = {
             bm:{
                 "nav.home":"Laman Utama",
@@ -474,7 +475,7 @@
                 "s4.name":"笃定真爱",
                 "s4.text":"磨合过后不离不弃，适合稳定情侣、婚后馈赠。",
                 "s5.name":"永恒相守",
-                "s5.text":"柴米烟火朝夕相伴，结婚周年纪念首选。",
+                "s4.text":"柴米烟火朝夕相伴，结婚周年纪念首选。",
                 "s6.name":"余生纪念",
                 "s6.text":"封存半生爱意，高端典藏、人生重大纪念。",
                 "product.title":"三大核心珠宝货源系列",
@@ -574,7 +575,7 @@
             item.addEventListener('click', closeSide)
         })
 
-        // ========== 读取外置data.json（数据格式不变，直接沿用你旧数据） ==========
+        // ========== 读取外置data.json（文件独立，不内置） ==========
         let gemPopDatabase = [];
         fetch("data.json")
         .then(res => res.json())
@@ -587,7 +588,7 @@
             console.error("读取json失败：", err);
         });
 
-        // ========== 证书查询逻辑 ==========
+        // ========== 原版核验展示逻辑（分行逐条展示，还原你旧版效果） ==========
         const inputEl = document.getElementById('certInput');
         const searchBtn = document.getElementById('searchBtn');
         const resultBox = document.getElementById('resultBox');
@@ -619,18 +620,47 @@
                 resultBox.classList.add('show');
                 return;
             }
-            resultTitle.innerText = "✅ Match Success";
-            resultContent.innerHTML = `
-            <p>Cert ID: ${matchItem.certId}</p>
-            <p>Laser Code: ${matchItem.laserCode}</p>
-            <p>Stone Type: ${matchItem.stoneType}</p>
-            <p>Carat: ${matchItem.carat}</p>
-            <p>Color: ${matchItem.color}</p>
-            <p>Clarity: ${matchItem.clarity}</p>
-            <p>Cut: ${matchItem.cut}</p>
-            <p>Cert Origin: ${matchItem.certOrigin}</p>
-            <p>Issue Date: ${matchItem.issueDate}</p>
-            `;
+            // 多语言分行展示，还原你最早的核验分行排版
+            if(currentLang === "cn"){
+                resultTitle.innerText = "✅ 查询匹配成功";
+                resultContent.innerHTML = `
+证书编号：${matchItem.certId}<br>
+钻石腰码：${matchItem.laserCode}<br>
+钻石类型：${matchItem.stoneType}<br>
+克拉重量：${matchItem.carat}<br>
+颜色等级：${matchItem.color}<br>
+净度等级：${matchItem.clarity}<br>
+切工等级：${matchItem.cut}<br>
+证书机构：${matchItem.certOrigin}<br>
+发证日期：${matchItem.issueDate}
+                `;
+            }else if(currentLang === "bm"){
+                resultTitle.innerText = "✅ Padanan Rekod Berjaya";
+                resultContent.innerHTML = `
+ID Sijil：${matchItem.certId}<br>
+Kod Laser：${matchItem.laserCode}<br>
+Jenis Batu：${matchItem.stoneType}<br>
+Berat Karat：${matchItem.carat}<br>
+Gred Warna：${matchItem.color}<br>
+Gred Kejelasan：${matchItem.clarity}<br>
+Gred Potongan：${matchItem.cut}<br>
+Pihak Sijil：${matchItem.certOrigin}<br>
+Tarikh Keluar：${matchItem.issueDate}
+                `;
+            }else{
+                resultTitle.innerText = "✅ Match Success";
+                resultContent.innerHTML = `
+Certificate ID：${matchItem.certId}<br>
+Laser Code：${matchItem.laserCode}<br>
+Stone Type：${matchItem.stoneType}<br>
+Carat Weight：${matchItem.carat}<br>
+Color Grade：${matchItem.color}<br>
+Clarity Grade：${matchItem.clarity}<br>
+Cut Grade：${matchItem.cut}<br>
+Cert Authority：${matchItem.certOrigin}<br>
+Issue Date：${matchItem.issueDate}
+                `;
+            }
             resultBox.classList.add('show');
         }
         searchBtn.addEventListener('click', searchCert);
