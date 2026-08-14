@@ -1,132 +1,789 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bm">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GemPop Jewelry Store Page</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;line-height:1.8;font-size:15px;color:#222;}
-body{padding:20px;max-width:780px;margin:0 auto;background:#ffffff;}
-h2{font-size:20px;margin-bottom:10px;font-weight:600;}
-h4{font-size:17px;margin:22px 0 10px 0;font-weight:600;}
-p{margin:9px 0;}
-/* 中英文公告分隔区块 */
-.block-en{margin-bottom:32px;padding-bottom:22px;border-bottom:1px solid #eeeeee;}
-.block-bm{margin-bottom:45px;}
-/* 图片容器，保留所有图片位置 */
-.img-box{margin:14px 0;}
-.img-box img{max-width:100%;display:block;border-radius:5px;border:1px solid #eee;}
-/* 导航链接 */
-.nav-bar{margin:30px 0 40px 0;}
-.nav-bar a{margin-right:12px;color:#0055cc;text-decoration:none;}
-/* 珠宝系列卡片区块 */
-.series-card{margin:38px 0;padding:18px;border:1px solid #f1f1f1;border-radius:8px;background:#fdfdfd;}
-/* 底部子页面锚点区块 */
-.sub-page{margin-top:40px;padding-top:20px;border-top:1px solid #eee;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEM POP | Borong Berlian Makmal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+        :root {
+            --black: #121212;
+            --gold: #D4AF37;
+            --light-gold: #FFD700;
+            --gray: #f7f7f7;
+            --text-gray: #555;
+            --white: #ffffff;
+        }
+        /* 导航栏 */
+        .header-nav {
+            background: var(--black);
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .logo-text {
+            color: var(--light-gold);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .pc-menu {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .pc-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .pc-menu a:hover {
+            color: var(--gold);
+        }
+        .lang-switch-group{
+            display:flex;
+            gap:8px;
+        }
+        .lang-btn{
+            border:1px solid var(--gold);
+            color:var(--gold);
+            background:transparent;
+            padding:4px 8px;
+            cursor:pointer;
+        }
+        /* 移动端汉堡按钮 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 2px;
+            background: #fff;
+            display:block;
+        }
+        /* 移动端侧边栏 */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: var(--black);
+            padding: 40px 30px;
+            transition: right 0.4s ease;
+            z-index: 1000;
+        }
+        .mobile-sidebar.open {
+            right: 0;
+        }
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
+        }
+        .mobile-sidebar a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 17px;
+            margin: 22px 0;
+        }
+        .mobile-sidebar a:hover {
+            color: var(--gold);
+        }
+        .mask {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 998;
+        }
+        .mask.show {
+            display: block;
+        }
+        /* 首屏横幅 */
+        .banner-box {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), #222;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+        .banner-box h1 {
+            color: var(--light-gold);
+            font-size: 40px;
+            margin-bottom: 18px;
+        }
+        .banner-desc {
+            font-size: 18px;
+            max-width: 750px;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+        .banner-btn {
+            padding: 14px 36px;
+            background: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+        .banner-btn:hover {
+            background: var(--light-gold);
+        }
+        /* 通用区块 */
+        .section-wrap {
+            padding: 70px 5%;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 30px;
+            color: var(--black);
+            margin-bottom: 48px;
+        }
+        .story-text {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            text-align: center;
+            line-height: 2;
+            font-size: 17px;
+            color: var(--text-gray);
+        }
+        /* 爱情系列布局 */
+        .love-series-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 36px;
+            margin-bottom: 70px;
+        }
+        .series-card {
+            border: 1px solid #eee;
+            padding: 32px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .series-card:hover {
+            box-shadow: 0 8px 24px #ddd;
+        }
+        .series-card h3 {
+            color: var(--gold);
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .series-card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        /* 产品板块 */
+        .product-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin: 60px 0;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            padding: 28px;
+            border-radius: 8px;
+        }
+        .product-card h3 {
+            color: var(--gold);
+            margin-bottom: 14px;
+            font-size: 20px;
+        }
+        .product-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+        /* 证书查验区 */
+        .check-module {
+            background: var(--gray);
+            padding: 55px 5%;
+            text-align: center;
+            margin: 50px 0;
+        }
+        .check-input {
+            width: 340px;
+            padding: 14px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+        .check-btn {
+            padding: 14px 28px;
+            background: var(--black);
+            color: var(--light-gold);
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .check-result{
+            max-width:700px;
+            margin:30px auto 0;
+            padding:25px;
+            background:#fff;
+            border:1px solid var(--gold);
+            text-align:left;
+            display:none;
+            line-height:2;
+        }
+        .check-result.show{
+            display:block;
+        }
+        .check-tip {
+            margin-top: 18px;
+            color: #666;
+        }
+        .about-text {
+            max-width: 920px;
+            margin: 0 auto;
+            line-height: 1.9;
+            font-size: 16px;
+            color: var(--text-gray);
+            text-align: center;
+        }
+        /* 今日新增：采购须知合规区块 */
+        .notice-module {
+            padding:60px 5%;
+            background:#fff;
+        }
+        .notice-block {
+            max-width:900px;
+            margin:0 auto 40px;
+            padding:30px;
+            border:1px solid #eee;
+            border-radius:10px;
+        }
+        .notice-block h4 {
+            color:var(--gold);
+            font-size:20px;
+            margin-bottom:20px;
+        }
+        .notice-block p {
+            line-height:1.8;
+            color:var(--text-gray);
+            margin:8px 0;
+        }
+        /* 页脚精简 */
+        footer {
+            background: var(--black);
+            color: #aaa;
+            padding: 36px 5%;
+            text-align: center;
+            margin-top: 50px;
+        }
+        /* 移动端适配 */
+        @media(max-width: 860px) {
+            .pc-menu {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .check-input {
+                width: 80%;
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+            .banner-box h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
-<!-- 顶部品牌标题区域 -->
-<div class="header-brand">
-    <h2>GemPop | Pure Love, Pure Sparkle</h2>
-    <p>GemPop | Cinta Tulus, Kilauan Tulen</p>
-    <div class="img-box">
-        <img src="logo-image-url.jpg" alt="GemPop品牌Logo">
+    <!-- 顶部导航 -->
+    <header class="header-nav">
+        <div class="logo-text">GEM POP</div>
+        <div class="pc-menu">
+            <a href="#home" data-i18n="nav.home"></a>
+            <a href="#notice" data-i18n="nav.notice"></a>
+            <a href="#loveSeries" data-i18n="nav.series"></a>
+            <a href="#goods" data-i18n="nav.product"></a>
+            <a href="#check" data-i18n="nav.check"></a>
+            <a href="#about" data-i18n="nav.about"></a>
+            <div class="lang-switch-group">
+                <button class="lang-btn" data-lang="bm">BM</button>
+                <button class="lang-btn" data-lang="cn">中文</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+        </div>
+        <div class="hamburger" id="openMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mask" id="maskLayer"></div>
+    <div class="mobile-sidebar" id="sideBar">
+        <div class="sidebar-close" id="closeMenu">×</div>
+        <a href="#home" data-i18n="nav.home"></a>
+        <a href="#notice" data-i18n="nav.notice"></a>
+        <a href="#loveSeries" data-i18n="nav.series"></a>
+        <a href="#goods" data-i18n="nav.product"></a>
+        <a href="#check" data-i18n="nav.check"></a>
+        <a href="#about" data-i18n="nav.about"></a>
+        <div class="lang-switch-group" style="margin-top:20px;">
+            <button class="lang-btn" data-lang="bm">BM</button>
+            <button class="lang-btn" data-lang="cn">中文</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
     </div>
-</div>
 
-<!-- 英文采购须知 完整原文无删减 -->
-<div class="block-en">
-    <h4>Important Shopping Notice for Malaysia & Singapore Customers</h4>
-    <p>1. Our jewelry collection contains two distinct gemstone types only:</p>
-    <p>① Laboratory-Grown Diamond (CVD / HPHT craftsmanship, genuine carbon diamond crystal, NOT imitation stone)</p>
-    <p>② Synthetic Moissanite (independent silicon carbide gemstone)</p>
-    <p>We DO NOT sell any diamond simulant, imitation stone or fake diamond accessories of any kind.</p>
+    <!-- 首屏 -->
+    <section class="banner-box" id="home">
+        <h1>GEM POP <span data-i18n="banner.title"></span></h1>
+        <p class="banner-desc" data-i18n="banner.desc"></p>
+        <a href="#check" class="banner-btn" data-i18n="banner.btn"></a>
+    </section>
 
-    <p>2. Malaysia Store: All listed prices subject to 6% SST sales tax; Singapore Store prices are fully inclusive of GST.</p>
+    <!-- 新增：采购须知（全部合规文案，三语言切换） -->
+    <section class="notice-module" id="notice">
+        <div class="notice-block">
+            <h4 data-i18n="notice.enTitle"></h4>
+            <div data-i18n="notice.enText"></div>
+        </div>
+        <div class="notice-block">
+            <h4 data-i18n="notice.bmTitle"></h4>
+            <div data-i18n="notice.bmText"></div>
+        </div>
+    </section>
 
-    <p>3. All GemPop jewelry carries a 1-year official craftsmanship warranty, covering free polishing and prong tightening repair service.</p>
+    <!-- 爱情系列 -->
+    <section class="section-wrap" id="loveSeries">
+        <h2 class="section-title" data-i18n="series.title"></h2>
+        <p class="story-text" data-i18n="series.desc"></p>
+        <div class="love-series-wrap">
+            <div class="series-card">
+                <h3>Falling Love · <span data-i18n="s1.name"></span></h3>
+                <p data-i18n="s1.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Sweet Love · <span data-i18n="s2.name"></span></h3>
+                <p data-i18n="s2.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Promise Love · <span data-i18n="s3.name"></span></h3>
+                <p data-i18n="s3.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>True Love · <span data-i18n="s4.name"></span></h3>
+                <p data-i18n="s4.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Eternal Love · <span data-i18n="s5.name"></span></h3>
+                <p data-i18n="s5.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Memory Love · <span data-i18n="s6.name"></span></h3>
+                <p data-i18n="s6.text"></p>
+            </div>
+        </div>
+    </section>
 
-    <p>4. S925 sterling silver with rhodium plating will gradually lose luster after long-term wear due to sweat, perfume and skincare chemicals. This is normal natural wear and tear, not product quality defect.</p>
+    <!-- 产品板块 -->
+    <section class="section-wrap" id="goods" style="background:var(--gray);">
+        <h2 class="section-title" data-i18n="product.title"></h2>
+        <div class="product-wrap">
+            <div class="product-card">
+                <h3><span data-i18n="p1.title"></span></h3>
+                <p data-i18n="p1.text"></p>
+            </div>
+            <div class="product-card">
+                <h3><span data-i18n="p2.title"></span></h3>
+                <p data-i18n="p2.text"></p>
+            </div>
+            <div class="product-card">
+                <h3><span data-i18n="p3.title"></span></h3>
+                <p data-i18n="p3.text"></p>
+            </div>
+        </div>
+    </section>
 
-    <p>5. Store jewelry inside sealed dry bags when unused, remove before showering, workouts or housework to maintain shine.</p>
-</div>
+    <!-- 证书查验（原版分行展示逻辑，无emoji符号） -->
+    <section class="check-module" id="check">
+        <h2 class="section-title" data-i18n="check.title"></h2>
+        <p data-i18n="check.desc"></p>
+        <input class="check-input" id="certInput" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
+        <button class="check-btn" id="searchBtn" data-i18n="check.btn"></button>
+        <p class="check-tip" data-i18n="check.tip"></p>
+        <div class="check-result" id="resultBox">
+            <h4 id="resultTitle"></h4>
+            <div id="resultContent"></div>
+        </div>
+    </section>
 
-<!-- 马来语采购须知 完整原文无删减 -->
-<div class="block-bm">
-    <h4>Notis Penting Pembelian Untuk Pelanggan Malaysia & Singapura</h4>
-    <p>1. Koleksi barang kemas kami hanya mengandungi dua jenis batu permata yang berbeza:</p>
-    <p>① Laboratory-Grown Diamond (dihasilkan melalui proses CVD / HPHT, kristal berlian karbon tulen, BUKAN batu tiruan)</p>
-    <p>② Synthetic Moissanite (batu permata silikon karbida yang unik)</p>
-    <p>Kami TIDAK menjual sebarang simulan berlian, batu tiruan atau aksesori berlian palsu dalam apa bentuk sekalipun.</p>
+    <!-- 品牌介绍 -->
+    <section class="section-wrap" id="about">
+        <h2 class="section-title" data-i18n="about.title"></h2>
+        <p class="about-text" data-i18n="about.text"></p>
+    </section>
 
-    <p>2. Kedai Malaysia: Semua harga tertakluk kepada cukai SST 6%; harga Kedai Singapura sudah termasuk GST sepenuhnya.</p>
+    <!-- 页脚 -->
+    <footer>
+        <p>GEM POP Jewelry Factory | GemPop Cert Check System</p>
+    </footer>
 
-    <p>3. Semua barang kemas GemPop disertakan jaminan mutu rasmi 1 tahun, meliputi perkhidmatan penggilapan & ketatkan cakar batu percuma.</p>
+    <script>
+        // 多语言词典，默认马来文（整合原有全部文案 + 今日采购须知完整内容）
+        const i18nDict = {
+            bm:{
+                "nav.home":"Laman Utama",
+                "nav.notice":"Notis Pembelian",
+                "nav.series":"Siri Cinta",
+                "nav.product":"Produk",
+                "nav.check":"Semak Sijil",
+                "nav.about":"Tentang Kami",
+                "banner.title":"Kilang Barang Kemas",
+                "banner.desc":"Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup\nBorong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal\nSijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula penuh",
+                "banner.btn":"Semak Sijil Sekarang",
+                "series.title":"6 Koleksi Cinta · Semua Romansa Sepanjang Hayat",
+                "series.desc":"Cinta adalah perjalanan lengkap dari pertemuan hingga akhir hayat. GEM POP ringkas seluruh fasa cinta manusia kepada enam koleksi barang kemas.",
+                "s1.name":"Cinta Pertama",
+                "s1.text":"Cinta tulen pandangan pertama, sesuai hadiah pengakuan cinta.",
+                "s2.name":"Cinta Ghairah",
+                "s2.text":"Romansa hangat untuk pasangan, sesuai ulang tahun cinta.",
+                "s3.name":"Cinta Janji",
+                "s3.text":"Janji seumur hidup untuk lamaran dan pertunangan.",
+                "s4.name":"Cinta Sejati",
+                "s4.text":"Cinta matang untuk pasangan suami isteri jangka panjang.",
+                "s5.name":"Cinta Abadi",
+                "s5.text":"Persahabatan harian untuk ulang tahun perkahwinan.",
+                "s6.name":"Cinta Kenangan",
+                "s6.text":"Koleksi mewah untuk peringatan penting hidup.",
+                "product.title":"3 Barisan Borong Barang Kemas Teras",
+                "p1.title":"Berlian Makmal Bersijil IGI",
+                "p1.text":"Berlian makmal HPHT/CVD 0.5-2ct gred VVS, kod laser padan sijil, boleh sahkan laman rasmi.",
+                "p2.title":"Moissanit Hati & Anak Panah",
+                "p2.text":"Kilauan terang, produk popular runcit dengan harga borong murah.",
+                "p3.title":"Pemasang Perak S925 Paladium Tebal",
+                "p3.text":"Salutan tahan karat, sesuai semua batu permata, boleh ukir logo khas.",
+                "check.title":"Sistem Semak Anti-Palsu Sijil GemPop",
+                "check.desc":"Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian penuh",
+                "check.btn":"Cari & Sahkan",
+                "check.tip":"Imbas kod QR tag gantung untuk semak rekod pantas",
+                "about.title":"Tentang GEM POP",
+                "about.text":"Kilang barang kemas asal untuk bekalan rentas sempadan, bengkel pemasangan sendiri, semua barang sokong pemeriksaan luar talian dengan sijil lengkap & label anti-palsu.",
+                "notice.enTitle":"Notis Penting Pembelian Untuk Pelanggan Malaysia & Singapura (Bahasa Inggeris)",
+                "notice.bmTitle":"Notis Penting Pembelian Untuk Pelanggan Malaysia & Singapura (Bahasa Melayu)",
+                "notice.bmText":`<p>1. Koleksi barang kemas kami hanya mengandungi dua jenis batu permata yang berbeza:</p>
+<p>① Laboratory-Grown Diamond (dihasilkan melalui proses CVD / HPHT, kristal berlian karbon tulen, BUKAN batu tiruan)</p>
+<p>② Synthetic Moissanite (batu permata silikon karbida yang unik)</p>
+<p>Kami TIDAK menjual sebarang simulan berlian, batu tiruan atau aksesori berlian palsu dalam apa bentuk sekalipun.</p>
+<br>
+<p>2. Kedai Malaysia: Semua harga tertakluk kepada cukai SST 6%; harga Kedai Singapura sudah termasuk GST sepenuhnya.</p>
+<br>
+<p>3. Semua barang kemas GemPop disertakan jaminan mutu rasmi 1 tahun, meliputi perkhidmatan penggilapan & ketatkan cakar batu percuma.</p>
+<br>
+<p>4. Perak tulen S925 bersalut rodium akan luntur perlahan selepas dipakai lama disebabkan peluh, minyak wangi & produk penjagaan kulit. Ini adalah kesan pemakaian semulajadi biasa, bukan kecacatan produk.</p>
+<br>
+<p>5. Simpan barang kemas di beg kedap udara kering apabila tidak dipakai, tanggalkan sebelum mandi, bersukan atau buat kerja rumah untuk kekal kilau.</p>`",
+                "notice.enText":`<p>1. Our jewelry collection contains two distinct gemstone types only:</p>
+<p>① Laboratory-Grown Diamond (CVD / HPHT craftsmanship, genuine carbon diamond crystal, NOT imitation stone)</p>
+<p>② Synthetic Moissanite (independent silicon carbide gemstone)</p>
+<p>We DO NOT sell any diamond simulant, imitation stone or fake diamond accessories of any kind.</p>
+<br>
+<p>2. Malaysia Store: All listed prices subject to 6% SST sales tax; Singapore Store prices are fully inclusive of GST.</p>
+<br>
+<p>3. All GemPop jewelry carries a 1-year official craftsmanship warranty, covering free polishing and prong tightening repair service.</p>
+<br>
+<p>4. S925 sterling silver with rhodium plating will gradually lose luster after long-term wear due to sweat, perfume and skincare chemicals. This is normal natural wear and tear, not product quality defect.</p>
+<br>
+<p>5. Store jewelry inside sealed dry bags when unused, remove before showering, workouts or housework to maintain shine.</p>`
+            },
+            cn:{
+                "nav.home":"首页",
+                "nav.notice":"采购须知",
+                "nav.series":"六大爱情系列",
+                "nav.product":"主营产品",
+                "nav.check":"证书查验",
+                "nav.about":"工厂介绍",
+                "banner.title":"珠宝源头工厂",
+                "banner.desc":"爱是一场从初见走到余生的漫长旅程\n专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货\nIGI官方证书、腰码一一对应，支持全复检",
+                "banner.btn":"立即查验证书防伪",
+                "series.title":"六大爱情篇章 · 藏尽一生温柔爱意",
+                "series.desc":"爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。",
+                "s1.name":"初遇之恋",
+                "s1.text":"一眼万年纯粹心动，适合告白、初恋送礼。",
+                "s2.name":"热恋之恋",
+                "s2.text":"双向奔赴的热烈甜蜜，情侣纪念日专用。",
+                "s3.name":"承诺之恋",
+                "s3.text":"共度余生的郑重约定，适配求婚、订婚。",
+                "s4.name":"笃定真爱",
+                "s4.text":"磨合过后不离不弃，适合稳定情侣、婚后馈赠。",
+                "s5.name":"永恒相守",
+                "s5.text":"柴米烟火朝夕相伴，结婚周年纪念首选。",
+                "s6.name":"余生纪念",
+                "s6.text":"封存半生爱意，高端典藏、人生重大纪念。",
+                "product.title":"三大核心珠宝货源系列",
+                "p1.title":"IGI认证培育钻石",
+                "p1.text":"HPHT/CVD双工艺，0.5-2克拉VVS高色钻，腰码证书一一匹配，官网可查。",
+                "p2.title":"八心八箭高闪莫桑石",
+                "p2.text":"高通透火彩足，平价零售爆款，批量拿货价格优势大。",
+                "p3.title":"S925加厚钯底银托",
+                "p3.text":"加厚镀层不易氧化，适配所有钻石镶嵌，支持定制刻字。",
+                "check.title":"GemPop 证书防伪查验系统",
+                "check.desc":"输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数",
+                "check.btn":"查询核验",
+                "check.tip":"扫描吊牌防伪二维码可快速查询珠宝档案",
+                "about.title":"关于 GEM POP",
+                "about.text":"GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。",
+                "notice.enTitle":"马来西亚&新加坡客户采购须知（英文）",
+                "notice.bmTitle":"马来西亚&新加坡客户采购须知（马来文）",
+                "notice.bmText":`<p>1. 本店珠宝仅包含两类宝石：</p>
+<p>① 实验室培育钻石（CVD/HPHT工艺，纯碳晶体，绝非仿钻玻璃）</p>
+<p>② 莫桑石（碳化硅独立宝石品类）</p>
+<p>本店绝不售卖仿钻、锆石、玻璃假钻类饰品。</p>
+<br>
+<p>2. 马来西亚店铺标价含6%SST税费；新加坡店铺标价已全包GST消费税。</p>
+<br>
+<p>3. 全部珠宝享受1年工艺质保，免费抛光、紧爪修石服务。</p>
+<br>
+<p>4. S925镀铑银饰长期佩戴会因汗水、化妆品慢慢失光，属于正常损耗，不属于质量问题。</p>
+<br>
+<p>5. 不佩戴时密封干袋存放，洗澡、运动、做家务务必摘下，维持光泽。</p>`",
+                "notice.enText":`<p>1. Our jewelry collection contains two distinct gemstone types only:</p>
+<p>① Laboratory-Grown Diamond (CVD / HPHT craftsmanship, genuine carbon diamond crystal, NOT imitation stone)</p>
+<p>② Synthetic Moissanite (independent silicon carbide gemstone)</p>
+<p>We DO NOT sell any diamond simulant, imitation stone or fake diamond accessories of any kind.</p>
+<br>
+<p>2. Malaysia Store: All listed prices subject to 6% SST sales tax; Singapore Store prices are fully inclusive of GST.</p>
+<br>
+<p>3. All GemPop jewelry carries a 1-year official craftsmanship warranty, covering free polishing and prong tightening repair service.</p>
+<br>
+<p>4. S925 sterling silver with rhodium plating will gradually lose luster after long-term wear due to sweat, perfume and skincare chemicals. This is normal natural wear and tear, not product quality defect.</p>
+<br>
+<p>5. Store jewelry inside sealed dry bags when unused, remove before showering, workouts or housework to maintain shine.</p>`
+            },
+            en:{
+                "nav.home":"Home",
+                "nav.notice":"Shopping Notice",
+                "nav.series":"Love Series",
+                "nav.product":"Products",
+                "nav.check":"Cert Check",
+                "nav.about":"About Us",
+                "banner.title":"Jewelry Factory",
+                "banner.desc":"Love is a journey from first sight to lifetime companionship\nWholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting\nIGI official certificate with laser inscription, support full re-inspection",
+                "banner.btn":"Check Certificate Now",
+                "series.title":"6 Love Collections · All Lifelong Romance",
+                "series.desc":"Love is a complete journey. GEM POP condenses full life romance into six jewelry collections.",
+                "s1.name":"First Sight Love",
+                "s1.text":"Pure love at first sight, perfect for confession gift.",
+                "s2.name":"Passionate Love",
+                "s2.text":"Hot sweet romance, ideal for couple anniversary.",
+                "s3.name":"Promise Love",
+                "s3.text":"Lifelong commitment, designed for proposal & engagement.",
+                "s4.name":"True Love",
+                "s4.text":"Mature steady love for long-term lovers & married couples.",
+                "s5.name":"Eternal Love",
+                "s5.text":"Daily lifelong companionship, best for wedding anniversary.",
+                "s6.name":"Memory Love",
+                "s6.text":"High-end collection for important life memory.",
+                "product.title":"3 Core Jewelry Wholesale Lines",
+                "p1.title":"IGI Certified Lab Diamond",
+                "p1.text":"HPHT & CVD lab diamond 0.5-2ct VVS grade, laser code match certificate, official verifiable.",
+                "p2.title":"Hearts & Arrows Moissanite",
+                "p2.text":"High brilliant fire, hot retail item with competitive wholesale price.",
+                "p3.title":"S925 Thick Palladium Silver Setting",
+                "p3.text":"Anti-tarnish thick plating, fit all gemstone, custom logo engraving available.",
+                "check.title":"GemPop Certificate Anti-Counterfeit Check System",
+                "check.desc":"Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info",
+                "check.btn":"Search & Verify",
+                "check.tip":"Scan QR code on hang tag for fast record check",
+                "about.title":"About GEM POP",
+                "about.text":"Original jewelry factory for cross-border supply, own inlay workshop, all goods support offline re-inspection with complete certificates & anti-counterfeit labels.",
+                "notice.enTitle":"Important Shopping Notice for Malaysia & Singapore Customers",
+                "notice.bmTitle":"Malaysia & Singapore Customer Shopping Notice (BM Translation)",
+                "notice.bmText":`<p>1. Koleksi barang kemas kami hanya mengandungi dua jenis batu permata yang berbeza:</p>
+<p>① Laboratory-Grown Diamond (dihasilkan melalui proses CVD / HPHT, kristal berlian karbon tulen, BUKAN batu tiruan)</p>
+<p>② Synthetic Moissanite (batu permata silikon karbida yang unik)</p>
+<p>Kami TIDAK menjual sebarang simulan berlian, batu tiruan atau aksesori berlian palsu dalam apa bentuk sekalipun.</p>
+<br>
+<p>2. Kedai Malaysia: Semua harga tertakluk kepada cukai SST 6%; harga Kedai Singapura sudah termasuk GST sepenuhnya.</p>
+<br>
+<p>3. Semua barang kemas GemPop disertakan jaminan mutu rasmi 1 tahun, meliputi perkhidmatan penggilapan & ketatkan cakar batu percuma.</p>
+<br>
+<p>4. Perak tulen S925 bersalut rodium akan luntur perlahan selepas dipakai lama disebabkan peluh, minyak wangi & produk penjagaan kulit. Ini adalah kesan pemakaian semulajadi biasa, bukan kecacatan produk.</p>
+<br>
+<p>5. Simpan barang kemas di beg kedap udara kering apabila tidak dipakai, tanggalkan sebelum mandi, bersukan atau buat kerja rumah untuk kekal kilau.</p>`",
+                "notice.enText":`<p>1. Our jewelry collection contains two distinct gemstone types only:</p>
+<p>① Laboratory-Grown Diamond (CVD / HPHT craftsmanship, genuine carbon diamond crystal, NOT imitation stone)</p>
+<p>② Synthetic Moissanite (independent silicon carbide gemstone)</p>
+<p>We DO NOT sell any diamond simulant, imitation stone or fake diamond accessories of any kind.</p>
+<br>
+<p>2. Malaysia Store: All listed prices subject to 6% SST sales tax; Singapore Store prices are fully inclusive of GST.</p>
+<br>
+<p>3. All GemPop jewelry carries a 1-year official craftsmanship warranty, covering free polishing and prong tightening repair service.</p>
+<br>
+<p>4. S925 sterling silver with rhodium plating will gradually lose luster after long-term wear due to sweat, perfume and skincare chemicals. This is normal natural wear and tear, not product quality defect.</p>
+<br>
+<p>5. Store jewelry inside sealed dry bags when unused, remove before showering, workouts or housework to maintain shine.</p>`
+            }
+        };
+        let currentLang = "bm"; // 默认马来文
 
-    <p>4. Perak tulen S925 bersalut rodium akan luntur perlahan selepas dipakai lama disebabkan peluh, minyak wangi & produk penjagaan kulit. Ini adalah kesan pemakaian semulajadi biasa, bukan kecacatan produk.</p>
+        // 页面渲染语言文字
+        function renderText(lang){
+            currentLang = lang;
+            document.querySelectorAll("[data-i18n]").forEach(el=>{
+                const key = el.getAttribute("data-i18n");
+                el.innerHTML = i18nDict[lang][key];
+            })
+            document.documentElement.lang = lang;
+        }
+        // 初始化默认马来文
+        renderText("bm");
+        // 切换语言按钮
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn=>{
+            btn.addEventListener('click',function(){
+                const targetLang = this.getAttribute('data-lang');
+                renderText(targetLang);
+            })
+        })
 
-    <p>5. Simpan barang kemas di beg kedap udara kering apabila tidak dipakai, tanggalkan sebelum mandi, bersukan atau buat kerja rumah untuk kekal kilau.</p>
-</div>
+        // ========== 修复汉堡菜单点击BUG ==========
+        const openBtn = document.getElementById('openMenu');
+        const closeBtn = document.getElementById('closeMenu');
+        const sideBar = document.getElementById('sideBar');
+        const mask = document.getElementById('maskLayer');
+        function closeSide(){
+            sideBar.classList.remove('open');
+            mask.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        openBtn.addEventListener('click', function(e){
+            e.stopPropagation();
+            sideBar.classList.add('open');
+            mask.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        })
+        closeBtn.addEventListener('click', closeSide);
+        mask.addEventListener('click', closeSide);
+        const navLinks = sideBar.querySelectorAll('a');
+        navLinks.forEach(item => {
+            item.addEventListener('click', closeSide)
+        })
 
-<!-- 底部导航链接 -->
-<div class="nav-bar">
-    <a href="#warranty">Warranty Service</a> |
-    <a href="#care">Jewelry Care Guide</a> |
-    <a href="#shipping">Shipping Info</a> |
-    <a href="#return">Return Policy</a> |
-    <a href="#verify">GemPop Verification Portal（gempop.vip）</a>
-</div>
+        // ========== 读取外置data.json（文件独立，不内置） ==========
+        let gemPopDatabase = [];
+        fetch("data.json")
+        .then(res => res.json())
+        .then(data => {
+            gemPopDatabase = data;
+            console.log("数据库加载完成，总条数：", gemPopDatabase.length);
+        })
+        .catch(err => {
+            alert("数据库文件data.json加载失败，请确认和网页放在同一文件夹");
+            console.error("读取json失败：", err);
+        });
 
-<!-- 首页主标题 -->
-<h2>GemPop Jewelry Collection</h2>
-<p>Wear your heartbeat, keep your promise, and let every sparkling moment become a memory worth keeping.</p>
-<p>Pakai degupan jantung anda, simpan janji anda, dan biarkan setiap detik kilauan menjadi kenangan yang berharga.</p>
-
-<!-- 第一套系列：FALL IN LOVE 完整双语文案 -->
-<section class="series-card">
-    <div class="img-box">
-        <img src="series-fallinlove-img.jpg" alt="FALL IN LOVE系列首饰实拍">
-    </div>
-    <h4>FALL IN LOVE COLLECTION | Confession & New Beginnings</h4>
-    <p>Every story starts with a heartbeat.</p>
-    <p>释义：每一段故事，始于一次心动。</p>
-    <p>Every story starts with a heartbeat. This series crafted for secret crush and first confession, select Laboratory-Grown Diamond or Synthetic Moissanite to carry your quiet hidden affection, a gentle gift to kick off your love story.</p>
-    <p>Setiap kisah cinta bermula dengan degupan jantung. Siri ini dicipta untuk orang yang dikagumi & pengakuan cinta pertama, pilih Laboratory-Grown Diamond atau Synthetic Moissanite untuk membawa perasaan anda yang tersembunyi, hadiah lembut untuk memulakan kisah cinta anda.</p>
-</section>
-
-<!-- 证书核验页面锚点（你底部导航对应的gempop.vip核验区） -->
-<div id="verify" class="sub-page">
-    <h4>Certificate Verification Portal</h4>
-    <div class="img-box">
-        <img src="cert-check-img.jpg" alt="证书核验操作示意图">
-    </div>
-    <p>Official verification website: gempop.vip</p>
-    <p>Step-by-step graphic tutorial to input diamond girdle code & certificate number to check NGTC certificate. Each certificate clearly marks gem type: Laboratory-Grown Diamond (CVD/HPHT) or Synthetic Moissanite, eliminate buyer doubts about material authenticity.</p>
-</div>
-
-<!-- 质保售后页面锚点 -->
-<div id="warranty" class="sub-page">
-    <h4>Warranty & After Sales Service</h4>
-    <div class="img-box">
-        <img src="warranty-card-img.jpg" alt="质保卡实拍图">
-    </div>
-    <p>GemPop provides official 1-year craftsmanship warranty for all jewelry:</p>
-    <p>Free service items: Polishing, prong tightening, ring resizing</p>
-    <p>Warranty rules: Warranty service requires returning jewelry + original NGTC certificate together; service rejected if certificate lost.</p>
-    <p>Warranty Exclusion: Surface scratches, rhodium plating fading, damage caused by collision or chemical erosion.</p>
-</div>
-
-<!-- 珠宝保养指南锚点 -->
-<div id="care" class="sub-page">
-    <h4>Jewelry Care Guide</h4>
-    <div class="img-box">
-        <img src="care-tips-img.jpg" alt="珠宝保养说明配图">
-    </div>
-    <p>1. Keep jewelry away from perfume, lotion, soap, seawater and pool water; chemicals speed up rhodium plating fading.</p>
-    <p>2. Remove jewelry before showering, exercise or housework; sweat accelerates coating wear.</p>
-    <p>3. Store in sealed dry plastic bags when not worn, avoid damp bathroom storage.</p>
-    <p>4. Minor plating fading after long daily wear is natural wear and tear, not product quality defect.</p>
-</div>
+        // ========== 原版核验展示逻辑（无emoji符号，全部替换为纯文字标识） ==========
+        const inputEl = document.getElementById('certInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultBox = document.getElementById('resultBox');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultContent = document.getElementById('resultContent');
+        function searchCert(){
+            resultBox.classList.remove('show');
+            let inputVal = inputEl.value.trim().toUpperCase();
+            if(!inputVal){
+                let tip;
+                if(currentLang === "bm") tip = "Sila masuk ID sijil atau kod laser";
+                else if(currentLang === "cn") tip = "请输入证书编号或钻石腰码";
+                else tip = "Please input certificate ID or laser code";
+                resultTitle.innerText = tip;
+                resultContent.innerText = "";
+                resultBox.classList.add('show');
+                return;
+            }
+            const matchItem = gemPopDatabase.find(item=>{
+                return item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal;
+            })
+            if(!matchItem){
+                let tip;
+                if(currentLang === "bm") tip = "Tiada rekod berlian dijumpai, sila semak ID";
+                else if(currentLang === "cn") tip = "未查询到对应钻石档案，请核对编号";
+                else tip = "No matching diamond record found, please check ID";
+                resultTitle.innerText = tip;
+                resultContent.innerText = "";
+                resultBox.classList.add('show');
+                return;
+            }
+            // 全部替换纯文字标识，无任何emoji
+            if(currentLang === "cn"){
+                resultTitle.innerText = "【查询匹配成功】";
+                resultContent.innerHTML = `
+证书编号：${matchItem.certId}<br>
+钻石腰码：${matchItem.laserCode}<br>
+钻石类型：${matchItem.stoneType}<br>
+克拉重量：${matchItem.carat}<br>
+颜色等级：${matchItem.color}<br>
+净度等级：${matchItem.clarity}<br>
+切工等级：${matchItem.cut}<br>
+证书机构：${matchItem.certOrigin}<br>
+发证日期：${matchItem.issueDate}
+                `;
+            }else if(currentLang === "bm"){
+                resultTitle.innerText = "[Success] Padanan Rekod Berjaya";
+                resultContent.innerHTML = `
+ID Sijil：${matchItem.certId}<br>
+Kod Laser：${matchItem.laserCode}<br>
+Jenis Batu：${matchItem.stoneType}<br>
+Berat Karat：${matchItem.carat}<br>
+Gred Warna：${matchItem.color}<br>
+Gred Kejelasan：${matchItem.clarity}<br>
+Gred Potongan：${matchItem.cut}<br>
+Pihak Sijil：${matchItem.certOrigin}<br>
+Tarikh Keluar：${matchItem.issueDate}
+                `;
+            }else{
+                resultTitle.innerText = "[Success] Match Success";
+                resultContent.innerHTML = `
+Certificate ID：${matchItem.certId}<br>
+Laser Code：${matchItem.laserCode}<br>
+Stone Type：${matchItem.stoneType}<br>
+Carat Weight：${matchItem.carat}<br>
+Color Grade：${matchItem.color}<br>
+Clarity Grade：${matchItem.clarity}<br>
+Cut Grade：${matchItem.cut}<br>
+Cert Authority：${matchItem.certOrigin}<br>
+Issue Date：${matchItem.issueDate}
+                `;
+            }
+            resultBox.classList.add('show');
+        }
+        searchBtn.addEventListener('click', searchCert);
+        inputEl.addEventListener('keydown',e=>{
+            if(e.key === "Enter") searchCert();
+        })
+    </script>
 </body>
 </html>
