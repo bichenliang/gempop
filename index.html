@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="cn">
+<html lang="bm">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEM POP | Lab Diamond & Moissanite Wholesale</title>
+    <title>GEM POP | Borong Berlian Makmal</title>
     <style>
         * {
             margin: 0;
@@ -19,15 +19,6 @@
             --text-gray: #555;
             --white: #ffffff;
         }
-        /* 多语言：只渲染当前选中语言文字 */
-        .lang-cn, .lang-en, .lang-bm {display: none;}
-        html[data-lang="cn"] .lang-cn {display: block;}
-        html[data-lang="en"] .lang-en {display: block;}
-        html[data-lang="bm"] .lang-bm {display: block;}
-        html[data-lang="cn"] .lang-cn-inline {display: inline;}
-        html[data-lang="en"] .lang-en-inline {display: inline;}
-        html[data-lang="bm"] .lang-bm-inline {display: inline;}
-
         /* 导航栏 */
         .header-nav {
             background: var(--black);
@@ -70,7 +61,7 @@
             padding:4px 8px;
             cursor:pointer;
         }
-        /* 移动端汉堡按钮（修复点击失效） */
+        /* 移动端汉堡按钮 */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -276,7 +267,7 @@
             color: var(--text-gray);
             text-align: center;
         }
-        /* 页脚精简版，删除多余文字 */
+        /* 页脚精简 */
         footer {
             background: var(--black);
             color: #aaa;
@@ -307,20 +298,18 @@
     <!-- 顶部导航 -->
     <header class="header-nav">
         <div class="logo-text">GEM POP</div>
-        <!-- PC菜单 -->
         <div class="pc-menu">
-            <a href="#home"><span class="lang-cn-inline">首页</span><span class="lang-en-inline">Home</span><span class="lang-bm-inline">Laman Utama</span></a>
-            <a href="#loveSeries"><span class="lang-cn-inline">六大爱情系列</span><span class="lang-en-inline">Love Series</span><span class="lang-bm-inline">Siri Cinta</span></a>
-            <a href="#goods"><span class="lang-cn-inline">主营产品</span><span class="lang-en-inline">Products</span><span class="lang-bm-inline">Produk</span></a>
-            <a href="#check"><span class="lang-cn-inline">证书查验</span><span class="lang-en-inline">Cert Check</span><span class="lang-bm-inline">Semak Sijil</span></a>
-            <a href="#about"><span class="lang-cn-inline">工厂介绍</span><span class="lang-en-inline">About Us</span><span class="lang-bm-inline">Tentang Kami</span></a>
+            <a href="#home" data-i18n="nav.home"></a>
+            <a href="#loveSeries" data-i18n="nav.series"></a>
+            <a href="#goods" data-i18n="nav.product"></a>
+            <a href="#check" data-i18n="nav.check"></a>
+            <a href="#about" data-i18n="nav.about"></a>
             <div class="lang-switch-group">
+                <button class="lang-btn" data-lang="bm">BM</button>
                 <button class="lang-btn" data-lang="cn">中文</button>
                 <button class="lang-btn" data-lang="en">EN</button>
-                <button class="lang-btn" data-lang="bm">BM</button>
             </div>
         </div>
-        <!-- 修复完成的汉堡菜单 -->
         <div class="hamburger" id="openMenu">
             <span></span>
             <span></span>
@@ -331,147 +320,83 @@
     <div class="mask" id="maskLayer"></div>
     <div class="mobile-sidebar" id="sideBar">
         <div class="sidebar-close" id="closeMenu">×</div>
-        <a href="#home"><span class="lang-cn-inline">首页</span><span class="lang-en-inline">Home</span><span class="lang-bm-inline">Laman Utama</span></a>
-        <a href="#loveSeries"><span class="lang-cn-inline">六大爱情系列</span><span class="lang-en-inline">Love Series</span><span class="lang-bm-inline">Siri Cinta</span></a>
-        <a href="#goods"><span class="lang-cn-inline">主营产品</span><span class="lang-en-inline">Products</span><span class="lang-bm-inline">Produk</span></a>
-        <a href="#check"><span class="lang-cn-inline">证书查验</span><span class="lang-en-inline">Cert Check</span><span class="lang-bm-inline">Semak Sijil</span></a>
-        <a href="#about"><span class="lang-cn-inline">工厂介绍</span><span class="lang-en-inline">About Us</span><span class="lang-bm-inline">Tentang Kami</span></a>
+        <a href="#home" data-i18n="nav.home"></a>
+        <a href="#loveSeries" data-i18n="nav.series"></a>
+        <a href="#goods" data-i18n="nav.product"></a>
+        <a href="#check" data-i18n="nav.check"></a>
+        <a href="#about" data-i18n="nav.about"></a>
         <div class="lang-switch-group" style="margin-top:20px;">
+            <button class="lang-btn" data-lang="bm">BM</button>
             <button class="lang-btn" data-lang="cn">中文</button>
             <button class="lang-btn" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="bm">BM</button>
         </div>
     </div>
 
     <!-- 首屏 -->
     <section class="banner-box" id="home">
-        <h1>GEM POP <span class="lang-cn-inline">珠宝源头工厂</span><span class="lang-en-inline">Jewelry Factory</span><span class="lang-bm-inline">Kilang Barang Kemas</span></h1>
-        <p class="banner-desc lang-cn">
-            爱是一场从初见走到余生的漫长旅程<br>
-            专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货<br>
-            IGI官方证书、腰码一一对应，支持全复检
-        </p>
-        <p class="banner-desc lang-en">
-            Love is a journey from first sight to lifetime companionship<br>
-            Wholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting<br>
-            IGI official certificate with laser inscription, support full re-inspection
-        </p>
-        <p class="banner-desc lang-bm">
-            Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup<br>
-            Borong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal<br>
-            Sijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula
-        </p>
-        <a href="#check" class="banner-btn">
-            <span class="lang-cn-inline">立即查验证书防伪</span>
-            <span class="lang-en-inline">Check Certificate Now</span>
-            <span class="lang-bm-inline">Semak Sijil Sekarang</span>
-        </a>
+        <h1>GEM POP <span data-i18n="banner.title"></span></h1>
+        <p class="banner-desc" data-i18n="banner.desc"></p>
+        <a href="#check" class="banner-btn" data-i18n="banner.btn"></a>
     </section>
 
     <!-- 爱情系列 -->
     <section class="section-wrap" id="loveSeries">
-        <h2 class="section-title lang-cn">六大爱情篇章 · 藏尽一生温柔爱意</h2>
-        <h2 class="section-title lang-en">6 Love Collections · All Lifelong Romance</h2>
-        <h2 class="section-title lang-bm">6 Koleksi Cinta · Semua Romansa Sepanjang Hayat</h2>
-
-        <p class="story-text lang-cn">
-            爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。
-            从初见心动、热恋、求婚承诺、安稳真爱、岁月相守到余生纪念，一枚钻石承载一段专属时光。
-        </p>
-        <p class="story-text lang-en">
-            Love is a complete journey. GEM POP condenses full life romance into six jewelry collections, covering crush, passion, proposal, stable love, lifelong companionship & memory.
-        </p>
-        <p class="story-text lang-bm">
-            Cinta adalah perjalanan lengkap. GEM POP ringkas seluruh fasa cinta ke enam koleksi barang kemas, dari pertemuan, ghairah, lamaran hingga kenangan seumur hidup.
-        </p>
-
+        <h2 class="section-title" data-i18n="series.title"></h2>
+        <p class="story-text" data-i18n="series.desc"></p>
         <div class="love-series-wrap">
             <div class="series-card">
-                <h3>Falling Love · <span class="lang-cn-inline">初遇之恋</span><span class="lang-en-inline">First Sight Love</span><span class="lang-bm-inline">Cinta Pertama</span></h3>
-                <p class="lang-cn">一眼万年纯粹心动，适合告白、初恋送礼。</p>
-                <p class="lang-en">Pure love at first sight, perfect for confession gift.</p>
-                <p class="lang-bm">Cinta tulen pandangan pertama, sesuai hadiah pengakuan cinta.</p>
+                <h3>Falling Love · <span data-i18n="s1.name"></span></h3>
+                <p data-i18n="s1.text"></p>
             </div>
             <div class="series-card">
-                <h3>Sweet Love · <span class="lang-cn-inline">热恋之恋</span><span class="lang-en-inline">Passionate Love</span><span class="lang-bm-inline">Cinta Ghairah</span></h3>
-                <p class="lang-cn">双向奔赴的热烈甜蜜，情侣纪念日专用。</p>
-                <p class="lang-en">Hot sweet romance, ideal for couple anniversary.</p>
-                <p class="lang-bm">Romansa hangat untuk pasangan, sesuai ulang tahun cinta.</p>
+                <h3>Sweet Love · <span data-i18n="s2.name"></span></h3>
+                <p data-i18n="s2.text"></p>
             </div>
             <div class="series-card">
-                <h3>Promise Love · <span class="lang-cn-inline">承诺之恋</span><span class="lang-en-inline">Promise Love</span><span class="lang-bm-inline">Cinta Janji</span></h3>
-                <p class="lang-cn">共度余生的郑重约定，适配求婚、订婚。</p>
-                <p class="lang-en">Lifelong commitment, designed for proposal & engagement.</p>
-                <p class="lang-bm">Janji seumur hidup untuk lamaran dan pertunangan.</p>
+                <h3>Promise Love · <span data-i18n="s3.name"></span></h3>
+                <p data-i18n="s3.text"></p>
             </div>
             <div class="series-card">
-                <h3>True Love · <span class="lang-cn-inline">笃定真爱</span><span class="lang-en-inline">True Love</span><span class="lang-bm-inline">Cinta Sejati</span></h3>
-                <p class="lang-cn">磨合过后不离不弃，适合稳定情侣、婚后馈赠。</p>
-                <p class="lang-en">Mature steady love for long-term lovers & married couples.</p>
-                <p class="lang-bm">Cinta matang untuk pasangan suami isteri jangka panjang.</p>
+                <h3>True Love · <span data-i18n="s4.name"></span></h3>
+                <p data-i18n="s4.text"></p>
             </div>
             <div class="series-card">
-                <h3>Eternal Love · <span class="lang-cn-inline">永恒相守</span><span class="lang-en-inline">Eternal Love</span><span class="lang-bm-inline">Cinta Abadi</span></h3>
-                <p class="lang-cn">柴米烟火朝夕相伴，结婚周年纪念首选。</p>
-                <p class="lang-en">Daily lifelong companionship, best for wedding anniversary.</p>
-                <p class="lang-bm">Persahabatan harian untuk ulang tahun perkahwinan.</p>
+                <h3>Eternal Love · <span data-i18n="s5.name"></span></h3>
+                <p data-i18n="s5.text"></p>
             </div>
             <div class="series-card">
-                <h3>Memory Love · <span class="lang-cn-inline">余生纪念</span><span class="lang-en-inline">Memory Love</span><span class="lang-bm-inline">Cinta Kenangan</span></h3>
-                <p class="lang-cn">封存半生爱意，高端典藏、人生重大纪念。</p>
-                <p class="lang-en">High-end collection for important life memory.</p>
-                <p class="lang-bm">Koleksi mewah untuk peringatan penting hidup.</p>
+                <h3>Memory Love · <span data-i18n="s6.name"></span></h3>
+                <p data-i18n="s6.text"></p>
             </div>
         </div>
     </section>
 
     <!-- 产品板块 -->
     <section class="section-wrap" id="goods" style="background:var(--gray);">
-        <h2 class="section-title lang-cn">三大核心珠宝货源系列</h2>
-        <h2 class="section-title lang-en">3 Core Jewelry Wholesale Lines</h2>
-        <h2 class="section-title lang-bm">3 Barisan Borong Barang Kemas Teras</h2>
+        <h2 class="section-title" data-i18n="product.title"></h2>
         <div class="product-wrap">
             <div class="product-card">
-                <h3><span class="lang-cn-inline">IGI认证培育钻石</span><span class="lang-en-inline">IGI Certified Lab Diamond</span><span class="lang-bm-inline">Berlian Makmal Bersijil IGI</span></h3>
-                <p class="lang-cn">HPHT/CVD双工艺，0.5-2克拉VVS高色钻，腰码证书一一匹配，官网可查。</p>
-                <p class="lang-en">HPHT & CVD lab diamond 0.5-2ct VVS grade, laser code match certificate, official verifiable.</p>
-                <p class="lang-bm">Berlian makmal HPHT/CVD 0.5-2ct gred VVS, kod laser padan sijil, boleh sahkan laman rasmi.</p>
+                <h3><span data-i18n="p1.title"></span></h3>
+                <p data-i18n="p1.text"></p>
             </div>
             <div class="product-card">
-                <h3><span class="lang-cn-inline">八心八箭高闪莫桑石</span><span class="lang-en-inline">Hearts & Arrows Moissanite</span><span class="lang-bm-inline">Moissanit Hati & Anak Panah</span></h3>
-                <p class="lang-cn">高通透火彩足，平价零售爆款，批量拿货价格优势大。</p>
-                <p class="lang-en">High brilliant fire, hot retail item with competitive wholesale price.</p>
-                <p class="lang-bm">Kilauan terang, produk popular runcit dengan harga borong murah.</p>
+                <h3><span data-i18n="p2.title"></span></h3>
+                <p data-i18n="p2.text"></p>
             </div>
             <div class="product-card">
-                <h3><span class="lang-cn-inline">S925加厚钯底银托</span><span class="lang-en-inline">S925 Thick Palladium Silver Setting</span><span class="lang-bm-inline">Pemasang Perak S925 Paladium Tebal</span></h3>
-                <p class="lang-cn">加厚镀层不易氧化，适配所有钻石镶嵌，支持定制刻字。</p>
-                <p class="lang-en">Anti-tarnish thick plating, fit all gemstone, custom logo engraving available.</p>
-                <p class="lang-bm">Salutan tahan karat, sesuai semua batu permata, boleh ukir logo khas.</p>
+                <h3><span data-i18n="p3.title"></span></h3>
+                <p data-i18n="p3.text"></p>
             </div>
         </div>
     </section>
 
     <!-- 证书查验 -->
     <section class="check-module" id="check">
-        <h2 class="section-title lang-cn">GemPop 证书防伪查验系统</h2>
-        <h2 class="section-title lang-en">GemPop Certificate Anti-Counterfeit Check System</h2>
-        <h2 class="section-title lang-bm">Sistem Semak Anti-Palsu Sijil GemPop</h2>
-
-        <p class="lang-cn">输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数</p>
-        <p class="lang-en">Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info</p>
-        <p class="lang-bm">Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian</p>
-
+        <h2 class="section-title" data-i18n="check.title"></h2>
+        <p data-i18n="check.desc"></p>
         <input class="check-input" id="certInput" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
-        <button class="check-btn" id="searchBtn">
-            <span class="lang-cn-inline">查询核验</span>
-            <span class="lang-en-inline">Search & Verify</span>
-            <span class="lang-bm-inline">Cari & Sahkan</span>
-        </button>
-        <p class="check-tip lang-cn">扫描吊牌防伪二维码可快速查询珠宝档案</p>
-        <p class="check-tip lang-en">Scan QR code on hang tag for fast record check</p>
-        <p class="check-tip lang-bm">Imbas kod QR tag gantung untuk semak rekod pantas</p>
-
+        <button class="check-btn" id="searchBtn" data-i18n="check.btn"></button>
+        <p class="check-tip" data-i18n="check.tip"></p>
         <div class="check-result" id="resultBox">
             <h4 id="resultTitle"></h4>
             <div id="resultContent"></div>
@@ -480,65 +405,176 @@
 
     <!-- 品牌介绍 -->
     <section class="section-wrap" id="about">
-        <h2 class="section-title lang-cn">关于 GEM POP</h2>
-        <h2 class="section-title lang-en">About GEM POP</h2>
-        <h2 class="section-title lang-bm">Tentang GEM POP</h2>
-        <p class="about-text lang-cn">
-            GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。
-        </p>
-        <p class="about-text lang-en">
-            Original jewelry factory for cross-border supply, own inlay workshop, all goods support offline re-inspection with complete certificates & anti-counterfeit labels.
-        </p>
-        <p class="about-text lang-bm">
-            Kilang barang kemas asal untuk bekalan rentas sempadan, bengkel pemasangan sendiri, semua barang sokong pemeriksaan luar talian dengan sijil lengkap.
-        </p>
+        <h2 class="section-title" data-i18n="about.title"></h2>
+        <p class="about-text" data-i18n="about.text"></p>
     </section>
 
-    <!-- 精简页脚，删除多余平台文字 -->
+    <!-- 页脚 -->
     <footer>
         <p>GEM POP Jewelry Factory | GemPop Cert Check System</p>
     </footer>
 
     <script>
-        // 多语言切换逻辑
-        const htmlRoot = document.documentElement;
+        // 1. 多国语言词典，默认BM马来文
+        const i18nDict = {
+            bm:{
+                "nav.home":"Laman Utama",
+                "nav.series":"Siri Cinta",
+                "nav.product":"Produk",
+                "nav.check":"Semak Sijil",
+                "nav.about":"Tentang Kami",
+                "banner.title":"Kilang Barang Kemas",
+                "banner.desc":"Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup\nBorong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal\nSijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula penuh",
+                "banner.btn":"Semak Sijil Sekarang",
+                "series.title":"6 Koleksi Cinta · Semua Romansa Sepanjang Hayat",
+                "series.desc":"Cinta adalah perjalanan lengkap dari pertemuan hingga akhir hayat. GEM POP ringkas seluruh fasa cinta manusia kepada enam koleksi barang kemas.",
+                "s1.name":"Cinta Pertama",
+                "s1.text":"Cinta tulen pandangan pertama, sesuai hadiah pengakuan cinta.",
+                "s2.name":"Cinta Ghairah",
+                "s2.text":"Romansa hangat untuk pasangan, sesuai ulang tahun cinta.",
+                "s3.name":"Cinta Janji",
+                "s3.text":"Janji seumur hidup untuk lamaran dan pertunangan.",
+                "s4.name":"Cinta Sejati",
+                "s4.text":"Cinta matang untuk pasangan suami isteri jangka panjang.",
+                "s5.name":"Cinta Abadi",
+                "s5.text":"Persahabatan harian untuk ulang tahun perkahwinan.",
+                "s6.name":"Cinta Kenangan",
+                "s6.text":"Koleksi mewah untuk peringatan penting hidup.",
+                "product.title":"3 Barisan Borong Barang Kemas Teras",
+                "p1.title":"Berlian Makmal Bersijil IGI",
+                "p1.text":"Berlian makmal HPHT/CVD 0.5-2ct gred VVS, kod laser padan sijil, boleh sahkan laman rasmi.",
+                "p2.title":"Moissanit Hati & Anak Panah",
+                "p2.text":"Kilauan terang, produk popular runcit dengan harga borong murah.",
+                "p3.title":"Pemasang Perak S925 Paladium Tebal",
+                "p3.text":"Salutan tahan karat, sesuai semua batu permata, boleh ukir logo khas.",
+                "check.title":"Sistem Semak Anti-Palsu Sijil GemPop",
+                "check.desc":"Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian penuh",
+                "check.btn":"Cari & Sahkan",
+                "check.tip":"Imbas kod QR tag gantung untuk semak rekod pantas",
+                "about.title":"Tentang GEM POP",
+                "about.text":"Kilang barang kemas asal untuk bekalan rentas sempadan, bengkel pemasangan sendiri, semua barang sokong pemeriksaan luar talian dengan sijil lengkap & label anti-palsu."
+            },
+            cn:{
+                "nav.home":"首页",
+                "nav.series":"六大爱情系列",
+                "nav.product":"主营产品",
+                "nav.check":"证书查验",
+                "nav.about":"工厂介绍",
+                "banner.title":"珠宝源头工厂",
+                "banner.desc":"爱是一场从初见走到余生的漫长旅程\n专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货\nIGI官方证书、腰码一一对应，支持全复检",
+                "banner.btn":"立即查验证书防伪",
+                "series.title":"六大爱情篇章 · 藏尽一生温柔爱意",
+                "series.desc":"爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。",
+                "s1.name":"初遇之恋",
+                "s1.text":"一眼万年纯粹心动，适合告白、初恋送礼。",
+                "s2.name":"热恋之恋",
+                "s2.text":"双向奔赴的热烈甜蜜，情侣纪念日专用。",
+                "s3.name":"承诺之恋",
+                "s3.text":"共度余生的郑重约定，适配求婚、订婚。",
+                "s4.name":"笃定真爱",
+                "s4.text":"磨合过后不离不弃，适合稳定情侣、婚后馈赠。",
+                "s5.name":"永恒相守",
+                "s5.text":"柴米烟火朝夕相伴，结婚周年纪念首选。",
+                "s6.name":"余生纪念",
+                "s6.text":"封存半生爱意，高端典藏、人生重大纪念。",
+                "product.title":"三大核心珠宝货源系列",
+                "p1.title":"IGI认证培育钻石",
+                "p1.text":"HPHT/CVD双工艺，0.5-2克拉VVS高色钻，腰码证书一一匹配，官网可查。",
+                "p2.title":"八心八箭高闪莫桑石",
+                "p2.text":"高通透火彩足，平价零售爆款，批量拿货价格优势大。",
+                "p3.title":"S925加厚钯底银托",
+                "p3.text":"加厚镀层不易氧化，适配所有钻石镶嵌，支持定制刻字。",
+                "check.title":"GemPop 证书防伪查验系统",
+                "check.desc":"输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数",
+                "check.btn":"查询核验",
+                "check.tip":"扫描吊牌防伪二维码可快速查询珠宝档案",
+                "about.title":"关于 GEM POP",
+                "about.text":"GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。"
+            },
+            en:{
+                "nav.home":"Home",
+                "nav.series":"Love Series",
+                "nav.product":"Products",
+                "nav.check":"Cert Check",
+                "nav.about":"About Us",
+                "banner.title":"Jewelry Factory",
+                "banner.desc":"Love is a journey from first sight to lifetime companionship\nWholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting\nIGI official certificate with laser inscription, support full re-inspection",
+                "banner.btn":"Check Certificate Now",
+                "series.title":"6 Love Collections · All Lifelong Romance",
+                "series.desc":"Love is a complete journey. GEM POP condenses full life romance into six jewelry collections.",
+                "s1.name":"First Sight Love",
+                "s1.text":"Pure love at first sight, perfect for confession gift.",
+                "s2.name":"Passionate Love",
+                "s2.text":"Hot sweet romance, ideal for couple anniversary.",
+                "s3.name":"Promise Love",
+                "s3.text":"Lifelong commitment, designed for proposal & engagement.",
+                "s4.name":"True Love",
+                "s4.text":"Mature steady love for long-term lovers & married couples.",
+                "s5.name":"Eternal Love",
+                "s5.text":"Daily lifelong companionship, best for wedding anniversary.",
+                "s6.name":"Memory Love",
+                "s6.text":"High-end collection for important life memory.",
+                "product.title":"3 Core Jewelry Wholesale Lines",
+                "p1.title":"IGI Certified Lab Diamond",
+                "p1.text":"HPHT & CVD lab diamond 0.5-2ct VVS grade, laser code match certificate, official verifiable.",
+                "p2.title":"Hearts & Arrows Moissanite",
+                "p2.text":"High brilliant fire, hot retail item with competitive wholesale price.",
+                "p3.title":"S925 Thick Palladium Silver Setting",
+                "p3.text":"Anti-tarnish thick plating, fit all gemstone, custom logo engraving available.",
+                "check.title":"GemPop Certificate Anti-Counterfeit Check System",
+                "check.desc":"Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info",
+                "check.btn":"Search & Verify",
+                "check.tip":"Scan QR code on hang tag for fast record check",
+                "about.title":"About GEM POP",
+                "about.text":"Original jewelry factory for cross-border supply, own inlay workshop, all goods support offline re-inspection with complete certificates & anti-counterfeit labels."
+            }
+        };
+        let currentLang = "bm"; // 默认马来文
+
+        // 页面渲染语言文字
+        function renderText(lang){
+            currentLang = lang;
+            document.querySelectorAll("[data-i18n]").forEach(el=>{
+                const key = el.getAttribute("data-i18n");
+                el.innerText = i18nDict[lang][key];
+            })
+            document.documentElement.lang = lang;
+        }
+        // 初始化默认马来文
+        renderText("bm");
+        // 切换语言按钮
         const langBtns = document.querySelectorAll('.lang-btn');
-        htmlRoot.setAttribute('data-lang','cn');
         langBtns.forEach(btn=>{
             btn.addEventListener('click',function(){
                 const targetLang = this.getAttribute('data-lang');
-                htmlRoot.setAttribute('data-lang', targetLang);
+                renderText(targetLang);
             })
         })
 
-        // ========== 彻底修复汉堡菜单点击失效BUG ==========
+        // ========== 修复汉堡菜单点击BUG ==========
         const openBtn = document.getElementById('openMenu');
         const closeBtn = document.getElementById('closeMenu');
         const sideBar = document.getElementById('sideBar');
         const mask = document.getElementById('maskLayer');
-
         function closeSide(){
             sideBar.classList.remove('open');
             mask.classList.remove('show');
             document.body.style.overflow = '';
         }
-        // 打开侧边栏
         openBtn.addEventListener('click', function(e){
             e.stopPropagation();
             sideBar.classList.add('open');
             mask.classList.add('show');
             document.body.style.overflow = 'hidden';
         })
-        // 关闭侧边栏
         closeBtn.addEventListener('click', closeSide);
         mask.addEventListener('click', closeSide);
-        // 点击侧边栏内链接自动关闭
         const navLinks = sideBar.querySelectorAll('a');
         navLinks.forEach(item => {
             item.addEventListener('click', closeSide)
         })
 
-        // ========== 外置data.json读取逻辑（不变） ==========
+        // ========== 读取外置data.json（数据格式不变，直接沿用你旧数据） ==========
         let gemPopDatabase = [];
         fetch("data.json")
         .then(res => res.json())
@@ -551,41 +587,38 @@
             console.error("读取json失败：", err);
         });
 
-        // ========== 证书查询逻辑（支持JP/IGI，自动去空格、大小写兼容） ==========
+        // ========== 证书查询逻辑 ==========
         const inputEl = document.getElementById('certInput');
         const searchBtn = document.getElementById('searchBtn');
         const resultBox = document.getElementById('resultBox');
         const resultTitle = document.getElementById('resultTitle');
         const resultContent = document.getElementById('resultContent');
-
         function searchCert(){
             resultBox.classList.remove('show');
             let inputVal = inputEl.value.trim().toUpperCase();
             if(!inputVal){
-                const tipCN = "请输入证书编号或钻石腰码";
-                const tipEN = "Please input certificate ID or laser code";
-                const tipBM = "Sila masuk ID sijil atau kod laser";
-                const currLang = htmlRoot.getAttribute('data-lang');
-                resultTitle.innerText = currLang==="cn"?tipCN:currLang==="en"?tipEN:tipBM;
+                let tip;
+                if(currentLang === "bm") tip = "Sila masuk ID sijil atau kod laser";
+                else if(currentLang === "cn") tip = "请输入证书编号或钻石腰码";
+                else tip = "Please input certificate ID or laser code";
+                resultTitle.innerText = tip;
                 resultContent.innerText = "";
                 resultBox.classList.add('show');
                 return;
             }
-            // 匹配证书号/腰码
             const matchItem = gemPopDatabase.find(item=>{
                 return item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal;
             })
             if(!matchItem){
-                const tipCN = "未查询到对应钻石档案，请核对编号";
-                const tipEN = "No matching diamond record found, please check ID";
-                const tipBM = "Tiada rekod berlian dijumpai, sila semak ID";
-                const currLang = htmlRoot.getAttribute('data-lang');
-                resultTitle.innerText = currLang==="cn"?tipCN:currLang==="en"?tipEN:tipBM;
+                let tip;
+                if(currentLang === "bm") tip = "Tiada rekod berlian dijumpai, sila semak ID";
+                else if(currentLang === "cn") tip = "未查询到对应钻石档案，请核对编号";
+                else tip = "No matching diamond record found, please check ID";
+                resultTitle.innerText = tip;
                 resultContent.innerText = "";
                 resultBox.classList.add('show');
                 return;
             }
-            // 输出查询结果
             resultTitle.innerText = "✅ Match Success";
             resultContent.innerHTML = `
             <p>Cert ID: ${matchItem.certId}</p>
