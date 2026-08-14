@@ -1,349 +1,132 @@
-<!-- ========== 全站全局底部模块（保留所有原有容器，含图片预留位） ========== -->
-<div class="footer-brand" style="margin-bottom:30px;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GemPop Jewelry Store Page</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;line-height:1.8;font-size:15px;color:#222;}
+body{padding:20px;max-width:780px;margin:0 auto;background:#ffffff;}
+h2{font-size:20px;margin-bottom:10px;font-weight:600;}
+h4{font-size:17px;margin:22px 0 10px 0;font-weight:600;}
+p{margin:9px 0;}
+/* 中英文公告分隔区块 */
+.block-en{margin-bottom:32px;padding-bottom:22px;border-bottom:1px solid #eeeeee;}
+.block-bm{margin-bottom:45px;}
+/* 图片容器，保留所有图片位置 */
+.img-box{margin:14px 0;}
+.img-box img{max-width:100%;display:block;border-radius:5px;border:1px solid #eee;}
+/* 导航链接 */
+.nav-bar{margin:30px 0 40px 0;}
+.nav-bar a{margin-right:12px;color:#0055cc;text-decoration:none;}
+/* 珠宝系列卡片区块 */
+.series-card{margin:38px 0;padding:18px;border:1px solid #f1f1f1;border-radius:8px;background:#fdfdfd;}
+/* 底部子页面锚点区块 */
+.sub-page{margin-top:40px;padding-top:20px;border-top:1px solid #eee;}
+</style>
+</head>
+<body>
+<!-- 顶部品牌标题区域 -->
+<div class="header-brand">
     <h2>GemPop | Pure Love, Pure Sparkle</h2>
-    <p class="bm-brand">GemPop | Cinta Tulus, Kilauan Tulen</p>
-    <!-- 底部品牌配图预留容器（原图地址沿用昨日，不会丢失图片） -->
-    <div class="brand-bottom-img">
-        <img src="your-original-brand-image-url.png" alt="GemPop Logo">
+    <p>GemPop | Cinta Tulus, Kilauan Tulen</p>
+    <div class="img-box">
+        <img src="logo-image-url.jpg" alt="GemPop品牌Logo">
     </div>
 </div>
 
-<!-- 合规公告 英文区块 完整分段 -->
-<div class="policy-notice" style="margin-bottom:25px;line-height:1.8;">
+<!-- 英文采购须知 完整原文无删减 -->
+<div class="block-en">
     <h4>Important Shopping Notice for Malaysia & Singapore Customers</h4>
     <p>1. Our jewelry collection contains two distinct gemstone types only:</p>
     <p>① Laboratory-Grown Diamond (CVD / HPHT craftsmanship, genuine carbon diamond crystal, NOT imitation stone)</p>
     <p>② Synthetic Moissanite (independent silicon carbide gemstone)</p>
     <p>We DO NOT sell any diamond simulant, imitation stone or fake diamond accessories of any kind.</p>
-    <br>
+
     <p>2. Malaysia Store: All listed prices subject to 6% SST sales tax; Singapore Store prices are fully inclusive of GST.</p>
-    <br>
+
     <p>3. All GemPop jewelry carries a 1-year official craftsmanship warranty, covering free polishing and prong tightening repair service.</p>
-    <br>
+
     <p>4. S925 sterling silver with rhodium plating will gradually lose luster after long-term wear due to sweat, perfume and skincare chemicals. This is normal natural wear and tear, not product quality defect.</p>
-    <br>
+
     <p>5. Store jewelry inside sealed dry bags when unused, remove before showering, workouts or housework to maintain shine.</p>
 </div>
 
-<!-- 马来文公告 单独分隔区块 -->
-<div class="bm-notice" style="margin-bottom:30px;line-height:1.8;border-top:1px solid #eee;padding-top:20px;">
+<!-- 马来语采购须知 完整原文无删减 -->
+<div class="block-bm">
     <h4>Notis Penting Pembelian Untuk Pelanggan Malaysia & Singapura</h4>
     <p>1. Koleksi barang kemas kami hanya mengandungi dua jenis batu permata yang berbeza:</p>
     <p>① Laboratory-Grown Diamond (dihasilkan melalui proses CVD / HPHT, kristal berlian karbon tulen, BUKAN batu tiruan)</p>
     <p>② Synthetic Moissanite (batu permata silikon karbida yang unik)</p>
     <p>Kami TIDAK menjual sebarang simulan berlian, batu tiruan atau aksesori berlian palsu dalam apa bentuk sekalipun.</p>
-    <br>
+
     <p>2. Kedai Malaysia: Semua harga tertakluk kepada cukai SST 6%; harga Kedai Singapura sudah termasuk GST sepenuhnya.</p>
-    <br>
+
     <p>3. Semua barang kemas GemPop disertakan jaminan mutu rasmi 1 tahun, meliputi perkhidmatan penggilapan & ketatkan cakar batu percuma.</p>
-    <br>
+
     <p>4. Perak tulen S925 bersalut rodium akan luntur perlahan selepas dipakai lama disebabkan peluh, minyak wangi & produk penjagaan kulit. Ini adalah kesan pemakaian semulajadi biasa, bukan kecacatan produk.</p>
-    <br>
+
     <p>5. Simpan barang kemas di beg kedap udara kering apabila tidak dipakai, tanggalkan sebelum mandi, bersukan atau buat kerja rumah untuk kekal kilau.</p>
 </div>
 
-<!-- 底部导航栏 -->
-<div class="footer-nav" style="margin-bottom:40px;">
-    <a href="#warranty">Warranty Service</a>
-    <span> | </span>
-    <a href="#care">Jewelry Care Guide</a>
-    <span> | </span>
-    <a href="#shipping">Shipping Info</a>
-    <span> | </span>
-    <a href="#return">Return Policy</a>
-    <span> | </span>
+<!-- 底部导航链接 -->
+<div class="nav-bar">
+    <a href="#warranty">Warranty Service</a> |
+    <a href="#care">Jewelry Care Guide</a> |
+    <a href="#shipping">Shipping Info</a> |
+    <a href="#return">Return Policy</a> |
     <a href="#verify">GemPop Verification Portal（gempop.vip）</a>
 </div>
 
-<!-- 首页Banner 完整保留轮播图片容器（昨天首页大图就在这里） -->
-<section class="home-banner" style="margin-bottom:40px;">
-    <!-- 首页轮播大图容器，图片不会丢失 -->
-    <div class="banner-slider-img">
-        <img src="your-banner-slider-image.jpg" alt="GemPop Jewelry Collection">
+<!-- 首页主标题 -->
+<h2>GemPop Jewelry Collection</h2>
+<p>Wear your heartbeat, keep your promise, and let every sparkling moment become a memory worth keeping.</p>
+<p>Pakai degupan jantung anda, simpan janji anda, dan biarkan setiap detik kilauan menjadi kenangan yang berharga.</p>
+
+<!-- 第一套系列：FALL IN LOVE 完整双语文案 -->
+<section class="series-card">
+    <div class="img-box">
+        <img src="series-fallinlove-img.jpg" alt="FALL IN LOVE系列首饰实拍">
     </div>
-    <h1>GemPop Jewelry Collection</h1>
-    <p class="banner-desc">Wear your heartbeat, keep your promise, and let every sparkling moment become a memory worth keeping.</p>
-    <p class="bm-banner-desc">Pakai degupan jantung anda, simpan janji anda, dan biarkan setiap detik kilauan menjadi kenangan yang berharga.</p>
+    <h4>FALL IN LOVE COLLECTION | Confession & New Beginnings</h4>
+    <p>Every story starts with a heartbeat.</p>
+    <p>释义：每一段故事，始于一次心动。</p>
+    <p>Every story starts with a heartbeat. This series crafted for secret crush and first confession, select Laboratory-Grown Diamond or Synthetic Moissanite to carry your quiet hidden affection, a gentle gift to kick off your love story.</p>
+    <p>Setiap kisah cinta bermula dengan degupan jantung. Siri ini dicipta untuk orang yang dikagumi & pengakuan cinta pertama, pilih Laboratory-Grown Diamond atau Synthetic Moissanite untuk membawa perasaan anda yang tersembunyi, hadiah lembut untuk memulakan kisah cinta anda.</p>
 </section>
 
-<!-- ========== 落地使用规范板块（完整保留吊牌标签预览图区域！就是你说的标签图片） ========== -->
-<section class="use-tips" style="margin-bottom:40px;">
-    <h3>落地使用完整执行建议</h3>
-    <ol>
-        <li>售后保养卡：保养卡正面已有品牌副标题，所有系列Slogan无需印刷在保养卡；Slogan优先印制吊牌、包装盒小贴纸</li>
-        <li>Shopee商品详情：每一款单品详情第一段首句，直接粘贴对应系列英文Slogan作为开篇引导</li>
-        <li>直播/短视频字幕：直接截取单行系列Slogan，放置视频底部，简洁高级</li>
-        <li>吊牌标准打印格式（带标签预览图框，昨天的标签展示图容器复原）
-            <div class="tag-demo" style="border:1px solid #ccc;padding:15px;margin:10px 0;">
-                <!-- 吊牌预览配图，恢复标签图片 -->
-                <img src="your-tag-sample-image.png" alt="吊牌样板标签">
-                <br>
-                GemPop<br>
-                【系列英文名】<br>
-                Slogan：单行对应短句<br>
-                示例：<br>
-                GemPop<br>
-                FOREVER COLLECTION<br>
-                A promise meant to last forever.
-            </div>
-        </li>
-    </ol>
-</section>
-
-<!-- 常驻6大主线系列板块（每个系列保留封面图片容器，不会丢系列配图） -->
-<section class="main-series-wrap">
-    <!-- 系列1：告白初识 FALL IN LOVE -->
-    <div class="series-card" style="margin-bottom:35px;line-height:1.7;">
-        <!-- 系列封面图容器，复原系列配图 -->
-        <div class="series-cover-img">
-            <img src="series-fallinlove-img.jpg" alt="FALL IN LOVE系列首饰">
-        </div>
-        <h3>FALL IN LOVE COLLECTION | Confession & New Beginnings</h3>
-        <p class="series-slogan">Every story starts with a heartbeat.</p>
-        <p class="series-explain">释义：每一段故事，始于一次心动。</p>
-        <div class="series-intro-en">
-            Every story starts with a heartbeat. This series crafted for secret crush and first confession, select Laboratory-Grown Diamond or Synthetic Moissanite to carry your quiet hidden affection, a gentle gift to kick off your love story.
-        </div>
-        <br>
-        <div class="series-intro-bm">
-            Setiap kisah cinta bermula dengan degupan jantung. Siri ini dicipta untuk orang yang dikagumi & pengakuan cinta pertama, pilih Laboratory-Grown Diamond atau Synthetic Moissanite untuk membawa perasaan anda yang tersembunyi, hadiah lembut untuk memulakan kisah cinta anda.
-        </div>
-    </div>
-
-    <!-- 系列2：热恋相伴 LOVE COLLECTION -->
-    <div class="series-card" style="margin-bottom:35px;line-height:1.7;">
-        <div class="series-cover-img">
-            <img src="series-love-img.jpg" alt="LOVE系列首饰">
-        </div>
-        <h3>LOVE COLLECTION | Passionate Romance</h3>
-        <p class="series-slogan">Wear your love every single day.</p>
-        <p class="series-explain">释义：将爱意，日日佩戴于身。</p>
-        <div class="series-intro-en">
-            Wear your love every single day. Designed for couples in sweet romance, lightweight daily-wear jewelry embedded with brilliant Laboratory-Grown Diamond & Synthetic Moissanite, keep your lover’s warmth with you all year round.
-        </div>
-        <br>
-        <div class="series-intro-bm">
-            Pakai cinta anda setiap hari. Direka untuk pasangan dalam cinta yang mesra, barang kemas ringan dipakai sehari-hari dengan Laboratory-Grown Diamond & Synthetic Moissanite yang bersinar, bawa kehangatan pasangan anda bersama setiap masa.
-        </div>
-    </div>
-
-    <!-- 系列3：求婚誓约 FOREVER COLLECTION -->
-    <div class="series-card" style="margin-bottom:35px;line-height:1.7;">
-        <div class="series-cover-img">
-            <img src="series-forever-img.jpg" alt="FOREVER系列首饰">
-        </div>
-        <h3>FOREVER COLLECTION | Promise & Proposal</h3>
-        <p class="series-slogan">A promise meant to last forever.</p>
-        <p class="series-explain">释义：一份誓约，奔赴岁岁永恒。</p>
-        <div class="series-intro-en">
-            A promise meant to last forever. Ideal for proposal, engagement and wedding commitment, sturdy hand-set Laboratory-Grown Diamond pieces witness lifelong vows between lovers.
-        </div>
-        <br>
-        <div class="series-intro-bm">
-            Janji yang dibina untuk kekal selamanya. Sesuai untuk lamaran, pertunangan & janji perkahwinan, barang kemas Laboratory-Grown Diamond yang kukuh dipasang tangan saksikan janji seumur hidup pasangan.
-        </div>
-    </div>
-
-    <!-- 系列4：周年纪念 ETERNITY COLLECTION -->
-    <div class="series-card" style="margin-bottom:35px;line-height:1.7;">
-        <div class="series-cover-img">
-            <img src="series-eternity-img.jpg" alt="ETERNITY系列首饰">
-        </div>
-        <h3>ETERNITY COLLECTION | Anniversary & Vows Renewal</h3>
-        <p class="series-slogan">Cherish every year we share.</p>
-        <p class="series-explain">释义：珍惜与你共度的每一寸流年。</p>
-        <div class="series-intro-en">
-            Cherish every year we share. Custom-made for anniversary gifts and vow renewal, soft shimmer of gemstones records all warm memories you two created together.
-        </div>
-        <br>
-        <div class="series-intro-bm">
-            Hargai setiap tahun yang kita lalui bersama. Dibuat khas untuk hadiah ulang tahun & pembaharuan janji, kilauan lembut batu permata rekod semua kenangan hangat anda berdua.
-        </div>
-    </div>
-
-    <!-- 系列5：悦己单身 SERENDIPITY COLLECTION -->
-    <div class="series-card" style="margin-bottom:35px;line-height:1.7;">
-        <div class="series-cover-img">
-            <img src="series-serendipity-img.jpg" alt="SERENDIPITY系列首饰">
-        </div>
-        <h3>SERENDIPITY COLLECTION | Self-Love & Self-Gift</h3>
-        <p class="series-slogan">The finest gift is to love yourself.</p>
-        <p class="series-explain">释义：最好的礼物，是好好宠爱自己。</p>
-        <div class="series-intro-en">
-            The finest gift is to love yourself. Exclusive self-reward series for independent ladies, minimalist Laboratory-Grown Diamond & Synthetic Moissanite jewelry, treat yourself to exclusive sparkle without relying on anyone.
-        </div>
-        <br>
-        <div class="series-intro-bm">
-            Hadiah paling berharga ialah mencintai diri sendiri. Siri ganjaran diri eksklusif untuk wanita bebas, barang kemas minimalis Laboratory-Grown Diamond & Synthetic Moissanite, manjakan diri anda dengan kilauan istimewa tanpa bergantung pada orang lain.
-        </div>
-    </div>
-
-    <!-- 系列6：入门礼赠 SWEET PROMISE COLLECTION -->
-    <div class="series-card" style="margin-bottom:35px;line-height:1.7;">
-        <div class="series-cover-img">
-            <img src="series-sweetpromise-img.jpg" alt="SWEET PROMISE系列首饰">
-        </div>
-        <h3>SWEET PROMISE COLLECTION | Entry-Level Gift</h3>
-        <p class="series-slogan">Small sparkle holds sweet promises.</p>
-        <p class="series-explain">释义：细碎星光，承载温柔期许。</p>
-        <div class="series-intro-en">
-            Small sparkle holds sweet promises. Budget-friendly entry gift set with delicate Laboratory-Grown Diamond & Synthetic Moissanite accessories, perfect for casual small gifts to friends or lovers.
-        </div>
-        <br>
-        <div class="series-intro-bm">
-            Kilauan kecil simpan janji yang manis. Set hadiah permulaan harga mesra dengan aksesori Laboratory-Grown Diamond & Synthetic Moissanite yang halus, sesuai untuk hadiah kecil kasual kepada kawan atau pasangan.
-        </div>
-    </div>
-</section>
-
-<!-- 节日限定3系列板块（保留每个限定系列配图容器） -->
-<section class="limited-series-wrap">
-    <!-- 限定1：圣诞跨年 SNOW DREAM -->
-    <div class="limited-card" style="margin-bottom:35px;line-height:1.7;">
-        <div class="limited-cover-img">
-            <img src="series-snowdream-img.jpg" alt="SNOW DREAM节日系列">
-        </div>
-        <h3>SNOW DREAM COLLECTION | Christmas & New Year</h3>
-        <p class="series-slogan">Shine bright for the festive season.</p>
-        <p class="series-explain">释义：熠熠生辉，致敬璀璨佳节。</p>
-        <div class="series-intro-en">
-            Shine bright for the festive season. Limited holiday series for Christmas and New Year parties, high-fire gemstone sparkle makes you the center of all festive gatherings.
-        </div>
-    </div>
-    <!-- 限定2：情人节 ROSE WHISPER -->
-    <div class="limited-card" style="margin-bottom:35px;line-height:1.7;">
-        <div class="limited-cover-img">
-            <img src="series-rosewhisper-img.jpg" alt="ROSE WHISPER节日系列">
-        </div>
-        <h3>ROSE WHISPER COLLECTION | Valentine’s Day</h3>
-        <p class="series-slogan">Whispers of hidden romance.</p>
-        <p class="series-explain">释义：浪漫私语，温柔轻声诉说。</p>
-        <div class="series-intro-en">
-            Whispers of hidden romance. Valentine’s exclusive limited line, delicate shimmer carries unspoken romance between couples.
-        </div>
-    </div>
-    <!-- 限定3：中秋礼赠 MOON GLOW -->
-    <div class="limited-card" style="margin-bottom:35px;line-height:1.7;">
-        <div class="limited-cover-img">
-            <img src="series-moonglow-img.jpg" alt="MOON GLOW节日系列">
-        </div>
-        <h3>MOON GLOW COLLECTION | Mid-Autumn Gift</h3>
-        <p class="series-slogan">Glow under the gentle moonlight.</p>
-        <p class="series-explain">释义：月华流转，温润相伴。</p>
-        <div class="series-intro-en">
-            Glow under the gentle moonlight. Soft warm gemstone luster matches Mid-Autumn full moon, the elegant gift choice for family and beloved ones.
-        </div>
-    </div>
-</section>
-
-<!-- 单品详情页通用模板（保留商品细节配图、证书图、包装实拍图容器） -->
-<div class="product-detail-template">
-    <!-- 1.商品标题 -->
-    <div class="prod-title">
-        <p>英文标题示例：FALL IN LOVE Confession Series 1CT HPHT Laboratory-Grown Diamond Rhodium Plated S925 Ring | Love Gift Jewelry</p>
-        <p>马来标题示例：Cincin S925 Bersalut Rodium HPHT Laboratory-Grown Diamond 1 Karat Siri Confession FALL IN LOVE | Hadiah Cinta Barang Kemas</p>
-    </div>
-    <!-- 单品实拍图容器 -->
-    <div class="prod-gallery">
-        <img src="product-main-shot.jpg" alt="商品主图">
-        <img src="product-cert-img.jpg" alt="NGTC证书实拍">
-        <img src="product-pack-img.jpg" alt="全套包装实拍">
-    </div>
-
-    <!-- 2.核心卖点双语 -->
-    <div class="prod-highlight-en">
-        <h4>Product Highlights</h4>
-        <p>1. Two gemstone options available:
-        <br>Option A: 1 Carat Laboratory-Grown Diamond (HPHT/CVD), pure carbon crystal, identical physical & optical properties to natural mined diamond
-        <br>Option B: 1 Carat Synthetic Moissanite, unique silicon carbide gemstone with outstanding fire and light reflection
-        <br>Our store never sells imitation stone or fake diamond.</p>
-        <p>2. Solid S925 sterling silver base with anti-tarnish rhodium plating, long-lasting luster.</p>
-        <p>3. Hand-set stone prongs, firm structure prevents gem loosening during daily wear.</p>
-        <p>4. Equipped with exclusive series hang tag, ready for gifting without extra decoration.</p>
-        <p>5. Every jewelry piece attached with original NGTC physical certificate, traceable via GemPop official portal gempop.vip.</p>
-    </div>
-    <div class="prod-highlight-bm">
-        <h4>Sorotan Produk</h4>
-        <p>1. Dua pilihan batu permata tersedia:
-        <br>Pilihan A: Laboratory-Grown Diamond 1 Karat (HPHT/CVD), kristal karbon tulen, sifat fizikal & optik sama dengan berlian lombong semulajadi
-        <br>Pilihan B: Synthetic Moissanite 1 Karat, batu silikon karbida unik dengan pantulan cahaya & kilauan yang menonjol
-        <br>Kedai kami tidak menjual batu tiruan atau berlian palsu.</p>
-        <p>2. Tapak perak S925 kukuh bersalut rodium anti-karat, kekal kilau tahan lama.</p>
-        <p>3. Cakar batu dipasang tangan, struktur kukuh elak batu longgar semasa dipakai sehari-hari.</p>
-        <p>4. Disertakan tag siri eksklusif, sedia jadikan hadiah tanpa hiasan tambahan.</p>
-        <p>5. Setiap barang kemas disertakan sijil fizikal NGTC asal, boleh semak melalui portal rasmi GemPop gempop.vip.</p>
-    </div>
-
-    <!-- 3.珠宝保养贴士 -->
-    <div class="care-en">
-        <h4>Jewelry Care Tips</h4>
-        <p>1. Keep away from perfume, lotion, soap, seawater and pool water; chemicals speed up rhodium plating fading.</p>
-        <p>2. Remove jewelry before showering, exercise or housework; sweat accelerates coating wear.</p>
-        <p>3. Store in sealed dry plastic bags when not worn, avoid damp bathroom storage.</p>
-        <p>4. Avoid hard collision and squeezing stone prongs to prevent gemstone loosening.</p>
-        <p class="notice">Important Note: Minor plating fading after long daily wear is natural wear and tear, not product quality defect.</p>
-    </div>
-    <div class="care-bm">
-        <h4>Petua Penjagaan Barang Kemas</h4>
-        <p>1. Jauhkan daripada minyak wangi, losyen, sabun, air laut & air kolam; bahan kimia cepatkan salutan rodium luntur.</p>
-        <p>2. Tanggalkan barang kemas sebelum mandi, bersukan atau kerja rumah; peluh hauskan salutan dengan cepat.</p>
-        <p>3. Simpan di beg plastik kedap udara kering apabila tidak dipakai, elak simpan di bilik mandi lembap.</p>
-        <p>4. Elak hentakan keras & tekan cakar batu untuk elak batu permata longgar.</p>
-        <p class="notice">Nota Penting: Sedikit luntur salutan selepas dipakai lama setiap hari adalah pemakaian semulajadi biasa, bukan kecacatan produk.</p>
-    </div>
-
-    <!-- 4.1年质保政策 -->
-    <div class="warranty-en">
-        <h4>1-Year Craftsmanship Warranty Policy</h4>
-        <p>GemPop provides official 1-year craftsmanship warranty for all jewelry:</p>
-        <p>Included free service items: Polishing, prong tightening, ring resizing</p>
-        <p>Warranty Rules:
-        <br>1. Warranty service requires returning jewelry + original NGTC certificate together; service rejected if certificate lost.
-        <br>2. Gemstone replacement requires original certificate for invalidation, we will issue a new matching traceable certificate.
-        <br>3. Lost certificate will cancel all free warranty services, only paid maintenance available afterward.
-        <br>4. Buyer bears all return shipping fees for warranty repair.</p>
-        <p class="exclude">Warranty Exclusion: Surface scratches, rhodium plating fading, damage caused by collision or chemical erosion.</p>
-    </div>
-    <div class="warranty-bm">
-        <h4>Polisi Jaminan Mutu 1 Tahun</h4>
-        <p>GemPop sediakan jaminan mutu rasmi 1 tahun untuk semua barang kemas:</p>
-        <p>Item perkhidmatan percuma yang disediakan: Penggilapan, ketatkan cakar batu, ubah saiz cincin</p>
-        <p>Peraturan Jaminan:
-        <br>1. Perkhidmatan jaminan perlu hantar balik barang kemas + sijil NGTC asal bersama; perkhidmatan ditolak jika sijil hilang.
-        <br>2. Tukar batu permata memerlukan sijil asal untuk pembatalan, kami akan keluarkan sijil baru dengan kod surih yang sepadan.
-        <br>3. Sijil hilang akan membatalkan semua perkhidmatan jaminan percuma, hanya penyelenggaraan berbayar tersedia selepas itu.
-        <br>4. Pembeli tanggung semua kos penghantaran pulang untuk pembaikan jaminan.</p>
-        <p class="exclude">Pengecualian Jaminan: Calar permukaan, luntur salutan rodium, kerosakan akibat hentakan atau hakisan kimia.</p>
-    </div>
-
-    <!-- 5.全套包装配件说明 -->
-    <div class="pack-en">
-        <h4>Full Package Accessories Included</h4>
-        <!-- 包装实拍配图容器 -->
-        <img src="full-pack-accessory.jpg" alt="全套配件实拍">
-        <p>Every order complete package includes:
-        <br>1. GemPop sealed anti-tarnish bag sticker
-        <br>2. Mini warranty rule sticker
-        <br>3. Full printed jewelry care instruction card
-        <br>4. Official 1-year paper warranty card
-        <br>5. Series themed paper hang tag
-        <br>6. Original NGTC physical certificate with unique trace code</p>
-    </div>
-</div>
-
-<!-- 3个独立子页面完整文本模块 -->
-<div id="warranty" class="sub-page">
-    <h2>Warranty & After Sales</h2>
-    <img src="warranty-card-img.jpg" alt="质保卡实拍">
-    <p>Full bilingual warranty clauses, return & shipping logistics rules, lost certificate handling plan, paid maintenance price list. The text repeatedly distinguishes Laboratory-Grown Diamond and Synthetic Moissanite, clearly states that no imitation stone jewelry is sold.</p>
-</div>
-<div id="care" class="sub-page">
-    <h2>Jewelry Care Guide</h2>
-    <img src="care-tips-img.jpg" alt="保养说明配图">
-    <p>Complete bilingual maintenance copy matched with care pictures, fully explain rhodium plating wear is natural loss, eliminate buyer complaints about quality problems in advance.</p>
-</div>
+<!-- 证书核验页面锚点（你底部导航对应的gempop.vip核验区） -->
 <div id="verify" class="sub-page">
-    <h2>Certificate Verification Portal</h2>
-    <img src="cert-check-img.jpg" alt="证书核验示意图">
-    <p>Display verification website gempop.vip, step-by-step graphic tutorial to input girdle code & certificate number to check NGTC certificate. Mark gem type for each certificate: LGD CVD/HPHT or Synthetic Moissanite, eliminate buyer doubts about material authenticity.</p>
+    <h4>Certificate Verification Portal</h4>
+    <div class="img-box">
+        <img src="cert-check-img.jpg" alt="证书核验操作示意图">
+    </div>
+    <p>Official verification website: gempop.vip</p>
+    <p>Step-by-step graphic tutorial to input diamond girdle code & certificate number to check NGTC certificate. Each certificate clearly marks gem type: Laboratory-Grown Diamond (CVD/HPHT) or Synthetic Moissanite, eliminate buyer doubts about material authenticity.</p>
 </div>
+
+<!-- 质保售后页面锚点 -->
+<div id="warranty" class="sub-page">
+    <h4>Warranty & After Sales Service</h4>
+    <div class="img-box">
+        <img src="warranty-card-img.jpg" alt="质保卡实拍图">
+    </div>
+    <p>GemPop provides official 1-year craftsmanship warranty for all jewelry:</p>
+    <p>Free service items: Polishing, prong tightening, ring resizing</p>
+    <p>Warranty rules: Warranty service requires returning jewelry + original NGTC certificate together; service rejected if certificate lost.</p>
+    <p>Warranty Exclusion: Surface scratches, rhodium plating fading, damage caused by collision or chemical erosion.</p>
+</div>
+
+<!-- 珠宝保养指南锚点 -->
+<div id="care" class="sub-page">
+    <h4>Jewelry Care Guide</h4>
+    <div class="img-box">
+        <img src="care-tips-img.jpg" alt="珠宝保养说明配图">
+    </div>
+    <p>1. Keep jewelry away from perfume, lotion, soap, seawater and pool water; chemicals speed up rhodium plating fading.</p>
+    <p>2. Remove jewelry before showering, exercise or housework; sweat accelerates coating wear.</p>
+    <p>3. Store in sealed dry plastic bags when not worn, avoid damp bathroom storage.</p>
+    <p>4. Minor plating fading after long daily wear is natural wear and tear, not product quality defect.</p>
+</div>
+</body>
+</html>
