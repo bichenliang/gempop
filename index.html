@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="cn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
             --text-gray: #555;
             --white: #ffffff;
         }
-        /* 多语言文字控制 */
+        /* 多语言：只渲染当前选中语言文字 */
         .lang-cn, .lang-en, .lang-bm {display: none;}
         html[data-lang="cn"] .lang-cn {display: block;}
         html[data-lang="en"] .lang-en {display: block;}
@@ -28,7 +28,7 @@
         html[data-lang="en"] .lang-en-inline {display: inline;}
         html[data-lang="bm"] .lang-bm-inline {display: inline;}
 
-        /* 导航通用 */
+        /* 导航栏 */
         .header-nav {
             background: var(--black);
             padding: 16px 5%;
@@ -70,19 +70,21 @@
             padding:4px 8px;
             cursor:pointer;
         }
-        /* 移动端汉堡按钮 */
+        /* 移动端汉堡按钮（修复点击失效） */
         .hamburger {
             display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
+            z-index: 1001;
         }
         .hamburger span {
             width: 26px;
             height: 2px;
             background: #fff;
+            display:block;
         }
-        /* 移动端侧边折叠合页菜单 */
+        /* 移动端侧边栏 */
         .mobile-sidebar {
             position: fixed;
             top: 0;
@@ -181,7 +183,7 @@
             font-size: 17px;
             color: var(--text-gray);
         }
-        /* 六大爱情系列布局 */
+        /* 爱情系列布局 */
         .love-series-wrap {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -206,7 +208,7 @@
             color: var(--text-gray);
             line-height: 1.8;
         }
-        /* 三大商品板块 */
+        /* 产品板块 */
         .product-wrap {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -266,7 +268,6 @@
             margin-top: 18px;
             color: #666;
         }
-        /* 品牌介绍 */
         .about-text {
             max-width: 920px;
             margin: 0 auto;
@@ -275,7 +276,7 @@
             color: var(--text-gray);
             text-align: center;
         }
-        /* 页脚 */
+        /* 页脚精简版，删除多余文字 */
         footer {
             background: var(--black);
             color: #aaa;
@@ -306,7 +307,7 @@
     <!-- 顶部导航 -->
     <header class="header-nav">
         <div class="logo-text">GEM POP</div>
-        <!-- PC端菜单 -->
+        <!-- PC菜单 -->
         <div class="pc-menu">
             <a href="#home"><span class="lang-cn-inline">首页</span><span class="lang-en-inline">Home</span><span class="lang-bm-inline">Laman Utama</span></a>
             <a href="#loveSeries"><span class="lang-cn-inline">六大爱情系列</span><span class="lang-en-inline">Love Series</span><span class="lang-bm-inline">Siri Cinta</span></a>
@@ -319,7 +320,7 @@
                 <button class="lang-btn" data-lang="bm">BM</button>
             </div>
         </div>
-        <!-- 移动端汉堡按钮 -->
+        <!-- 修复完成的汉堡菜单 -->
         <div class="hamburger" id="openMenu">
             <span></span>
             <span></span>
@@ -327,9 +328,7 @@
         </div>
     </header>
 
-    <!-- 移动端遮罩层 -->
     <div class="mask" id="maskLayer"></div>
-    <!-- 移动端侧边合页折叠菜单 -->
     <div class="mobile-sidebar" id="sideBar">
         <div class="sidebar-close" id="closeMenu">×</div>
         <a href="#home"><span class="lang-cn-inline">首页</span><span class="lang-en-inline">Home</span><span class="lang-bm-inline">Laman Utama</span></a>
@@ -344,25 +343,23 @@
         </div>
     </div>
 
-    <!-- 首屏区域 -->
+    <!-- 首屏 -->
     <section class="banner-box" id="home">
         <h1>GEM POP <span class="lang-cn-inline">珠宝源头工厂</span><span class="lang-en-inline">Jewelry Factory</span><span class="lang-bm-inline">Kilang Barang Kemas</span></h1>
-        <p class="banner-desc">
-            <span class="lang-cn">
-                爱是一场从初见走到余生的漫长旅程<br>
-                专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货<br>
-                IGI官方证书、腰码一一对应，马来西亚Shopee跨境专供，支持全复检
-            </span>
-            <span class="lang-en">
-                Love is a journey from first sight to lifetime companionship<br>
-                Wholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting<br>
-                IGI official certificate with laser inscription, support full re-inspection for MY Shopee
-            </span>
-            <span class="lang-bm">
-                Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup<br>
-                Borong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal<br>
-                Sijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula untuk Shopee Malaysia
-            </span>
+        <p class="banner-desc lang-cn">
+            爱是一场从初见走到余生的漫长旅程<br>
+            专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货<br>
+            IGI官方证书、腰码一一对应，支持全复检
+        </p>
+        <p class="banner-desc lang-en">
+            Love is a journey from first sight to lifetime companionship<br>
+            Wholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting<br>
+            IGI official certificate with laser inscription, support full re-inspection
+        </p>
+        <p class="banner-desc lang-bm">
+            Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup<br>
+            Borong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal<br>
+            Sijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula
         </p>
         <a href="#check" class="banner-btn">
             <span class="lang-cn-inline">立即查验证书防伪</span>
@@ -371,244 +368,141 @@
         </a>
     </section>
 
-    <!-- 六大动情爱情故事系列 -->
+    <!-- 爱情系列 -->
     <section class="section-wrap" id="loveSeries">
-        <h2 class="section-title">
-            <span class="lang-cn-inline">六大爱情篇章 · 藏尽一生温柔爱意</span>
-            <span class="lang-en-inline">6 Love Collections · All Lifelong Romance</span>
-            <span class="lang-bm-inline">6 Koleksi Cinta · Semua Romansa Sepanjang Hayat</span>
-        </h2>
-        <p class="story-text">
-            <span class="lang-cn">
-                爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。
-                从第一眼Falling Love的心动，到Sweet Love的热烈沉溺，从Promise Love的郑重许诺，
-                到True Love的坚定奔赴，再到Eternal Love的岁月相守，最终化作Memory Love的余生珍藏。
-                一枚钻石承载一段时光，一套系列完整一生爱情，所有的爱意，在这里都能找到归属。
-            </span>
-            <span class="lang-en">
-                Love is a complete journey. GEM POP condenses the full life of love into six jewelry collections.
-                From the heartbeat of Falling Love, passionate Sweet Love, solemn Promise Love,
-                steady True Love, timeless Eternal Love, to lifelong Memory Love.
-                Each diamond records precious moments, every collection holds all your love.
-            </span>
-            <span class="lang-bm">
-                Cinta adalah perjalanan lengkap. GEM POP merumuskan seluruh hidup cinta ke enam koleksi barang kemas.
-                Daripada degupan jantung Falling Love, Sweet Love yang penuh gairah, janji Promise Love,
-                True Love yang kukuh, Eternal Love abadi, hingga Memory Love untuk kenangan seumur hidup.
-                Setiap berlian merakam masa berharga, setiap koleksi simpan semua cinta anda.
-            </span>
+        <h2 class="section-title lang-cn">六大爱情篇章 · 藏尽一生温柔爱意</h2>
+        <h2 class="section-title lang-en">6 Love Collections · All Lifelong Romance</h2>
+        <h2 class="section-title lang-bm">6 Koleksi Cinta · Semua Romansa Sepanjang Hayat</h2>
+
+        <p class="story-text lang-cn">
+            爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。
+            从初见心动、热恋、求婚承诺、安稳真爱、岁月相守到余生纪念，一枚钻石承载一段专属时光。
         </p>
+        <p class="story-text lang-en">
+            Love is a complete journey. GEM POP condenses full life romance into six jewelry collections, covering crush, passion, proposal, stable love, lifelong companionship & memory.
+        </p>
+        <p class="story-text lang-bm">
+            Cinta adalah perjalanan lengkap. GEM POP ringkas seluruh fasa cinta ke enam koleksi barang kemas, dari pertemuan, ghairah, lamaran hingga kenangan seumur hidup.
+        </p>
+
         <div class="love-series-wrap">
-            <!-- 系列1 初遇之恋 -->
             <div class="series-card">
                 <h3>Falling Love · <span class="lang-cn-inline">初遇之恋</span><span class="lang-en-inline">First Sight Love</span><span class="lang-bm-inline">Cinta Pertama</span></h3>
-                <p>
-                    <span class="lang-cn">不是日久生情，是一眼万年。世界千万人，偏偏遇见了你。代表人生第一次心跳加速，纯粹懵懂，不带任何世俗压力，只留存初见时猝不及防的心动。适配告白、初恋、暧昧赠礼。</span>
-                    <span class="lang-en">Love at first sight. Thousands of people in the world, only you catch my eye. Pure innocent heartbeat without worldly burden, perfect for confession, first love gift.</span>
-                    <span class="lang-bm">Cinta pada pandangan pertama. Ribuan orang di dunia, hanya awak menarik perhatian saya. Degupan jantung yang tulen tanpa beban duniawi, sesuai untuk hadiah pengakuan cinta dan cinta pertama.</span>
-                </p>
+                <p class="lang-cn">一眼万年纯粹心动，适合告白、初恋送礼。</p>
+                <p class="lang-en">Pure love at first sight, perfect for confession gift.</p>
+                <p class="lang-bm">Cinta tulen pandangan pertama, sesuai hadiah pengakuan cinta.</p>
             </div>
-            <!-- 系列2 热恋之恋 -->
             <div class="series-card">
                 <h3>Sweet Love · <span class="lang-cn-inline">热恋之恋</span><span class="lang-en-inline">Passionate Love</span><span class="lang-bm-inline">Cinta Ghairah</span></h3>
-                <p>
-                    <span class="lang-cn">心动化作明目张胆的偏爱，所有分享欲、温柔与宠溺只交付一人。记录爱情最滚烫鲜活的时光，双向奔赴，沉溺于专属彼此的甜蜜。适合热恋情侣、甜蜜纪念日礼物。</span>
-                    <span class="lang-en">Heartbeat turns into exclusive preference. All tenderness and joy only for each other. Record the hottest sweet time, ideal for couple anniversary gifts.</span>
-                    <span class="lang-bm">Degupan jantung menjadi keutamaan eksklusif. Semua kelembutan dan kegembiraan hanya untuk satu sama lain. Catat masa manis yang paling hangat, sesuai untuk hadiah ulang tahun pasangan.</span>
-                </p>
+                <p class="lang-cn">双向奔赴的热烈甜蜜，情侣纪念日专用。</p>
+                <p class="lang-en">Hot sweet romance, ideal for couple anniversary.</p>
+                <p class="lang-bm">Romansa hangat untuk pasangan, sesuai ulang tahun cinta.</p>
             </div>
-            <!-- 系列3 承诺之恋 -->
             <div class="series-card">
                 <h3>Promise Love · <span class="lang-cn-inline">承诺之恋</span><span class="lang-en-inline">Promise Love</span><span class="lang-bm-inline">Cinta Janji</span></h3>
-                <p>
-                    <span class="lang-cn">爱意越过喜欢，萌生共度余生的期许。无需盛大仪式，一句相伴便是终身契约，是从恋爱走向托付一生的转折点。适配求婚、订婚、确认终身关系。</span>
-                    <span class="lang-en">Love grows into a wish to spend whole life together. No grand ceremony needed, one promise equals lifelong bond. For proposal and engagement.</span>
-                    <span class="lang-bm">Cinta berkembang menjadi keinginan untuk menghabiskan seumur hidup bersama. Tiada majlis besar diperlukan, satu janji sama dengan ikatan seumur hidup. Sesuai untuk lamaran dan pertunangan.</span>
-                </p>
+                <p class="lang-cn">共度余生的郑重约定，适配求婚、订婚。</p>
+                <p class="lang-en">Lifelong commitment, designed for proposal & engagement.</p>
+                <p class="lang-bm">Janji seumur hidup untuk lamaran dan pertunangan.</p>
             </div>
-            <!-- 系列4 笃定真爱 -->
             <div class="series-card">
                 <h3>True Love · <span class="lang-cn-inline">笃定真爱</span><span class="lang-en-inline">True Love</span><span class="lang-bm-inline">Cinta Sejati</span></h3>
-                <p>
-                    <span class="lang-cn">褪去新鲜感与热烈激情，磨合争吵之后依然坚定选择彼此。见过对方所有模样，不离不弃，是成熟安稳、不会走散的长久爱意。适合稳定情侣、婚后深情馈赠。</span>
-                    <span class="lang-en">After passion fades, still choose each other through all quarrels. Mature stable love for married couples and long-term lovers.</span>
-                    <span class="lang-bm">Selepas semangat pudar, masih memilih satu sama lain melalui semua pertengkaran. Cinta yang matang dan stabil untuk pasangan suami isteri dan kekasih jangka panjang.</span>
-                </p>
+                <p class="lang-cn">磨合过后不离不弃，适合稳定情侣、婚后馈赠。</p>
+                <p class="lang-en">Mature steady love for long-term lovers & married couples.</p>
+                <p class="lang-bm">Cinta matang untuk pasangan suami isteri jangka panjang.</p>
             </div>
-            <!-- 系列5 永恒相守 -->
             <div class="series-card">
                 <h3>Eternal Love · <span class="lang-cn-inline">永恒相守</span><span class="lang-en-inline">Eternal Love</span><span class="lang-bm-inline">Cinta Abadi</span></h3>
-                <p>
-                    <span class="lang-cn">轰轰烈烈归于柴米烟火，流年岁月里朝夕相依。激情终会消散，长久的陪伴才是永恒不变的浪漫，诠释婚姻最真实温暖的模样。适配结婚周年、长久相伴纪念。</span>
-                    <span class="lang-en">Passion turns into daily companionship. Long-term stay together is the forever romance, perfect for wedding anniversary.</span>
-                    <span class="lang-bm">Ghairah bertukar kepada persahabatan harian. Bersama selamanya adalah romansa kekal, sesuai untuk ulang tahun perkahwinan.</span>
-                </p>
+                <p class="lang-cn">柴米烟火朝夕相伴，结婚周年纪念首选。</p>
+                <p class="lang-en">Daily lifelong companionship, best for wedding anniversary.</p>
+                <p class="lang-bm">Persahabatan harian untuk ulang tahun perkahwinan.</p>
             </div>
-            <!-- 系列6 余生纪念 -->
             <div class="series-card">
                 <h3>Memory Love · <span class="lang-cn-inline">余生纪念</span><span class="lang-en-inline">Memory Love</span><span class="lang-bm-inline">Cinta Kenangan</span></h3>
-                <p>
-                    <span class="lang-cn">走完青春、热烈、许诺、相守的全部旅程，将半生爱意封存为永恒珍藏。不是故事落幕，而是余生岁岁年年，你依旧是我唯一念想。适合高端典藏、人生重大纪念。</span>
-                    <span class="lang-en">After all stages of love, store half-life affection as eternal treasure. High-end collection for important life memorial.</span>
-                    <span class="lang-bm">Selepas semua fasa cinta, simpan kasih separuh hidup sebagai harta abadi. Koleksi mewah untuk peringatan hidup yang penting.</span>
-                </p>
+                <p class="lang-cn">封存半生爱意，高端典藏、人生重大纪念。</p>
+                <p class="lang-en">High-end collection for important life memory.</p>
+                <p class="lang-bm">Koleksi mewah untuk peringatan penting hidup.</p>
             </div>
         </div>
     </section>
 
-    <!-- 三大主营产品板块 -->
+    <!-- 产品板块 -->
     <section class="section-wrap" id="goods" style="background:var(--gray);">
-        <h2 class="section-title">
-            <span class="lang-cn-inline">三大核心珠宝货源系列</span>
-            <span class="lang-en-inline">3 Core Jewelry Wholesale Lines</span>
-            <span class="lang-bm-inline">3 Barisan Borong Barang Kemas Teras</span>
-        </h2>
+        <h2 class="section-title lang-cn">三大核心珠宝货源系列</h2>
+        <h2 class="section-title lang-en">3 Core Jewelry Wholesale Lines</h2>
+        <h2 class="section-title lang-bm">3 Barisan Borong Barang Kemas Teras</h2>
         <div class="product-wrap">
-            <!-- IGI培育钻 -->
             <div class="product-card">
                 <h3><span class="lang-cn-inline">IGI认证培育钻石</span><span class="lang-en-inline">IGI Certified Lab Diamond</span><span class="lang-bm-inline">Berlian Makmal Bersijil IGI</span></h3>
-                <p>
-                    <span class="lang-cn">
-                        • HPHT/CVD双工艺可选<br>
-                        • 0.5ct-2ct全尺寸，VVS净度 D-F高色<br>
-                        • 钻石腰码激光刻印，证书编号一一匹配<br>
-                        • 印度/上海IGI双版本证书，官网可核验<br>
-                        • 配套马来西亚合规吊牌，跨境电商适配
-                    </span>
-                    <span class="lang-en">
-                        • HPHT & CVD technology available<br>
-                        • 0.5ct-2ct, VVS clarity, D-F color<br>
-                        • Laser inscription matched with certificate ID<br>
-                        • India/Shanghai IGI certificate, official verifiable<br>
-                        • Compliant MY hang tag for cross-border e-commerce
-                    </span>
-                    <span class="lang-bm">
-                        • Teknologi HPHT & CVD tersedia<br>
-                        • 0.5ct-2ct, kejelasan VVS, warna D-F<br>
-                        • Ukiran laser padan dengan ID sijil<br>
-                        • Sijil IGI India/Shanghai, boleh sahkan di laman rasmi<br>
-                        • Tag gantung patuh undang-undang Malaysia untuk e-dagang rentas sempadan
-                    </span>
-                </p>
+                <p class="lang-cn">HPHT/CVD双工艺，0.5-2克拉VVS高色钻，腰码证书一一匹配，官网可查。</p>
+                <p class="lang-en">HPHT & CVD lab diamond 0.5-2ct VVS grade, laser code match certificate, official verifiable.</p>
+                <p class="lang-bm">Berlian makmal HPHT/CVD 0.5-2ct gred VVS, kod laser padan sijil, boleh sahkan laman rasmi.</p>
             </div>
-            <!-- 莫桑石 -->
             <div class="product-card">
-                <h3><span class="lang-cn-inline">高闪八心八箭莫桑石</span><span class="lang-en-inline">Brilliant Hearts & Arrows Moissanite</span><span class="lang-bm-inline">Moissanit Terang Hati & Anak Panah</span></h3>
-                <p>
-                    <span class="lang-cn">
-                        • 高通透碳硅石，媲美天然钻石璀璨火彩<br>
-                        • 圆形、异形钻现货库存充足<br>
-                        • 马来西亚Shopee平价零售爆款<br>
-                        • 配套防伪标签，批量拿货价格优势大
-                    </span>
-                    <span class="lang-en">
-                        • High transparency silicon carbide, fire similar to natural diamond<br>
-                        • Round & fancy shapes in stock<br>
-                        • Best seller on Malaysia Shopee retail<br>
-                        • Anti-counterfeit tag, competitive wholesale price
-                    </span>
-                    <span class="lang-bm">
-                        • Silikon karbida jernih, kilauan sama seperti berlian semulajadi<br>
-                        • Bentuk bulat & unik tersedia stok<br>
-                        • Produk terlaris runcit di Shopee Malaysia<br>
-                        • Tag anti-palsu, harga borong yang kompetitif
-                    </span>
-                </p>
+                <h3><span class="lang-cn-inline">八心八箭高闪莫桑石</span><span class="lang-en-inline">Hearts & Arrows Moissanite</span><span class="lang-bm-inline">Moissanit Hati & Anak Panah</span></h3>
+                <p class="lang-cn">高通透火彩足，平价零售爆款，批量拿货价格优势大。</p>
+                <p class="lang-en">High brilliant fire, hot retail item with competitive wholesale price.</p>
+                <p class="lang-bm">Kilauan terang, produk popular runcit dengan harga borong murah.</p>
             </div>
-            <!-- S925银托 -->
             <div class="product-card">
                 <h3><span class="lang-cn-inline">S925加厚钯底银托</span><span class="lang-en-inline">S925 Thick Palladium Silver Setting</span><span class="lang-bm-inline">Pemasang Perak S925 Paladium Tebal</span></h3>
-                <p>
-                    <span class="lang-cn">
-                        • 0.2mm加厚钯镀层，持久不易氧化发黑<br>
-                        • 适配所有尺寸培育钻、莫桑石镶嵌<br>
-                        • 男女戒指、吊坠空托海量现货<br>
-                        • 支持定制品牌LOGO激光刻字
-                    </span>
-                    <span class="lang-en">
-                        • 0.2mm thick palladium plating, anti-tarnish long-lasting<br>
-                        • Fit all size lab diamond & moissanite<br>
-                        • Mass stock for men/women ring & pendant blank<br>
-                        • Custom laser brand logo engraving available
-                    </span>
-                    <span class="lang-bm">
-                        • Salutan paladium 0.2mm tebal, tahan karat lama<br>
-                        • Sesuai untuk semua saiz berlian makmal & moissanit<br>
-                        • Stok banyak untuk gelang lelaki/perempuan dan loket kosong<br>
-                        • Ukiran logo jenama laser tersedia untuk pesanan khas
-                    </span>
-                </p>
+                <p class="lang-cn">加厚镀层不易氧化，适配所有钻石镶嵌，支持定制刻字。</p>
+                <p class="lang-en">Anti-tarnish thick plating, fit all gemstone, custom logo engraving available.</p>
+                <p class="lang-bm">Salutan tahan karat, sesuai semua batu permata, boleh ukir logo khas.</p>
             </div>
         </div>
     </section>
 
-    <!-- 证书防伪查验核心模块【完整交互逻辑+新增JP编号数据库】 -->
+    <!-- 证书查验 -->
     <section class="check-module" id="check">
-        <h2 class="section-title">
-            <span class="lang-cn-inline">GemPop 证书防伪查验系统</span>
-            <span class="lang-en-inline">GemPop Certificate Anti-Counterfeit Check System</span>
-            <span class="lang-bm-inline">Sistem Semak Anti-Palsu Sijil GemPop</span>
-        </h2>
-        <p style="margin-bottom:22px;">
-            <span class="lang-cn-inline">输入证书编号/钻石腰码（支持JP/IGI/MO开头编号），一键核验全部钻石参数、IGI资质，数据与GemPop后台实时同步，杜绝套证假货</span>
-            <span class="lang-en-inline">Input cert ID / laser inscription(Support JP/IGI/MO prefix), verify full diamond specs & IGI info, sync with GemPop backend database</span>
-            <span class="lang-bm-inline">Masukkan ID sijil / ukiran laser(Sokong awalan JP/IGI/MO), sahkan spesifikasi berlian penuh & maklumat IGI, segerak dengan pangkalan data belakang GemPop</span>
-        </p>
-        <input class="check-input" id="certInput" placeholder="Cert ID / Laser Inscription (JP/IGI/MO)">
+        <h2 class="section-title lang-cn">GemPop 证书防伪查验系统</h2>
+        <h2 class="section-title lang-en">GemPop Certificate Anti-Counterfeit Check System</h2>
+        <h2 class="section-title lang-bm">Sistem Semak Anti-Palsu Sijil GemPop</h2>
+
+        <p class="lang-cn">输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数</p>
+        <p class="lang-en">Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info</p>
+        <p class="lang-bm">Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian</p>
+
+        <input class="check-input" id="certInput" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
         <button class="check-btn" id="searchBtn">
             <span class="lang-cn-inline">查询核验</span>
             <span class="lang-en-inline">Search & Verify</span>
             <span class="lang-bm-inline">Cari & Sahkan</span>
         </button>
-        <p class="check-tip">
-            <span class="lang-cn-inline">亦可扫描商品吊牌防伪二维码，一键快速查询珠宝档案</span>
-            <span class="lang-en-inline">Or scan QR code on hang tag for quick jewelry record check</span>
-            <span class="lang-bm-inline">Atau imbas kod QR pada tag gantung untuk semak rekod barang kemas pantas</span>
-        </p>
-        <!-- 查验结果展示框 -->
+        <p class="check-tip lang-cn">扫描吊牌防伪二维码可快速查询珠宝档案</p>
+        <p class="check-tip lang-en">Scan QR code on hang tag for fast record check</p>
+        <p class="check-tip lang-bm">Imbas kod QR tag gantung untuk semak rekod pantas</p>
+
         <div class="check-result" id="resultBox">
             <h4 id="resultTitle"></h4>
             <div id="resultContent"></div>
         </div>
     </section>
 
-    <!-- 品牌工厂介绍 -->
+    <!-- 品牌介绍 -->
     <section class="section-wrap" id="about">
-        <h2 class="section-title">
-            <span class="lang-cn-inline">关于 GEM POP</span>
-            <span class="lang-en-inline">About GEM POP</span>
-            <span class="lang-bm-inline">Tentang GEM POP</span>
-        </h2>
-        <p class="about-text">
-            <span class="lang-cn">
-                GEM POP 源头珠宝工厂，深耕马来西亚Shopee跨境珠宝供货。自有专业镶嵌车间、钻石分选设备，所有货品支持线下复检；全套配套物料齐全，包含合规吊牌、镭射防伪标签、IGI鉴定证书、JP系列成品证书。
-                熟悉马来西亚6%SST税务标价法规，一件代发、大批量批发均可合作，以浪漫珠宝承载每一份真挚爱意。
-            </span>
-            <span class="lang-en">
-                GEM POP original jewelry factory, supply jewelry for Malaysia Shopee cross-border. Own inlay workshop & diamond sorting machine, all goods support offline re-inspection. Full set of compliant hang tags, laser anti-counterfeit labels, IGI & JP series certificates.
-                Familiar with Malaysia 6% SST tax pricing rule, dropship & bulk wholesale available, carry all sincere love with romantic jewelry.
-            </span>
-            <span class="lang-bm">
-                Kilang barang kemas asal GEM POP, membekal barang kemas untuk Shopee Malaysia rentas sempadan. Bengkel pemasangan sendiri & mesin pengasing berlian, semua barang sokong pemeriksaan semula luar talian. Set lengkap tag gantung patuh undang-undang, label anti-palsu laser, sijil IGI & siri JP.
-                Akrab dengan peraturan harga cukai SST 6% Malaysia, penghantaran satu unit & borong pukal tersedia, bawa semua cinta tulus dengan barang kemas romantis.
-            </span>
+        <h2 class="section-title lang-cn">关于 GEM POP</h2>
+        <h2 class="section-title lang-en">About GEM POP</h2>
+        <h2 class="section-title lang-bm">Tentang GEM POP</h2>
+        <p class="about-text lang-cn">
+            GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。
+        </p>
+        <p class="about-text lang-en">
+            Original jewelry factory for cross-border supply, own inlay workshop, all goods support offline re-inspection with complete certificates & anti-counterfeit labels.
+        </p>
+        <p class="about-text lang-bm">
+            Kilang barang kemas asal untuk bekalan rentas sempadan, bengkel pemasangan sendiri, semua barang sokong pemeriksaan luar talian dengan sijil lengkap.
         </p>
     </section>
 
-    <!-- 底部版权 -->
+    <!-- 精简页脚，删除多余平台文字 -->
     <footer>
-        <p>
-            <span class="lang-cn-inline">GEM POP珠宝工厂 | 跨境珠宝批发 · GemPop证书防伪查验系统（支持JP/IGI证书）| 适配马来西亚Shopee电商平台</span>
-            <span class="lang-en-inline">GEM POP Jewelry Factory | Cross-border Wholesale · GemPop Cert Check System(Support JP/IGI Cert) | For Malaysia Shopee E-commerce</span>
-            <span class="lang-bm-inline">Kilang Barang Kemas GEM POP | Borong Rentas Sempadan · Sistem Semak Sijil GemPop(Sokong Sijil JP/IGI) | Untuk E-dagang Shopee Malaysia</span>
-        </p>
+        <p>GEM POP Jewelry Factory | GemPop Cert Check System</p>
     </footer>
 
     <script>
-        // ========== 1. 多语言切换逻辑 ==========
+        // 多语言切换逻辑
         const htmlRoot = document.documentElement;
         const langBtns = document.querySelectorAll('.lang-btn');
-        // 默认中文
         htmlRoot.setAttribute('data-lang','cn');
         langBtns.forEach(btn=>{
             btn.addEventListener('click',function(){
@@ -617,28 +511,99 @@
             })
         })
 
-        // ========== 2. 移动端合页侧边菜单逻辑 ==========
+        // ========== 彻底修复汉堡菜单点击失效BUG ==========
         const openBtn = document.getElementById('openMenu');
         const closeBtn = document.getElementById('closeMenu');
         const sideBar = document.getElementById('sideBar');
         const mask = document.getElementById('maskLayer');
+
         function closeSide(){
             sideBar.classList.remove('open');
             mask.classList.remove('show');
             document.body.style.overflow = '';
         }
-        openBtn.addEventListener('click', function(){
+        // 打开侧边栏
+        openBtn.addEventListener('click', function(e){
+            e.stopPropagation();
             sideBar.classList.add('open');
             mask.classList.add('show');
             document.body.style.overflow = 'hidden';
         })
+        // 关闭侧边栏
         closeBtn.addEventListener('click', closeSide);
         mask.addEventListener('click', closeSide);
+        // 点击侧边栏内链接自动关闭
         const navLinks = sideBar.querySelectorAll('a');
         navLinks.forEach(item => {
             item.addEventListener('click', closeSide)
         })
 
-        // ========== 3. 完整GemPop证书查验数据库【新增JP证书样本】+查询交互逻辑 ==========
-        // 模拟后台数据库，包含IGI、MO、JP三类编号，和你原有核验网站数据结构完全对齐
-        const gemPopDatabase = ...
+        // ========== 外置data.json读取逻辑（不变） ==========
+        let gemPopDatabase = [];
+        fetch("data.json")
+        .then(res => res.json())
+        .then(data => {
+            gemPopDatabase = data;
+            console.log("数据库加载完成，总条数：", gemPopDatabase.length);
+        })
+        .catch(err => {
+            alert("数据库文件data.json加载失败，请确认和网页放在同一文件夹");
+            console.error("读取json失败：", err);
+        });
+
+        // ========== 证书查询逻辑（支持JP/IGI，自动去空格、大小写兼容） ==========
+        const inputEl = document.getElementById('certInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultBox = document.getElementById('resultBox');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultContent = document.getElementById('resultContent');
+
+        function searchCert(){
+            resultBox.classList.remove('show');
+            let inputVal = inputEl.value.trim().toUpperCase();
+            if(!inputVal){
+                const tipCN = "请输入证书编号或钻石腰码";
+                const tipEN = "Please input certificate ID or laser code";
+                const tipBM = "Sila masuk ID sijil atau kod laser";
+                const currLang = htmlRoot.getAttribute('data-lang');
+                resultTitle.innerText = currLang==="cn"?tipCN:currLang==="en"?tipEN:tipBM;
+                resultContent.innerText = "";
+                resultBox.classList.add('show');
+                return;
+            }
+            // 匹配证书号/腰码
+            const matchItem = gemPopDatabase.find(item=>{
+                return item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal;
+            })
+            if(!matchItem){
+                const tipCN = "未查询到对应钻石档案，请核对编号";
+                const tipEN = "No matching diamond record found, please check ID";
+                const tipBM = "Tiada rekod berlian dijumpai, sila semak ID";
+                const currLang = htmlRoot.getAttribute('data-lang');
+                resultTitle.innerText = currLang==="cn"?tipCN:currLang==="en"?tipEN:tipBM;
+                resultContent.innerText = "";
+                resultBox.classList.add('show');
+                return;
+            }
+            // 输出查询结果
+            resultTitle.innerText = "✅ Match Success";
+            resultContent.innerHTML = `
+            <p>Cert ID: ${matchItem.certId}</p>
+            <p>Laser Code: ${matchItem.laserCode}</p>
+            <p>Stone Type: ${matchItem.stoneType}</p>
+            <p>Carat: ${matchItem.carat}</p>
+            <p>Color: ${matchItem.color}</p>
+            <p>Clarity: ${matchItem.clarity}</p>
+            <p>Cut: ${matchItem.cut}</p>
+            <p>Cert Origin: ${matchItem.certOrigin}</p>
+            <p>Issue Date: ${matchItem.issueDate}</p>
+            `;
+            resultBox.classList.add('show');
+        }
+        searchBtn.addEventListener('click', searchCert);
+        inputEl.addEventListener('keydown',e=>{
+            if(e.key === "Enter") searchCert();
+        })
+    </script>
+</body>
+</html>
