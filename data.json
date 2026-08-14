@@ -20,5 +20,27 @@
     "cut": "Excellent",
     "certOrigin": "Shanghai IGI",
     "issueDate": "2026-02-10"
+  },
+  {
+    "certId": "MO000001",
+    "laserCode": "MO001",
+    "stoneType": "Moissanite 8 Hearts & Arrows",
+    "carat": "1.00ct",
+    "color": "D",
+    "clarity": "VVS",
+    "cut": "Excellent",
+    "certOrigin": "GemPop Moissan Cert",
+    "issueDate": "2026-08-01"
+  },
+  {
+    "certId": "MO000002",
+    "laserCode": "MO002",
+    "stoneType": "Moissanite 8 Hearts & Arrows",
+    "carat": "1.50ct",
+    "color": "DF",
+    "clarity": "VVS",
+    "cut": "Excellent",
+    "certOrigin": "GemPop Moissan Cert",
+    "issueDate": "2026-08-02"
   }
 ]
