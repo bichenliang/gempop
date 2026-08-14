@@ -1,258 +1,297 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>GEM POP</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Helvetica,sans-serif;}
 /* 顶部导航栏 */
-.header{
-    background:#000;
+.top-nav{
+    width:100%;
+    background:#000000;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 18px;
+    padding:16px 20px;
 }
-.logo{
-    color:#d4b036;
+.logo-text{
+    color:#F2C820;
     font-size:24px;
-    font-weight:700;
+    font-weight:600;
 }
-.menuBtn{
-    color:#fff;
-    font-size:26px;
+.menu-icon{
+    color:#ffffff;
+    font-size:28px;
+    line-height:1;
 }
-/* 侧边全屏菜单 */
-.sideMenu{
+/* 侧边全屏弹出菜单 完全匹配第二张截图 */
+.side-popup-menu{
     position:fixed;
     top:0;
-    right:-100%;
+    left:0;
     width:100%;
     height:100vh;
     background:#000;
-    z-index:999;
-    padding:60px 30px;
-    transition:right 0.3s;
-}
-.sideMenu.open{right:0;}
-.closeBtn{
-    position:absolute;
-    top:15px;
-    right:18px;
-    color:#fff;
-    font-size:30px;
-}
-.sideMenu a{
-    display:block;
-    color:#fff;
-    text-decoration:none;
-    font-size:18px;
-    margin:26px 0;
-}
-.langBox{
-    display:flex;
-    gap:12px;
-    margin-top:40px;
-}
-.langBtn{
-    border:1px solid #d4b036;
-    background:transparent;
-    color:#d4b036;
-    padding:6px 12px;
-}
-/* 首页黑底模块 */
-.homeWrap{
-    background:#000;
-    min-height:calc(100vh - 62px);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-.homeTitle{
-    color:#d4b036;
-    font-size:34px;
-    font-weight:bold;
-    margin-bottom:32px;
-}
-.yellowRect{
-    width:92px;
-    height:36px;
-    background:#d4b036;
-}
-/* 系列列表页面 */
-.seriesWrap{
-    background:#fff;
-    min-height:calc(100vh - 62px);
-    padding:20px 18px;
+    z-index:9999;
+    padding:80px 30px;
     display:none;
 }
-.seriesItem{
-    border:1px solid #eee;
-    border-radius:6px;
-    padding:24px 20px;
-    margin-bottom:16px;
+.side-popup-menu.show{
+    display:block;
 }
-.seriesText{
-    color:#987a26;
+.close-popup{
+    position:absolute;
+    top:16px;
+    right:20px;
+    color:#fff;
+    font-size:32px;
+}
+.menu-item{
+    color:#ffffff;
+    font-size:20px;
+    margin:28px 0;
+    text-decoration:none;
+    display:block;
+}
+.lang-button-group{
+    display:flex;
+    gap:14px;
+    margin-top:50px;
+}
+.lang-btn{
+    border:2px solid #F2C820;
+    background:transparent;
+    color:#F2C820;
+    font-size:16px;
+    padding:6px 18px;
+}
+/* 首页黑底页面 第一张截图完整布局文字 */
+.home-page{
+    width:100%;
+    min-height:calc(100vh - 66px);
+    background:#000;
+    padding:40px 24px;
+}
+.home-title-main{
+    color:#F2C820;
+    font-size:32px;
+    font-weight:bold;
+    margin:30px 0;
+}
+.yellow-block-box{
+    width:100px;
+    height:40px;
+    background:#F2C820;
+}
+/* 六大爱情系列页面 第三张截图 */
+.series-page{
+    width:100%;
+    min-height:calc(100vh - 66px);
+    background:#ffffff;
+    padding:22px 20px;
+    display:none;
+}
+.series-card{
+    border:1px solid #EAEAEA;
+    border-radius:4px;
+    padding:24px 22px;
+    margin-bottom:18px;
+}
+.series-name-text{
+    color:#947622;
     font-size:20px;
 }
-/* 证书查询页面 */
-.checkWrap{
-    background:#fff;
-    min-height:calc(100vh - 62px);
-    padding:30px 18px;
+/* 证书查询页面 第四张截图 */
+.check-cert-page{
+    width:100%;
+    min-height:calc(100vh - 66px);
+    background:#ffffff;
+    padding:30px 20px;
     display:none;
 }
-.searchRow{
+.search-input-row{
     display:flex;
-    gap:10px;
+    gap:0;
 }
-#certInput{
+#cert-code-input{
     flex:1;
     padding:16px 14px;
-    border:1px solid #ccc;
+    border:1px solid #cccccc;
+    border-right:none;
     font-size:16px;
 }
-#searchBtn{
+#search-submit-btn{
     background:#000;
-    color:#d4b036;
-    border:none;
-    padding:0 20px;
+    color:#F2C820;
+    border:1px solid #000;
+    padding:0 16px;
+    font-size:15px;
 }
-.resultBox{
-    margin-top:35px;
-    border:1px solid #d4b036;
+.result-container{
+    margin-top:40px;
+    border:1px solid #F2C820;
     padding:20px;
     display:none;
 }
-.resultBox.show{display:block;}
-/* 底部页脚 */
-.footer{
-    background:#000;
-    color:#aaa;
-    text-align:center;
-    padding:22px 10px;
-    font-size:14px;
-    line-height:1.7;
+.result-container.show{
+    display:block;
 }
-.page{display:none;}
-.page.active{display:block;}
+/* 全局底部页脚文字 四张截图底部统一文案 */
+.footer-bottom-text{
+    width:100%;
+    background:#000;
+    color:#AAAAAA;
+    text-align:center;
+    padding:20px 12px;
+    font-size:14px;
+    line-height:1.6;
+}
+.page-container{
+    display:none;
+}
+.page-container.active{
+    display:block;
+}
 </style>
 </head>
 <body>
-<!-- 顶部导航 -->
-<div class="header">
-    <div class="logo">GEM POP</div>
-    <div class="menuBtn" id="openMenu">☰</div>
+<!-- 顶部固定导航 -->
+<div class="top-nav">
+    <div class="logo-text">GEM POP</div>
+    <div class="menu-icon" id="openMenuBtn">☰</div>
 </div>
-<!-- 侧边菜单 -->
-<div class="sideMenu" id="sideMenu">
-    <div class="closeBtn" id="closeMenu">×</div>
-    <a href="#home" data-page="home">首页</a>
-    <a href="#series" data-page="series">六大爱情系列</a>
-    <a href="#check" data-page="check">证书查验</a>
-    <div class="langBox">
-        <button class="langBtn">BM</button>
-        <button class="langBtn">中文</button>
-        <button class="langBtn">EN</button>
+
+<!-- 侧边弹出菜单 完整匹配截图菜单文字 -->
+<div class="side-popup-menu" id="popupMenu">
+    <div class="close-popup" id="closeMenuBtn">×</div>
+    <a href="#home" class="menu-item" data-target="home">首页</a>
+    <a href="#series" class="menu-item" data-target="series">六大爱情系列</a>
+    <a href="#check" class="menu-item" data-target="check">证书查验</a>
+    <div class="lang-button-group">
+        <button class="lang-btn">BM</button>
+        <button class="lang-btn">中文</button>
+        <button class="lang-btn">EN</button>
     </div>
 </div>
 
-<!-- 首页 -->
-<div id="home" class="page homeWrap active">
-    <div class="homeTitle">GEM POP</div>
-    <div class="yellowRect"></div>
+<!-- 首页页面 完整黑底标题色块 -->
+<div id="home" class="page-container home-page active">
+    <div class="home-title-main">GEM POP</div>
+    <div class="yellow-block-box"></div>
 </div>
 
-<!-- 六大系列页面 -->
-<div id="series" class="page seriesWrap">
-    <div class="seriesItem"><div class="seriesText">Falling Love ·</div></div>
-    <div class="seriesItem"><div class="seriesText">Sweet Love ·</div></div>
-    <div class="seriesItem"><div class="seriesText">Promise Love ·</div></div>
-    <div class="seriesItem"><div class="seriesText">True Love ·</div></div>
-    <div class="seriesItem"><div class="seriesText">Eternal Love ·</div></div>
-    <div class="seriesItem"><div class="seriesText">Memory Love ·</div></div>
-</div>
-
-<!-- 证书查询页面 -->
-<div id="check" class="page checkWrap">
-    <div class="searchRow">
-        <input id="certInput" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
-        <button id="searchBtn">查询</button>
+<!-- 六大爱情系列完整列表 6个条目全部齐全 -->
+<div id="series" class="page-container series-page">
+    <div class="series-card">
+        <div class="series-name-text">Falling Love ·</div>
     </div>
-    <div class="resultBox" id="resultBox">
-        <h4 id="resTitle"></h4>
-        <div id="resContent" style="margin-top:14px;line-height:1.8;"></div>
+    <div class="series-card">
+        <div class="series-name-text">Sweet Love ·</div>
+    </div>
+    <div class="series-card">
+        <div class="series-name-text">Promise Love ·</div>
+    </div>
+    <div class="series-card">
+        <div class="series-name-text">True Love ·</div>
+    </div>
+    <div class="series-card">
+        <div class="series-name-text">Eternal Love ·</div>
+    </div>
+    <div class="series-card">
+        <div class="series-name-text">Memory Love ·</div>
     </div>
 </div>
 
-<!-- 底部页脚 -->
-<div class="footer">
+<!-- 证书查询页面 输入框提示文字、查询按钮完全匹配截图 -->
+<div id="check" class="page-container check-cert-page">
+    <div class="search-input-row">
+        <input id="cert-code-input" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
+        <button id="search-submit-btn">查询</button>
+    </div>
+    <div class="result-container" id="searchResultBox">
+        <h4 id="result-head-text"></h4>
+        <div id="result-detail-text" style="margin-top:14px;line-height:1.8;"></div>
+    </div>
+</div>
+
+<!-- 底部页脚固定文字，和浏览器底部显示文案完全对应 -->
+<div class="footer-bottom-text">
 GEM POP Jewelry Factory | GemPop Cert Check System
 </div>
 
 <script>
-// 菜单开关
-const sideMenu = document.getElementById('sideMenu');
-document.getElementById('openMenu').onclick = ()=>sideMenu.classList.add('open');
-document.getElementById('closeMenu').onclick = ()=>sideMenu.classList.remove('open');
+// 侧边菜单开关逻辑
+const popMenu = document.getElementById('popupMenu');
+document.getElementById('openMenuBtn').onclick = ()=>popMenu.classList.add('show');
+document.getElementById('closeMenuBtn').onclick = ()=>popMenu.classList.remove('show');
 
-// 页面切换
-const allPage = document.querySelectorAll('.page');
-const navLink = document.querySelectorAll('[data-page]');
-navLink.forEach(item=>{
-    item.onclick = ()=>{
-        const target = item.getAttribute('data-page');
-        allPage.forEach(p=>p.classList.remove('active'));
-        document.getElementById(target).classList.add('active');
-        sideMenu.classList.remove('open');
+// 页面切换逻辑
+const allPages = document.querySelectorAll('.page-container');
+const menuLinks = document.querySelectorAll('[data-target]');
+menuLinks.forEach(link=>{
+    link.onclick = function(){
+        const targetPageId = this.getAttribute('data-target');
+        allPages.forEach(page=>page.classList.remove('active'));
+        document.getElementById(targetPageId).classList.add('active');
+        popMenu.classList.remove('show');
     }
 })
 
-// 钻石数据库
-const gemDB = [
-    {certId:"IGI000001",laserCode:"LP10001",type:"HPHT培育钻",carat:"1ct",color:"D",clarity:"VVS1",cut:"3EX",origin:"IGI印度",date:"2026-01-05"}
+// 钻石数据库示例数据
+const diamondDatabase = [
+    {
+        certId:"IGI123456",
+        laserCode:"LP001234",
+        stoneType:"HPHT人工培育钻石",
+        carat:"1.0克拉",
+        color:"D色",
+        clarity:"VVS1净度",
+        cut:"3EX完美切工",
+        certPlace:"IGI印度实验室证书",
+        issueDate:"2026-01-10"
+    }
 ];
 
-// 查询逻辑
-const input = document.getElementById('certInput');
-const searchBtn = document.getElementById('searchBtn');
-const resBox = document.getElementById('resultBox');
-const resTitle = document.getElementById('resTitle');
-const resText = document.getElementById('resContent');
+// 证书查询功能完整逻辑
+const inputBox = document.getElementById('cert-code-input');
+const searchBtn = document.getElementById('search-submit-btn');
+const resultBox = document.getElementById('searchResultBox');
+const resultTitle = document.getElementById('result-head-text');
+const resultContent = document.getElementById('result-detail-text');
 
-function search(){
-    resBox.classList.remove('show');
-    let val = input.value.trim().toUpperCase();
-    if(!val){
-        resTitle.innerText = "请输入证书编号或钻石腰码";
-        resBox.classList.add('show');
+function executeSearch(){
+    resultBox.classList.remove('show');
+    let inputVal = inputBox.value.trim().toUpperCase();
+    if(inputVal === ""){
+        resultTitle.innerText = "请填写证书编号或者钻石腰码";
+        resultBox.classList.add('show');
         return;
     }
-    let find = gemDB.find(d=>d.certId.toUpperCase()===val || d.laserCode.toUpperCase()===val);
-    if(!find){
-        resTitle.innerText = "无匹配钻石档案";
-        resBox.classList.add('show');
+    let matchData = diamondDatabase.find(item=>item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal);
+    if(!matchData){
+        resultTitle.innerText = "未查询到匹配钻石档案";
+        resultBox.classList.add('show');
         return;
     }
-    resTitle.innerText = "查询匹配成功";
-    resText.innerHTML = `
-证书编号：${find.certId}<br>
-钻石腰码：${find.laserCode}<br>
-钻石品类：${find.type}<br>
-克拉重量：${find.carat}<br>
-颜色等级：${find.color}<br>
-净度等级：${find.clarity}<br>
-切工标准：${find.cut}<br>
-证书机构：${find.origin}<br>
-发证日期：${find.date}
+    resultTitle.innerText = "查询匹配成功";
+    resultContent.innerHTML = `
+证书编号：${matchData.certId}<br>
+钻石腰码：${matchData.laserCode}<br>
+钻石品类：${matchData.stoneType}<br>
+克拉重量：${matchData.carat}<br>
+颜色等级：${matchData.color}<br>
+净度等级：${matchData.clarity}<br>
+切工标准：${matchData.cut}<br>
+证书出具机构：${matchData.certPlace}<br>
+证书发放日期：${matchData.issueDate}
     `;
-    resBox.classList.add('show');
+    resultBox.classList.add('show');
 }
-searchBtn.onclick = search;
-input.addEventListener('keydown',e=>e.key==='Enter'&&search());
+searchBtn.addEventListener('click', executeSearch);
+inputBox.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') executeSearch();
+})
 </script>
 </body>
 </html>
