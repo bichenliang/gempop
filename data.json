@@ -1,173 +1,24 @@
 [
-    {
-        "gpId": "GP1111",
-        "carat": "2ct",
-        "color": "D",
-        "clarity": "VVS2",
-        "cut": "Excellent",
-        "Cert-Number": "TEST001",
-        "tech": "HPHT"
-    },
-    {
-        "gpId": "GP2222",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VS1",
-        "cut": "Excellent",
-        "Cert-Number": "TEST002",
-        "tech": "CVD"
-    },
-    {
-        "gpId": "GP3333",
-        "carat": "1.5ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "TEST003",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP151B",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP067D",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP041B",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP031C",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP058D",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP171C",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP103C",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP001D",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP139C",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP047A",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP018C",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP088C",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP034D",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP060A",
-        "carat": "1.5ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP126A",
-        "carat": "0.5ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    },
-    {
-        "gpId": "GP080B",
-        "carat": "1ct",
-        "color": "D",
-        "clarity": "VVS1",
-        "cut": "Excellent",
-        "Cert-Number": "",
-        "tech": "MOISSANITE"
-    }
+  {
+    "certId": "JP2600101",
+    "laserCode": "JP00101",
+    "stoneType": "HPHT Lab Diamond",
+    "carat": "1.00ct",
+    "color": "D",
+    "clarity": "VVS1",
+    "cut": "Excellent",
+    "certOrigin": "India IGI",
+    "issueDate": "2026-01-15"
+  },
+  {
+    "certId": "JP2600102",
+    "laserCode": "JP00102",
+    "stoneType": "CVD Lab Diamond",
+    "carat": "0.80ct",
+    "color": "F",
+    "clarity": "VVS2",
+    "cut": "Excellent",
+    "certOrigin": "Shanghai IGI",
+    "issueDate": "2026-02-10"
+  }
 ]
