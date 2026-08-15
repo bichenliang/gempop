@@ -1,464 +1,672 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="bm">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GemPop Gemstone ID Verification System</title>
-    <!-- 二维码CDN，解决生成空白问题 -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEM POP | Borong Berlian Makmal</title>
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
         }
-        body {
-            background: #ffffff;
-            color: #222222;
-            line-height: 1.6;
+        :root {
+            --black: #121212;
+            --gold: #D4AF37;
+            --light-gold: #FFD700;
+            --gray: #f7f7f7;
+            --text-gray: #555;
+            --white: #ffffff;
         }
-        /* 全局页面容器 电脑居中限宽，手机铺满 */
-        .page-container {
-            width: 100%;
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 18px 40px;
-        }
-        /* 顶部导航栏 完整原版样式无删减 */
-        header {
-            background: #000000;
-            color: #fff;
-            padding: 20px 18px;
+        /* 导航栏 */
+        .header-nav {
+            background: var(--black);
+            padding: 16px 5%;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
         }
         .logo-text {
-            font-size: 42px;
-            font-weight: 900;
-            color: #ffd048;
-            line-height: 1;
-        }
-        .nav-row {
-            display: flex;
-            gap: 26px;
-            align-items: center;
-        }
-        .nav-item {
-            font-size: 18px;
-            writing-mode: vertical-rl;
-            text-orientation: upright;
+            color: var(--light-gold);
+            font-size: 26px;
+            font-weight: 700;
             letter-spacing: 2px;
         }
-        .lang-switch-wrap {
+        .pc-menu {
             display: flex;
-            gap: 12px;
+            gap: 24px;
+            align-items: center;
         }
-        .lang-btn {
-            width: 70px;
-            height: 52px;
-            border: 1px solid #ffd048;
-            background: transparent;
-            color: #ffd048;
-            font-size: 17px;
-            cursor: pointer;
+        .pc-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
         }
-        .lang-btn.active {
-            background: #ffd048;
-            color: #000;
+        .pc-menu a:hover {
+            color: var(--gold);
         }
-        .menu-icon {
-            font-size:24px;
-            color:#fff;
+        .lang-switch-group{
+            display:flex;
+            gap:8px;
         }
-        /* 证书搜索输入区域 完整保留 */
-        .search-wrap {
-            margin:32px 0;
-        }
-        .search-title {
-            font-size:20px;
-            margin-bottom:12px;
-        }
-        .search-input {
-            width:100%;
-            padding:16px;
-            border:1px solid #ddd;
-            border-radius:8px;
-            font-size:17px;
-            margin-bottom:12px;
-        }
-        .search-btn {
-            width:100%;
-            padding:14px;
-            background:#d4b866;
-            border:none;
-            border-radius:8px;
-            font-size:17px;
-            font-weight:bold;
+        .lang-btn{
+            border:1px solid var(--gold);
+            color:var(--gold);
+            background:transparent;
+            padding:4px 8px;
             cursor:pointer;
         }
-        /* 证书核验结果卡片 */
-        .result-box {
-            background: #ffffff;
-            border: 1px solid #d4b866;
-            padding: 24px;
-            border-radius: 8px;
-            margin: 30px 0;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            display:none;
-        }
-        /* 宝石参数网格 手机单列 电脑双列 */
-        .igi-params {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        @media (min-width: 576px) {
-            .igi-params {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        .igi-param {
-            background: #fafafa;
-            border: 1px solid #e5e5e5;
-            border-radius: 6px;
-            padding: 14px 16px;
-        }
-        .igi-param-label {
-            font-size: 13px;
-            color: #777;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        .igi-param-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #111;
-        }
-        .igi-full {
-            grid-column: 1 / -1;
-        }
-        /* 二维码模块 内置卡片内 分割线隔离 */
-        .qr-section {
-            margin-top: 22px;
-            padding-top: 22px;
-            border-top: 1px dashed #e2d9c0;
-            text-align: center;
-        }
-        .qr-display-box {
-            width: 140px;
-            height: 140px;
-            border: 1px solid #dddddd;
-            margin: 0 auto 10px;
-            padding: 6px;
-            border-radius: 6px;
+        /* 移动端汉堡按钮 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
             cursor: pointer;
-            background: #ffffff;
+            z-index: 1001;
         }
-        @media(min-width:600px){
-            .qr-display-box {
-                width:160px;
-                height:160px;
-            }
-        }
-        .qr-display-box canvas {
-            width:100% !important;
-            height:auto !important;
+        .hamburger span {
+            width: 26px;
+            height: 2px;
+            background: #fff;
             display:block;
         }
-        .qr-tip {
-            font-size:14px;
-            color:#666;
-            margin:0;
-            line-height:1.5;
+        /* 移动端侧边栏 */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: var(--black);
+            padding: 40px 30px;
+            transition: right 0.4s ease;
+            z-index: 1000;
         }
-        /* 售后保养页面样式 */
-        .aftersale-page-title {
-            font-size: 28px;
-            color: #b8860b;
-            margin: 36px 0 24px;
-            text-align: center;
-            font-weight: 700;
+        .mobile-sidebar.open {
+            right: 0;
         }
-        .info-block {
-            margin-bottom: 28px;
-            background:#fafafa;
-            padding:20px;
-            border-radius:8px;
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
         }
-        .info-block h3 {
-            font-size: 20px;
-            color: #b8860b;
-            margin-bottom: 12px;
+        .mobile-sidebar a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 17px;
+            margin: 22px 0;
         }
-        .info-block p, .info-block li {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #333;
+        .mobile-sidebar a:hover {
+            color: var(--gold);
         }
-        .info-block ul {
-            padding-left: 20px;
-        }
-        /* 多语言隐藏逻辑 完整保留原版 */
-        [lang="zh"], [lang="en"], [lang="bm"] {
+        .mask {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 998;
         }
-        body.lang-zh [lang="zh"] {
+        .mask.show {
             display: block;
         }
-        body.lang-en [lang="en"] {
-            display: block;
-        }
-        body.lang-bm [lang="bm"] {
-            display: block;
-        }
-        /* 页脚样式 完整原版无删减 */
-        footer {
-            margin-top: 60px;
+        /* 首屏横幅 */
+        .banner-box {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), #222;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            color: #666;
-            font-size: 15px;
+            color: #fff;
+            padding: 0 20px;
         }
-        /* 无数据提示 */
-        .empty-tip {
-            text-align:center;
-            font-size:16px;
-            color:#999;
-            margin:40px 0;
+        .banner-box h1 {
+            color: var(--light-gold);
+            font-size: 40px;
+            margin-bottom: 18px;
+        }
+        .banner-desc {
+            font-size: 18px;
+            max-width: 750px;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+        .banner-btn {
+            padding: 14px 36px;
+            background: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+        .banner-btn:hover {
+            background: var(--light-gold);
+        }
+        /* 通用区块 */
+        .section-wrap {
+            padding: 70px 5%;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 30px;
+            color: var(--black);
+            margin-bottom: 48px;
+        }
+        .story-text {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            text-align: center;
+            line-height: 2;
+            font-size: 17px;
+            color: var(--text-gray);
+        }
+        /* 爱情系列布局 */
+        .love-series-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 36px;
+            margin-bottom: 70px;
+        }
+        .series-card {
+            border: 1px solid #eee;
+            padding: 32px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .series-card:hover {
+            box-shadow: 0 8px 24px #ddd;
+        }
+        .series-card h3 {
+            color: var(--gold);
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .series-card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        /* 产品板块 */
+        .product-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin: 60px 0;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            padding: 28px;
+            border-radius: 8px;
+        }
+        .product-card h3 {
+            color: var(--gold);
+            margin-bottom: 14px;
+            font-size: 20px;
+        }
+        .product-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+        /* 证书查验区 */
+        .check-module {
+            background: var(--gray);
+            padding: 55px 5%;
+            text-align: center;
+            margin: 50px 0;
+        }
+        .check-input {
+            width: 340px;
+            padding: 14px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+        .check-btn {
+            padding: 14px 28px;
+            background: var(--black);
+            color: var(--light-gold);
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .check-result{
+            max-width:700px;
+            margin:30px auto 0;
+            padding:25px;
+            background:#fff;
+            border:1px solid var(--gold);
+            text-align:left;
+            display:none;
+            line-height:2;
+        }
+        .check-result.show{
+            display:block;
+        }
+        .check-tip {
+            margin-top: 18px;
+            color: #666;
+        }
+        .about-text {
+            max-width: 920px;
+            margin: 0 auto;
+            line-height: 1.9;
+            font-size: 16px;
+            color: var(--text-gray);
+            text-align: center;
+        }
+        /* 页脚精简 */
+        footer {
+            background: var(--black);
+            color: #aaa;
+            padding: 36px 5%;
+            text-align: center;
+            margin-top: 50px;
+        }
+        /* 移动端适配 */
+        @media(max-width: 860px) {
+            .pc-menu {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .check-input {
+                width: 80%;
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+            .banner-box h1 {
+                font-size: 30px;
+            }
         }
     </style>
 </head>
-<body class="lang-zh">
-    <!-- 顶部导航 完整原版无删减 -->
-    <header>
-        <div class="logo-wrap">
-            <div class="logo-text">GEM<br>POP</div>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header-nav">
+        <div class="logo-text">GEM POP</div>
+        <div class="pc-menu">
+            <a href="#home" data-i18n="nav.home"></a>
+            <a href="#loveSeries" data-i18n="nav.series"></a>
+            <a href="#goods" data-i18n="nav.product"></a>
+            <a href="#check" data-i18n="nav.check"></a>
+            <a href="#about" data-i18n="nav.about"></a>
+            <div class="lang-switch-group">
+                <button class="lang-btn" data-lang="bm">BM</button>
+                <button class="lang-btn" data-lang="cn">中文</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
         </div>
-        <div class="nav-row">
-            <div class="nav-item" lang="zh">首页</div>
-            <div class="nav-item" lang="en">Home</div>
-            <div class="nav-item" lang="bm">Laman Utama</div>
-
-            <div class="nav-item" lang="zh">六大爱情系列</div>
-            <div class="nav-item" lang="en">Six Love Series</div>
-            <div class="nav-item" lang="bm">Enam Siri Cinta</div>
-
-            <div class="nav-item" lang="zh">证书查验</div>
-            <div class="nav-item" lang="en">Cert Check</div>
-            <div class="nav-item" lang="bm">Semak Sijil</div>
+        <div class="hamburger" id="openMenu">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <div class="lang-switch-wrap">
-            <button class="lang-btn active" data-lang="zh">中文</button>
-            <button class="lang-btn" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="bm">BM</button>
-        </div>
-        <div class="menu-icon">☰</div>
     </header>
 
-    <div class="page-container">
-        <!-- 证书搜索输入模块 完整补回上一版缺失的搜索框 -->
-        <div class="search-wrap">
-            <h3 class="search-title" lang="zh">输入GP编号查询证书</h3>
-            <h3 class="search-title" lang="en">Input GP ID to Check Certificate</h3>
-            <h3 class="search-title" lang="bm">Masuk ID GP Semak Sijil</h3>
-            <input type="text" class="search-input" id="searchInput" placeholder="例如: GP151B">
-            <button class="search-btn" id="searchBtn" lang="zh">立即核验</button>
-            <button class="search-btn" id="searchBtn" lang="en">Verify Now</button>
-            <button class="search-btn" id="searchBtn" lang="bm">Sahkan Sekarang</button>
-        </div>
-
-        <!-- 无数据提示 -->
-        <div class="empty-tip" id="emptyTip" lang="zh">输入GP编号点击核验查看宝石信息</div>
-        <div class="empty-tip" id="emptyTip" lang="en">Input GP ID and click verify to view gem info</div>
-        <div class="empty-tip" id="emptyTip" lang="bm">Masuk ID GP dan klik sahkan untuk lihat maklumat batu</div>
-
-        <!-- 证书核验主卡片 完整原版结构 -->
-        <div class="result-box" id="resultBox">
-            <div class="igi-params">
-                <div class="igi-param">
-                    <div class="igi-param-label">Clarity</div>
-                    <div class="igi-param-value" id="clarityVal">VVS1</div>
-                </div>
-                <div class="igi-param">
-                    <div class="igi-param-label">Cut</div>
-                    <div class="igi-param-value" id="cutVal">Excellent</div>
-                </div>
-                <div class="igi-param">
-                    <div class="igi-param-label">Carat</div>
-                    <div class="igi-param-value" id="caratVal">1ct</div>
-                </div>
-                <div class="igi-param">
-                    <div class="igi-param-label">Color</div>
-                    <div class="igi-param-value" id="colorVal">D</div>
-                </div>
-                <div class="igi-full">
-                    <div class="igi-param-label" lang="zh">证书编号</div>
-                    <div class="igi-param-label" lang="en">Certificate No.</div>
-                    <div class="igi-param-label" lang="bm">No. Sijil</div>
-                    <div class="igi-param-value" id="certNo">无独立证书编号</div>
-                </div>
-                <div class="igi-full">
-                    <div class="igi-param-label" lang="zh">产品工艺类型</div>
-                    <div class="igi-param-label" lang="en">Production Tech</div>
-                    <div class="igi-param-label" lang="bm">Teknologi Produksi</div>
-                    <div class="igi-param-value" id="techVal">MOISSANITE</div>
-                </div>
-            </div>
-
-            <!-- 修复后的二维码模块，内置卡片内 -->
-            <div class="qr-section">
-                <div class="qr-display-box" id="qrBox"></div>
-                <p class="qr-tip" lang="zh">扫码可重新核验本证书 | 点击二维码保存核验档案</p>
-                <p class="qr-tip" lang="en">Scan QR to recheck certificate | Click QR to save record</p>
-                <p class="qr-tip" lang="bm">Imbas QR semak sijil | Klik QR simpan rekod</p>
-            </div>
-        </div>
-
-        <!-- 售后质保页面 标题已修改为产品说明提示，正文全部保留无删减 -->
-        <h2 class="aftersale-page-title" lang="zh">售后保养与质保说明</h2>
-        <h2 class="aftersale-page-title" lang="en">Aftersales Care & Warranty Statement</h2>
-        <h2 class="aftersale-page-title" lang="bm">Penjagaan Selepas Jualan & Waranti</h2>
-
-        <div class="info-block">
-            <h3 lang="zh">产品说明提示</h3>
-            <h3 lang="en">Product Notice</h3>
-            <h3 lang="bm">Notis Produk</h3>
-
-            <p lang="zh">本产品附带证书、吊牌与查验系统信息仅作宝石参数展示参考，不构成第三方担保。产品图片、参数仅供参考，最终以实物为准；本店仅售卖实验室培育钻石、莫桑石，不出售天然钻石。</p>
-            <p lang="en">All certificates, tags and verification system data are only for gemstone parameter reference, not a third-party guarantee. Product pictures and specifications are for reference only, subject to actual goods. We only sell lab-grown diamonds and moissanite, natural diamonds are not available.</p>
-            <p lang="bm">Semua sijil, tag dan data sistem pengesahan hanya untuk rujukan parameter batu permata, bukan jaminan pihak ketiga. Gambar dan spesifikasi produk hanya rujukan, tertakluk kepada barang sebenar. Kami hanya menjual berlian makmal dan moissanite, tiada berlian semulajadi dijual.</p>
-        </div>
-
-        <div class="info-block">
-            <h3 lang="zh">质保说明</h3>
-            <h3 lang="en">Warranty Terms</h3>
-            <h3 lang="bm">Syarat Waranti</h3>
-            <ul>
-                <li lang="zh">1. 质保期限：自签收当日起1年质保，仅覆盖出厂工艺缺陷问题。</li>
-                <li lang="en">1. Warranty Period: 1 year warranty from receipt date, only covers factory craftsmanship defects.</li>
-                <li lang="bm">1. Tempoh Waranti: Waranti 1 tahun dari tarikh terima barang, hanya meliputi kecacatan pembuatan kilang.</li>
-
-                <li lang="zh">2. 免费服务：质保期内免费清洗、抛光、加固主石爪镶。</li>
-                <li lang="en">2. Free Service: Free cleaning, polishing and stone prong reinforcement within warranty period.</li>
-                <li lang="bm">2. Perkhidmatan Percuma: Pembersihan, penggilapan dan pengukuhan cakar batu percuma dalam tempoh waranti.</li>
-
-                <li lang="zh">3. 不在保修范围：人为磕碰、摔落、化学品腐蚀、遗失宝石、自行拆卸改装、正常佩戴磨损。</li>
-                <li lang="en">3. Exclusions: Artificial collision, drop damage, chemical corrosion, lost gemstone, self-disassembly modification, normal wearing wear.</li>
-                <li lang="bm">3. Tidak Dilindungi: Perlanggaran buatan, kerosakan jatuh, kakisan kimia, batu hilang, pembongkaran sendiri, haus normal pemakaian.</li>
-            </ul>
+    <div class="mask" id="maskLayer"></div>
+    <div class="mobile-sidebar" id="sideBar">
+        <div class="sidebar-close" id="closeMenu">×</div>
+        <a href="#home" data-i18n="nav.home"></a>
+        <a href="#loveSeries" data-i18n="nav.series"></a>
+        <a href="#goods" data-i18n="nav.product"></a>
+        <a href="#check" data-i18n="nav.check"></a>
+        <a href="#about" data-i18n="nav.about"></a>
+        <div class="lang-switch-group" style="margin-top:20px;">
+            <button class="lang-btn" data-lang="bm">BM</button>
+            <button class="lang-btn" data-lang="cn">中文</button>
+            <button class="lang-btn" data-lang="en">EN</button>
         </div>
     </div>
 
-    <!-- 页脚 完整原版无删减 -->
+    <!-- 首屏 -->
+    <section class="banner-box" id="home">
+        <h1>GEM POP <span data-i18n="banner.title"></span></h1>
+        <p class="banner-desc" data-i18n="banner.desc"></p>
+        <a href="#check" class="banner-btn" data-i18n="banner.btn"></a>
+    </section>
+
+    <!-- 爱情系列 -->
+    <section class="section-wrap" id="loveSeries">
+        <h2 class="section-title" data-i18n="series.title"></h2>
+        <p class="story-text" data-i18n="series.desc"></p>
+        <div class="love-series-wrap">
+            <div class="series-card">
+                <h3>Falling Love · <span data-i18n="s1.name"></span></h3>
+                <p data-i18n="s1.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Sweet Love · <span data-i18n="s2.name"></span></h3>
+                <p data-i18n="s2.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Promise Love · <span data-i18n="s3.name"></span></h3>
+                <p data-i18n="s3.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>True Love · <span data-i18n="s4.name"></span></h3>
+                <p data-i18n="s4.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Eternal Love · <span data-i18n="s5.name"></span></h3>
+                <p data-i18n="s5.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Memory Love · <span data-i18n="s6.name"></span></h3>
+                <p data-i18n="s6.text"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品板块 -->
+    <section class="section-wrap" id="goods" style="background:var(--gray);">
+        <h2 class="section-title" data-i18n="product.title"></h2>
+        <div class="product-wrap">
+            <div class="product-card">
+                <h3><span data-i18n="p1.title"></span></h3>
+                <p data-i18n="p1.text"></p>
+            </div>
+            <div class="product-card">
+                <h3><span data-i18n="p2.title"></span></h3>
+                <p data-i18n="p2.text"></p>
+            </div>
+            <div class="product-card">
+                <h3><span data-i18n="p3.title"></span></h3>
+                <p data-i18n="p3.text"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 证书查验（原版分行展示逻辑） -->
+    <section class="check-module" id="check">
+        <h2 class="section-title" data-i18n="check.title"></h2>
+        <p data-i18n="check.desc"></p>
+        <input class="check-input" id="certInput" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
+        <button class="check-btn" id="searchBtn" data-i18n="check.btn"></button>
+        <p class="check-tip" data-i18n="check.tip"></p>
+        <div class="check-result" id="resultBox">
+            <h4 id="resultTitle"></h4>
+            <div id="resultContent"></div>
+        </div>
+    </section>
+
+    <!-- 品牌介绍 -->
+    <section class="section-wrap" id="about">
+        <h2 class="section-title" data-i18n="about.title"></h2>
+        <p class="about-text" data-i18n="about.text"></p>
+    </section>
+
+    <!-- 页脚 -->
     <footer>
         <p>GEM POP Jewelry Factory | GemPop Cert Check System</p>
-        <p>Official Service Mail: support@gempop.cn</p>
     </footer>
 
     <script>
-        // 完整宝石数据库JSON（和你的Excel字段完全匹配，全部数据保留无删减）
-        const gemDataList = [
-            {"gpId":"GP1111","carat":"2ct","color":"D","clarity":"VVS2","cut":"Excellent","Cert-Number":"TEST001","tech":"HPHT"},
-            {"gpId":"GP2222","carat":"1ct","color":"D","clarity":"VS1","cut":"Excellent","Cert-Number":"TEST002","tech":"CVD"},
-            {"gpId":"GP3333","carat":"1.5ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"TEST003","tech":"MOISSANITE"},
-            {"gpId":"GP151B","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"},
-            {"gpId":"GP067D","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"},
-            {"gpId":"GP041B","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"},
-            {"gpId":"GP031C","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"}
-        ];
+        // 多语言词典，默认马来文
+        const i18nDict = {
+            bm:{
+                "nav.home":"Laman Utama",
+                "nav.series":"Siri Cinta",
+                "nav.product":"Produk",
+                "nav.check":"Semak Sijil",
+                "nav.about":"Tentang Kami",
+                "banner.title":"Kilang Barang Kemas",
+                "banner.desc":"Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup\nBorong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal\nSijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula penuh",
+                "banner.btn":"Semak Sijil Sekarang",
+                "series.title":"6 Koleksi Cinta · Semua Romansa Sepanjang Hayat",
+                "series.desc":"Cinta adalah perjalanan lengkap dari pertemuan hingga akhir hayat. GEM POP ringkas seluruh fasa cinta manusia kepada enam koleksi barang kemas.",
+                "s1.name":"Cinta Pertama",
+                "s1.text":"Cinta tulen pandangan pertama, sesuai hadiah pengakuan cinta.",
+                "s2.name":"Cinta Ghairah",
+                "s2.text":"Romansa hangat untuk pasangan, sesuai ulang tahun cinta.",
+                "s3.name":"Cinta Janji",
+                "s3.text":"Janji seumur hidup untuk lamaran dan pertunangan.",
+                "s4.name":"Cinta Sejati",
+                "s4.text":"Cinta matang untuk pasangan suami isteri jangka panjang.",
+                "s5.name":"Cinta Abadi",
+                "s5.text":"Persahabatan harian untuk ulang tahun perkahwinan.",
+                "s6.name":"Cinta Kenangan",
+                "s6.text":"Koleksi mewah untuk peringatan penting hidup.",
+                "product.title":"3 Barisan Borong Barang Kemas Teras",
+                "p1.title":"Berlian Makmal Bersijil IGI",
+                "p1.text":"Berlian makmal HPHT/CVD 0.5-2ct gred VVS, kod laser padan sijil, boleh sahkan laman rasmi.",
+                "p2.title":"Moissanit Hati & Anak Panah",
+                "p2.text":"Kilauan terang, produk popular runcit dengan harga borong murah.",
+                "p3.title":"Pemasang Perak S925 Paladium Tebal",
+                "p3.text":"Salutan tahan karat, sesuai semua batu permata, boleh ukir logo khas.",
+                "check.title":"Sistem Semak Anti-Palsu Sijil GemPop",
+                "check.desc":"Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian penuh",
+                "check.btn":"Cari & Sahkan",
+                "check.tip":"Imbas kod QR tag gantung untuk semak rekod pantas",
+                "about.title":"Tentang GEM POP",
+                "about.text":"Kilang barang kemas asal untuk bekalan rentas sempadan, bengkel pemasangan sendiri, semua barang sokong pemeriksaan luar talian dengan sijil lengkap & label anti-palsu."
+            },
+            cn:{
+                "nav.home":"首页",
+                "nav.series":"六大爱情系列",
+                "nav.product":"主营产品",
+                "nav.check":"证书查验",
+                "nav.about":"工厂介绍",
+                "banner.title":"珠宝源头工厂",
+                "banner.desc":"爱是一场从初见走到余生的漫长旅程\n专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货\nIGI官方证书、腰码一一对应，支持全复检",
+                "banner.btn":"立即查验证书防伪",
+                "series.title":"六大爱情篇章 · 藏尽一生温柔爱意",
+                "series.desc":"爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。",
+                "s1.name":"初遇之恋",
+                "s1.text":"一眼万年纯粹心动，适合告白、初恋送礼。",
+                "s2.name":"热恋之恋",
+                "s2.text":"双向奔赴的热烈甜蜜，情侣纪念日专用。",
+                "s3.name":"承诺之恋",
+                "s3.text":"共度余生的郑重约定，适配求婚、订婚。",
+                "s4.name":"笃定真爱",
+                "s4.text":"磨合过后不离不弃，适合稳定情侣、婚后馈赠。",
+                "s5.name":"永恒相守",
+                "s4.text":"柴米烟火朝夕相伴，结婚周年纪念首选。",
+                "s6.name":"余生纪念",
+                "s6.text":"封存半生爱意，高端典藏、人生重大纪念。",
+                "product.title":"三大核心珠宝货源系列",
+                "p1.title":"IGI认证培育钻石",
+                "p1.text":"HPHT/CVD双工艺，0.5-2克拉VVS高色钻，腰码证书一一匹配，官网可查。",
+                "p2.title":"八心八箭高闪莫桑石",
+                "p2.text":"高通透火彩足，平价零售爆款，批量拿货价格优势大。",
+                "p3.title":"S925加厚钯底银托",
+                "p3.text":"加厚镀层不易氧化，适配所有钻石镶嵌，支持定制刻字。",
+                "check.title":"GemPop 证书防伪查验系统",
+                "check.desc":"输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数",
+                "check.btn":"查询核验",
+                "check.tip":"扫描吊牌防伪二维码可快速查询珠宝档案",
+                "about.title":"关于 GEM POP",
+                "about.text":"GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。"
+            },
+            en:{
+                "nav.home":"Home",
+                "nav.series":"Love Series",
+                "nav.product":"Products",
+                "nav.check":"Cert Check",
+                "nav.about":"About Us",
+                "banner.title":"Jewelry Factory",
+                "banner.desc":"Love is a journey from first sight to lifetime companionship\nWholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting\nIGI official certificate with laser inscription, support full re-inspection",
+                "banner.btn":"Check Certificate Now",
+                "series.title":"6 Love Collections · All Lifelong Romance",
+                "series.desc":"Love is a complete journey. GEM POP condenses full life romance into six jewelry collections.",
+                "s1.name":"First Sight Love",
+                "s1.text":"Pure love at first sight, perfect for confession gift.",
+                "s2.name":"Passionate Love",
+                "s2.text":"Hot sweet romance, ideal for couple anniversary.",
+                "s3.name":"Promise Love",
+                "s3.text":"Lifelong commitment, designed for proposal & engagement.",
+                "s4.name":"True Love",
+                "s4.text":"Mature steady love for long-term lovers & married couples.",
+                "s5.name":"Eternal Love",
+                "s5.text":"Daily lifelong companionship, best for wedding anniversary.",
+                "s6.name":"Memory Love",
+                "s6.text":"High-end collection for important life memory.",
+                "product.title":"3 Core Jewelry Wholesale Lines",
+                "p1.title":"IGI Certified Lab Diamond",
+                "p1.text":"HPHT & CVD lab diamond 0.5-2ct VVS grade, laser code match certificate, official verifiable.",
+                "p2.title":"Hearts & Arrows Moissanite",
+                "p2.text":"High brilliant fire, hot retail item with competitive wholesale price.",
+                "p3.title":"S925 Thick Palladium Silver Setting",
+                "p3.text":"Anti-tarnish thick plating, fit all gemstone, custom logo engraving available.",
+                "check.title":"GemPop Certificate Anti-Counterfeit Check System",
+                "check.desc":"Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info",
+                "check.btn":"Search & Verify",
+                "check.tip":"Scan QR code on hang tag for fast record check",
+                "about.title":"About GEM POP",
+                "about.text":"Original jewelry factory for cross-border supply, own inlay workshop, all goods support offline re-inspection with complete certificates & anti-counterfeit labels."
+            }
+        };
+        let currentLang = "bm"; // 默认马来文
 
-        // 全局DOM元素缓存
-        const searchInput = document.getElementById('searchInput');
-        const searchBtn = document.getElementById('searchBtn');
-        const resultBox = document.getElementById('resultBox');
-        const emptyTip = document.getElementById('emptyTip');
-        const qrBox = document.getElementById('qrBox');
-
-        // 多语言切换逻辑 完整原版无删减
-        const langBtns = document.querySelectorAll('.lang-btn');
-        langBtns.forEach(btn => {
-            btn.addEventListener('click', function(){
-                const targetLang = this.dataset.lang;
-                document.body.className = `lang-${targetLang}`;
-                langBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+        // 页面渲染语言文字
+        function renderText(lang){
+            currentLang = lang;
+            document.querySelectorAll("[data-i18n]").forEach(el=>{
+                const key = el.getAttribute("data-i18n");
+                el.innerText = i18nDict[lang][key];
             })
+            document.documentElement.lang = lang;
+        }
+        // 初始化默认马来文
+        renderText("bm");
+        // 切换语言按钮
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn=>{
+            btn.addEventListener('click',function(){
+                const targetLang = this.getAttribute('data-lang');
+                renderText(targetLang);
+            })
+        })
+
+        // ========== 修复汉堡菜单点击BUG ==========
+        const openBtn = document.getElementById('openMenu');
+        const closeBtn = document.getElementById('closeMenu');
+        const sideBar = document.getElementById('sideBar');
+        const mask = document.getElementById('maskLayer');
+        function closeSide(){
+            sideBar.classList.remove('open');
+            mask.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        openBtn.addEventListener('click', function(e){
+            e.stopPropagation();
+            sideBar.classList.add('open');
+            mask.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        })
+        closeBtn.addEventListener('click', closeSide);
+        mask.addEventListener('click', closeSide);
+        const navLinks = sideBar.querySelectorAll('a');
+        navLinks.forEach(item => {
+            item.addEventListener('click', closeSide)
+        })
+
+        // ========== 读取外置data.json（文件独立，不内置） ==========
+        let gemPopDatabase = [];
+        fetch("data.json")
+        .then(res => res.json())
+        .then(data => {
+            gemPopDatabase = data;
+            console.log("数据库加载完成，总条数：", gemPopDatabase.length);
+        })
+        .catch(err => {
+            alert("数据库文件data.json加载失败，请确认和网页放在同一文件夹");
+            console.error("读取json失败：", err);
         });
 
-        // 搜索查询逻辑 完整补回上一版缺失的交互
-        searchBtn.addEventListener('click', function(){
-            const inputVal = searchInput.value.trim();
+        // ========== 原版核验展示逻辑（分行逐条展示，还原你旧版效果） ==========
+        const inputEl = document.getElementById('certInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultBox = document.getElementById('resultBox');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultContent = document.getElementById('resultContent');
+        function searchCert(){
+            resultBox.classList.remove('show');
+            let inputVal = inputEl.value.trim().toUpperCase();
             if(!inputVal){
-                alert('请输入GP编号');
+                let tip;
+                if(currentLang === "bm") tip = "Sila masuk ID sijil atau kod laser";
+                else if(currentLang === "cn") tip = "请输入证书编号或钻石腰码";
+                else tip = "Please input certificate ID or laser code";
+                resultTitle.innerText = tip;
+                resultContent.innerText = "";
+                resultBox.classList.add('show');
                 return;
             }
-            // 匹配数据库数据
-            const targetGem = gemDataList.find(item => item.gpId.toUpperCase() === inputVal.toUpperCase());
-            if(!targetGem){
-                resultBox.style.display = 'none';
-                emptyTip.style.display = 'block';
-                qrBox.innerHTML = "";
+            const matchItem = gemPopDatabase.find(item=>{
+                return item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal;
+            })
+            if(!matchItem){
+                let tip;
+                if(currentLang === "bm") tip = "Tiada rekod berlian dijumpai, sila semak ID";
+                else if(currentLang === "cn") tip = "未查询到对应钻石档案，请核对编号";
+                else tip = "No matching diamond record found, please check ID";
+                resultTitle.innerText = tip;
+                resultContent.innerText = "";
+                resultBox.classList.add('show');
                 return;
             }
-            // 渲染数据到页面
-            renderGemData(targetGem);
-            // 生成二维码
-            createQRCode(targetGem);
-            // 切换显示状态
-            emptyTip.style.display = 'none';
-            resultBox.style.display = 'block';
-        })
-
-        // 回车快捷查询
-        searchInput.addEventListener('keydown', function(e){
-            if(e.key === 'Enter') searchBtn.click();
-        })
-
-        // 宝石数据渲染函数
-        function renderGemData(gem){
-            document.getElementById('caratVal').innerText = gem.carat;
-            document.getElementById('colorVal').innerText = gem.color;
-            document.getElementById('clarityVal').innerText = gem.clarity;
-            document.getElementById('cutVal').innerText = gem.cut;
-            document.getElementById('techVal').innerText = gem.tech;
-            const certDom = document.getElementById("certNo");
-            if(gem["Cert-Number"] && gem["Cert-Number"] !== ""){
-                certDom.innerText = gem["Cert-Number"];
+            // 多语言分行展示，还原你最早的核验分行排版
+            if(currentLang === "cn"){
+                resultTitle.innerText = "✅ 查询匹配成功";
+                resultContent.innerHTML = `
+证书编号：${matchItem.certId}<br>
+钻石腰码：${matchItem.laserCode}<br>
+钻石类型：${matchItem.stoneType}<br>
+克拉重量：${matchItem.carat}<br>
+颜色等级：${matchItem.color}<br>
+净度等级：${matchItem.clarity}<br>
+切工等级：${matchItem.cut}<br>
+证书机构：${matchItem.certOrigin}<br>
+发证日期：${matchItem.issueDate}
+                `;
+            }else if(currentLang === "bm"){
+                resultTitle.innerText = "✅ Padanan Rekod Berjaya";
+                resultContent.innerHTML = `
+ID Sijil：${matchItem.certId}<br>
+Kod Laser：${matchItem.laserCode}<br>
+Jenis Batu：${matchItem.stoneType}<br>
+Berat Karat：${matchItem.carat}<br>
+Gred Warna：${matchItem.color}<br>
+Gred Kejelasan：${matchItem.clarity}<br>
+Gred Potongan：${matchItem.cut}<br>
+Pihak Sijil：${matchItem.certOrigin}<br>
+Tarikh Keluar：${matchItem.issueDate}
+                `;
             }else{
-                certDom.innerText = "无独立证书编号";
+                resultTitle.innerText = "✅ Match Success";
+                resultContent.innerHTML = `
+Certificate ID：${matchItem.certId}<br>
+Laser Code：${matchItem.laserCode}<br>
+Stone Type：${matchItem.stoneType}<br>
+Carat Weight：${matchItem.carat}<br>
+Color Grade：${matchItem.color}<br>
+Clarity Grade：${matchItem.clarity}<br>
+Cut Grade：${matchItem.cut}<br>
+Cert Authority：${matchItem.certOrigin}<br>
+Issue Date：${matchItem.issueDate}
+                `;
             }
+            resultBox.classList.add('show');
         }
-
-        // 二维码生成核心函数（修复空白、参数错误、点击保存，全部原有逻辑保留）
-        function createQRCode(targetGem){
-            qrBox.innerHTML = "";
-            const qrUrl = window.location.origin + window.location.pathname + "?gp=" + targetGem.gpId;
-            QRCode.toCanvas(qrBox, qrUrl, {
-                width: 140,
-                margin: 2,
-                color: { dark: "#000000", light: "#ffffff" }
-            }, function (err, canvas) {
-                if (err) {
-                    qrBox.innerHTML = `<p style="color:#999;font-size:13px;">二维码生成失败，请刷新页面重试</p>`;
-                    console.error("二维码生成报错：", err);
-                    return;
-                }
-                canvas.style.width = "100%";
-                canvas.style.display = "block";
-                // 点击二维码下载保存图片功能
-                canvas.onclick = function () {
-                    const downloadLink = document.createElement("a");
-                    downloadLink.download = `GemPop核验档案-${targetGem.gpId}.png`;
-                    downloadLink.href = canvas.toDataURL("image/png");
-                    downloadLink.click();
-                }
-            });
-        }
+        searchBtn.addEventListener('click', searchCert);
+        inputEl.addEventListener('keydown',e=>{
+            if(e.key === "Enter") searchCert();
+        })
     </script>
 </body>
 </html>
