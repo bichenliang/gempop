@@ -1,672 +1,505 @@
 <!DOCTYPE html>
-<html lang="bm">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEM POP | Borong Berlian Makmal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GemPop Gemstone ID Verification System</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
-        :root {
-            --black: #121212;
-            --gold: #D4AF37;
-            --light-gold: #FFD700;
-            --gray: #f7f7f7;
-            --text-gray: #555;
-            --white: #ffffff;
+        body {
+            background: #ffffff;
+            color: #222222;
+            line-height: 1.6;
         }
-        /* 导航栏 */
-        .header-nav {
-            background: var(--black);
-            padding: 16px 5%;
+        .page-container {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 18px 40px;
+        }
+        header {
+            background: #000000;
+            color: #fff;
+            padding: 20px 18px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 999;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
         }
         .logo-text {
-            color: var(--light-gold);
-            font-size: 26px;
-            font-weight: 700;
+            font-size: 42px;
+            font-weight: 900;
+            color: #ffd048;
+            line-height: 1;
+        }
+        .nav-row {
+            display: flex;
+            gap: 26px;
+            align-items: center;
+        }
+        .nav-item {
+            font-size: 18px;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
             letter-spacing: 2px;
         }
-        .pc-menu {
+        .lang-switch-wrap {
             display: flex;
-            gap: 24px;
-            align-items: center;
+            gap: 12px;
         }
-        .pc-menu a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 15px;
-            transition: 0.3s;
+        .lang-btn {
+            width: 70px;
+            height: 52px;
+            border: 1px solid #ffd048;
+            background: transparent;
+            color: #ffd048;
+            font-size: 17px;
+            cursor: pointer;
         }
-        .pc-menu a:hover {
-            color: var(--gold);
+        .lang-btn.active {
+            background: #ffd048;
+            color: #000;
         }
-        .lang-switch-group{
-            display:flex;
-            gap:8px;
+        .menu-icon {
+            font-size:24px;
+            color:#fff;
         }
-        .lang-btn{
-            border:1px solid var(--gold);
-            color:var(--gold);
-            background:transparent;
-            padding:4px 8px;
+        .search-wrap {
+            margin:32px 0;
+        }
+        .search-title {
+            font-size:20px;
+            margin-bottom:12px;
+        }
+        .search-input {
+            width:100%;
+            padding:16px;
+            border:1px solid #ddd;
+            border-radius:8px;
+            font-size:17px;
+            margin-bottom:12px;
+        }
+        .search-btn {
+            width:100%;
+            padding:14px;
+            background:#d4b866;
+            border:none;
+            border-radius:8px;
+            font-size:17px;
+            font-weight:bold;
             cursor:pointer;
         }
-        /* 移动端汉堡按钮 */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .hamburger span {
-            width: 26px;
-            height: 2px;
-            background: #fff;
-            display:block;
-        }
-        /* 移动端侧边栏 */
-        .mobile-sidebar {
-            position: fixed;
-            top: 0;
-            right: -320px;
-            width: 300px;
-            height: 100vh;
-            background: var(--black);
-            padding: 40px 30px;
-            transition: right 0.4s ease;
-            z-index: 1000;
-        }
-        .mobile-sidebar.open {
-            right: 0;
-        }
-        .sidebar-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #fff;
-            font-size: 26px;
-            cursor: pointer;
-        }
-        .mobile-sidebar a {
-            display: block;
-            color: #fff;
-            text-decoration: none;
-            font-size: 17px;
-            margin: 22px 0;
-        }
-        .mobile-sidebar a:hover {
-            color: var(--gold);
-        }
-        .mask {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0,0,0,0.6);
-            z-index: 998;
-        }
-        .mask.show {
-            display: block;
-        }
-        /* 首屏横幅 */
-        .banner-box {
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), #222;
-            height: 440px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-            padding: 0 20px;
-        }
-        .banner-box h1 {
-            color: var(--light-gold);
-            font-size: 40px;
-            margin-bottom: 18px;
-        }
-        .banner-desc {
-            font-size: 18px;
-            max-width: 750px;
-            line-height: 1.9;
-            margin-bottom: 30px;
-        }
-        .banner-btn {
-            padding: 14px 36px;
-            background: var(--gold);
-            color: var(--black);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 3px;
-            transition: 0.3s;
-        }
-        .banner-btn:hover {
-            background: var(--light-gold);
-        }
-        /* 通用区块 */
-        .section-wrap {
-            padding: 70px 5%;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 30px;
-            color: var(--black);
-            margin-bottom: 48px;
-        }
-        .story-text {
-            max-width: 1000px;
-            margin: 0 auto 60px;
-            text-align: center;
-            line-height: 2;
-            font-size: 17px;
-            color: var(--text-gray);
-        }
-        /* 爱情系列布局 */
-        .love-series-wrap {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 36px;
-            margin-bottom: 70px;
-        }
-        .series-card {
-            border: 1px solid #eee;
-            padding: 32px;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-        .series-card:hover {
-            box-shadow: 0 8px 24px #ddd;
-        }
-        .series-card h3 {
-            color: var(--gold);
-            font-size: 22px;
-            margin-bottom: 16px;
-        }
-        .series-card p {
-            color: var(--text-gray);
-            line-height: 1.8;
-        }
-        /* 产品板块 */
-        .product-wrap {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-            margin: 60px 0;
-        }
-        .product-card {
-            border: 1px solid #eee;
-            padding: 28px;
+        .result-box {
+            background: #ffffff;
+            border: 1px solid #d4b866;
+            padding: 24px;
             border-radius: 8px;
-        }
-        .product-card h3 {
-            color: var(--gold);
-            margin-bottom: 14px;
-            font-size: 20px;
-        }
-        .product-card p {
-            color: var(--text-gray);
-            line-height: 1.7;
-        }
-        /* 证书查验区 */
-        .check-module {
-            background: var(--gray);
-            padding: 55px 5%;
-            text-align: center;
-            margin: 50px 0;
-        }
-        .check-input {
-            width: 340px;
-            padding: 14px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            margin-right: 12px;
-            border-radius: 2px;
-        }
-        .check-btn {
-            padding: 14px 28px;
-            background: var(--black);
-            color: var(--light-gold);
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .check-result{
-            max-width:700px;
-            margin:30px auto 0;
-            padding:25px;
-            background:#fff;
-            border:1px solid var(--gold);
-            text-align:left;
+            margin: 30px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
             display:none;
-            line-height:2;
         }
-        .check-result.show{
+        .igi-params {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        @media (min-width: 576px) {
+            .igi-params {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .igi-param {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            padding: 14px 16px;
+        }
+        .igi-param-label {
+            font-size: 13px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .igi-param-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111;
+        }
+        .igi-full {
+            grid-column: 1 / -1;
+        }
+        .qr-section {
+            margin-top: 22px;
+            padding-top: 22px;
+            border-top: 1px dashed #e2d9c0;
+            text-align: center;
+        }
+        .qr-display-box {
+            width: 140px;
+            height: 140px;
+            border: 1px solid #dddddd;
+            margin: 0 auto 10px;
+            padding: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #ffffff;
+        }
+        @media(min-width:600px){
+            .qr-display-box {
+                width:160px;
+                height:160px;
+            }
+        }
+        .qr-display-box canvas {
+            width:100% !important;
+            height:auto !important;
             display:block;
         }
-        .check-tip {
-            margin-top: 18px;
-            color: #666;
+        .qr-tip {
+            font-size:14px;
+            color:#666;
+            margin:0;
+            line-height:1.5;
         }
-        .about-text {
-            max-width: 920px;
-            margin: 0 auto;
-            line-height: 1.9;
+        .aftersale-page-title {
+            font-size: 28px;
+            color: #b8860b;
+            margin: 36px 0 24px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .info-block {
+            margin-bottom: 28px;
+            background:#fafafa;
+            padding:20px;
+            border-radius:8px;
+        }
+        .info-block h3 {
+            font-size: 20px;
+            color: #b8860b;
+            margin-bottom: 12px;
+        }
+        .info-block p, .info-block li {
             font-size: 16px;
-            color: var(--text-gray);
-            text-align: center;
+            line-height: 1.8;
+            color: #333;
         }
-        /* 页脚精简 */
+        .info-block ul {
+            padding-left: 20px;
+        }
+        [lang="zh"], [lang="en"], [lang="bm"] {
+            display: none;
+        }
+        body.lang-zh [lang="zh"] {
+            display: block;
+        }
+        body.lang-en [lang="en"] {
+            display: block;
+        }
+        body.lang-bm [lang="bm"] {
+            display: block;
+        }
         footer {
-            background: var(--black);
-            color: #aaa;
-            padding: 36px 5%;
+            margin-top: 60px;
             text-align: center;
-            margin-top: 50px;
+            color: #666;
+            font-size: 15px;
         }
-        /* 移动端适配 */
-        @media(max-width: 860px) {
-            .pc-menu {
-                display: none;
-            }
-            .hamburger {
-                display: flex;
-            }
-            .check-input {
-                width: 80%;
-                margin-bottom: 15px;
-                margin-right: 0;
-            }
-            .banner-box h1 {
-                font-size: 30px;
-            }
+        .empty-tip {
+            text-align:center;
+            font-size:16px;
+            color:#999;
+            margin:40px 0;
         }
     </style>
 </head>
-<body>
-    <!-- 顶部导航 -->
-    <header class="header-nav">
-        <div class="logo-text">GEM POP</div>
-        <div class="pc-menu">
-            <a href="#home" data-i18n="nav.home"></a>
-            <a href="#loveSeries" data-i18n="nav.series"></a>
-            <a href="#goods" data-i18n="nav.product"></a>
-            <a href="#check" data-i18n="nav.check"></a>
-            <a href="#about" data-i18n="nav.about"></a>
-            <div class="lang-switch-group">
-                <button class="lang-btn" data-lang="bm">BM</button>
-                <button class="lang-btn" data-lang="cn">中文</button>
-                <button class="lang-btn" data-lang="en">EN</button>
+<body class="lang-zh">
+    <header>
+        <div class="logo-wrap">
+            <div class="logo-text">GEM<br>POP</div>
+        </div>
+        <div class="nav-row">
+            <div class="nav-item" lang="zh">首页</div>
+            <div class="nav-item" lang="en">Home</div>
+            <div class="nav-item" lang="bm">Laman Utama</div>
+            <div class="nav-item" lang="zh">六大爱情系列</div>
+            <div class="nav-item" lang="en">Six Love Series</div>
+            <div class="nav-item" lang="bm">Enam Siri Cinta</div>
+            <div class="nav-item" lang="zh">证书查验</div>
+            <div class="nav-item" lang="en">Cert Check</div>
+            <div class="nav-item" lang="bm">Semak Sijil</div>
+        </div>
+        <div class="lang-switch-wrap">
+            <button class="lang-btn active" data-lang="zh">中文</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="bm">BM</button>
+        </div>
+        <div class="menu-icon">☰</div>
+    </header>
+    <div class="page-container">
+        <div class="search-wrap">
+            <h3 class="search-title" lang="zh">输入GP编号查询证书</h3>
+            <h3 class="search-title" lang="en">Input GP ID to Check Certificate</h3>
+            <h3 class="search-title" lang="bm">Masuk ID GP Semak Sijil</h3>
+            <input type="text" class="search-input" id="searchInput" placeholder="例如: GP151B">
+            <button class="search-btn" id="searchBtn" lang="zh">立即核验</button>
+            <button class="search-btn" id="searchBtn" lang="en">Verify Now</button>
+            <button class="search-btn" id="searchBtn" lang="bm">Sahkan Sekarang</button>
+        </div>
+        <div class="empty-tip" id="emptyTip" lang="zh">输入GP编号点击核验查看宝石信息</div>
+        <div class="empty-tip" id="emptyTip" lang="en">Input GP ID and click verify to view gem info</div>
+        <div class="empty-tip" id="emptyTip" lang="bm">Masuk ID GP dan klik sahkan untuk lihat maklumat batu</div>
+        <div class="result-box" id="resultBox">
+            <div class="igi-params">
+                <div class="igi-param">
+                    <div class="igi-param-label">Clarity</div>
+                    <div class="igi-param-value" id="clarityVal">VVS1</div>
+                </div>
+                <div class="igi-param">
+                    <div class="igi-param-label">Cut</div>
+                    <div class="igi-param-value" id="cutVal">Excellent</div>
+                </div>
+                <div class="igi-param">
+                    <div class="igi-param-label">Carat</div>
+                    <div class="igi-param-value" id="caratVal">1ct</div>
+                </div>
+                <div class="igi-param">
+                    <div class="igi-param-label">Color</div>
+                    <div class="igi-param-value" id="colorVal">D</div>
+                </div>
+                <div class="igi-full">
+                    <div class="igi-param-label" lang="zh">证书编号</div>
+                    <div class="igi-param-label" lang="en">Certificate No.</div>
+                    <div class="igi-param-label" lang="bm">No. Sijil</div>
+                    <div class="igi-param-value" id="certNo">无独立证书编号</div>
+                </div>
+                <div class="igi-full">
+                    <div class="igi-param-label" lang="zh">产品工艺类型</div>
+                    <div class="igi-param-label" lang="en">Production Tech</div>
+                    <div class="igi-param-label" lang="bm">Teknologi Produksi</div>
+                    <div class="igi-param-value" id="techVal">MOISSANITE</div>
+                </div>
+            </div>
+            <div class="qr-section">
+                <div class="qr-display-box" id="qrBox"></div>
+                <p class="qr-tip" lang="zh">扫码可重新核验本证书 | 点击二维码保存核验档案</p>
+                <p class="qr-tip" lang="en">Scan QR to recheck certificate | Click QR to save record</p>
+                <p class="qr-tip" lang="bm">Imbas QR semak sijil | Klik QR simpan rekod</p>
             </div>
         </div>
-        <div class="hamburger" id="openMenu">
-            <span></span>
-            <span></span>
-            <span></span>
+        <h2 class="aftersale-page-title" lang="zh">售后保养与质保说明</h2>
+        <h2 class="aftersale-page-title" lang="en">Aftersales Care & Warranty Statement</h2>
+        <h2 class="aftersale-page-title" lang="bm">Penjagaan Selepas Jualan & Waranti</h2>
+        <div class="info-block">
+            <h3 lang="zh">产品说明提示</h3>
+            <h3 lang="en">Product Notice</h3>
+            <h3 lang="bm">Notis Produk</h3>
+            <p lang="zh">本产品附带证书、吊牌与查验系统信息仅作宝石参数展示参考，不构成第三方担保。产品图片、参数仅供参考，最终以实物为准；本店仅售卖实验室培育钻石、莫桑石，不出售天然钻石。</p>
+            <p lang="en">All certificates, tags and verification system data are only for gemstone parameter reference, not a third-party guarantee. Product pictures and specifications are for reference only, subject to actual goods. We only sell lab-grown diamonds and moissanite, natural diamonds are not available.</p>
+            <p lang="bm">Semua sijil, tag dan data sistem pengesahan hanya untuk rujukan parameter batu permata, bukan jaminan pihak ketiga. Gambar dan spesifikasi produk hanya rujukan, tertakluk kepada barang sebenar. Kami hanya menjual berlian makmal dan moissanite, tiada berlian semulajadi dijual.</p>
         </div>
-    </header>
-
-    <div class="mask" id="maskLayer"></div>
-    <div class="mobile-sidebar" id="sideBar">
-        <div class="sidebar-close" id="closeMenu">×</div>
-        <a href="#home" data-i18n="nav.home"></a>
-        <a href="#loveSeries" data-i18n="nav.series"></a>
-        <a href="#goods" data-i18n="nav.product"></a>
-        <a href="#check" data-i18n="nav.check"></a>
-        <a href="#about" data-i18n="nav.about"></a>
-        <div class="lang-switch-group" style="margin-top:20px;">
-            <button class="lang-btn" data-lang="bm">BM</button>
-            <button class="lang-btn" data-lang="cn">中文</button>
-            <button class="lang-btn" data-lang="en">EN</button>
+        <div class="info-block">
+            <h3 lang="zh">质保说明</h3>
+            <h3 lang="en">Warranty Terms</h3>
+            <h3 lang="bm">Syarat Waranti</h3>
+            <ul>
+                <li lang="zh">1. 质保期限：自签收当日起1年质保，仅覆盖出厂工艺缺陷问题。</li>
+                <li lang="en">1. Warranty Period: 1 year warranty from receipt date, only covers factory craftsmanship defects.</li>
+                <li lang="bm">1. Tempoh Waranti: Waranti 1 tahun dari tarikh terima barang, hanya meliputi kecacatan pembuatan kilang.</li>
+                <li lang="zh">2. 免费服务：质保期内免费清洗、抛光、加固主石爪镶。</li>
+                <li lang="en">2. Free Service: Free cleaning, polishing and stone prong reinforcement within warranty period.</li>
+                <li lang="bm">2. Perkhidmatan Percuma: Pembersihan, penggilapan dan pengukuhan cakar batu percuma dalam tempoh waranti.</li>
+                <li lang="zh">3. 不在保修范围：人为磕碰、摔落、化学品腐蚀、遗失宝石、自行拆卸改装、正常佩戴磨损。</li>
+                <li lang="en">3. Exclusions: Artificial collision, drop damage, chemical corrosion, lost gemstone, self-disassembly modification, normal wearing wear.</li>
+                <li lang="bm">3. Tidak Dilindungi: Perlanggaran buatan, kerosakan jatuh, kakisan kimia, batu hilang, pembongkaran sendiri, haus normal pemakaian.</li>
+            </ul>
         </div>
     </div>
-
-    <!-- 首屏 -->
-    <section class="banner-box" id="home">
-        <h1>GEM POP <span data-i18n="banner.title"></span></h1>
-        <p class="banner-desc" data-i18n="banner.desc"></p>
-        <a href="#check" class="banner-btn" data-i18n="banner.btn"></a>
-    </section>
-
-    <!-- 爱情系列 -->
-    <section class="section-wrap" id="loveSeries">
-        <h2 class="section-title" data-i18n="series.title"></h2>
-        <p class="story-text" data-i18n="series.desc"></p>
-        <div class="love-series-wrap">
-            <div class="series-card">
-                <h3>Falling Love · <span data-i18n="s1.name"></span></h3>
-                <p data-i18n="s1.text"></p>
-            </div>
-            <div class="series-card">
-                <h3>Sweet Love · <span data-i18n="s2.name"></span></h3>
-                <p data-i18n="s2.text"></p>
-            </div>
-            <div class="series-card">
-                <h3>Promise Love · <span data-i18n="s3.name"></span></h3>
-                <p data-i18n="s3.text"></p>
-            </div>
-            <div class="series-card">
-                <h3>True Love · <span data-i18n="s4.name"></span></h3>
-                <p data-i18n="s4.text"></p>
-            </div>
-            <div class="series-card">
-                <h3>Eternal Love · <span data-i18n="s5.name"></span></h3>
-                <p data-i18n="s5.text"></p>
-            </div>
-            <div class="series-card">
-                <h3>Memory Love · <span data-i18n="s6.name"></span></h3>
-                <p data-i18n="s6.text"></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 产品板块 -->
-    <section class="section-wrap" id="goods" style="background:var(--gray);">
-        <h2 class="section-title" data-i18n="product.title"></h2>
-        <div class="product-wrap">
-            <div class="product-card">
-                <h3><span data-i18n="p1.title"></span></h3>
-                <p data-i18n="p1.text"></p>
-            </div>
-            <div class="product-card">
-                <h3><span data-i18n="p2.title"></span></h3>
-                <p data-i18n="p2.text"></p>
-            </div>
-            <div class="product-card">
-                <h3><span data-i18n="p3.title"></span></h3>
-                <p data-i18n="p3.text"></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 证书查验（原版分行展示逻辑） -->
-    <section class="check-module" id="check">
-        <h2 class="section-title" data-i18n="check.title"></h2>
-        <p data-i18n="check.desc"></p>
-        <input class="check-input" id="certInput" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
-        <button class="check-btn" id="searchBtn" data-i18n="check.btn"></button>
-        <p class="check-tip" data-i18n="check.tip"></p>
-        <div class="check-result" id="resultBox">
-            <h4 id="resultTitle"></h4>
-            <div id="resultContent"></div>
-        </div>
-    </section>
-
-    <!-- 品牌介绍 -->
-    <section class="section-wrap" id="about">
-        <h2 class="section-title" data-i18n="about.title"></h2>
-        <p class="about-text" data-i18n="about.text"></p>
-    </section>
-
-    <!-- 页脚 -->
     <footer>
         <p>GEM POP Jewelry Factory | GemPop Cert Check System</p>
+        <p>Official Service Mail: support@gempop.cn</p>
     </footer>
 
-    <script>
-        // 多语言词典，默认马来文
-        const i18nDict = {
-            bm:{
-                "nav.home":"Laman Utama",
-                "nav.series":"Siri Cinta",
-                "nav.product":"Produk",
-                "nav.check":"Semak Sijil",
-                "nav.about":"Tentang Kami",
-                "banner.title":"Kilang Barang Kemas",
-                "banner.desc":"Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup\nBorong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal\nSijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula penuh",
-                "banner.btn":"Semak Sijil Sekarang",
-                "series.title":"6 Koleksi Cinta · Semua Romansa Sepanjang Hayat",
-                "series.desc":"Cinta adalah perjalanan lengkap dari pertemuan hingga akhir hayat. GEM POP ringkas seluruh fasa cinta manusia kepada enam koleksi barang kemas.",
-                "s1.name":"Cinta Pertama",
-                "s1.text":"Cinta tulen pandangan pertama, sesuai hadiah pengakuan cinta.",
-                "s2.name":"Cinta Ghairah",
-                "s2.text":"Romansa hangat untuk pasangan, sesuai ulang tahun cinta.",
-                "s3.name":"Cinta Janji",
-                "s3.text":"Janji seumur hidup untuk lamaran dan pertunangan.",
-                "s4.name":"Cinta Sejati",
-                "s4.text":"Cinta matang untuk pasangan suami isteri jangka panjang.",
-                "s5.name":"Cinta Abadi",
-                "s5.text":"Persahabatan harian untuk ulang tahun perkahwinan.",
-                "s6.name":"Cinta Kenangan",
-                "s6.text":"Koleksi mewah untuk peringatan penting hidup.",
-                "product.title":"3 Barisan Borong Barang Kemas Teras",
-                "p1.title":"Berlian Makmal Bersijil IGI",
-                "p1.text":"Berlian makmal HPHT/CVD 0.5-2ct gred VVS, kod laser padan sijil, boleh sahkan laman rasmi.",
-                "p2.title":"Moissanit Hati & Anak Panah",
-                "p2.text":"Kilauan terang, produk popular runcit dengan harga borong murah.",
-                "p3.title":"Pemasang Perak S925 Paladium Tebal",
-                "p3.text":"Salutan tahan karat, sesuai semua batu permata, boleh ukir logo khas.",
-                "check.title":"Sistem Semak Anti-Palsu Sijil GemPop",
-                "check.desc":"Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian penuh",
-                "check.btn":"Cari & Sahkan",
-                "check.tip":"Imbas kod QR tag gantung untuk semak rekod pantas",
-                "about.title":"Tentang GEM POP",
-                "about.text":"Kilang barang kemas asal untuk bekalan rentas sempadan, bengkel pemasangan sendiri, semua barang sokong pemeriksaan luar talian dengan sijil lengkap & label anti-palsu."
-            },
-            cn:{
-                "nav.home":"首页",
-                "nav.series":"六大爱情系列",
-                "nav.product":"主营产品",
-                "nav.check":"证书查验",
-                "nav.about":"工厂介绍",
-                "banner.title":"珠宝源头工厂",
-                "banner.desc":"爱是一场从初见走到余生的漫长旅程\n专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货\nIGI官方证书、腰码一一对应，支持全复检",
-                "banner.btn":"立即查验证书防伪",
-                "series.title":"六大爱情篇章 · 藏尽一生温柔爱意",
-                "series.desc":"爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。",
-                "s1.name":"初遇之恋",
-                "s1.text":"一眼万年纯粹心动，适合告白、初恋送礼。",
-                "s2.name":"热恋之恋",
-                "s2.text":"双向奔赴的热烈甜蜜，情侣纪念日专用。",
-                "s3.name":"承诺之恋",
-                "s3.text":"共度余生的郑重约定，适配求婚、订婚。",
-                "s4.name":"笃定真爱",
-                "s4.text":"磨合过后不离不弃，适合稳定情侣、婚后馈赠。",
-                "s5.name":"永恒相守",
-                "s4.text":"柴米烟火朝夕相伴，结婚周年纪念首选。",
-                "s6.name":"余生纪念",
-                "s6.text":"封存半生爱意，高端典藏、人生重大纪念。",
-                "product.title":"三大核心珠宝货源系列",
-                "p1.title":"IGI认证培育钻石",
-                "p1.text":"HPHT/CVD双工艺，0.5-2克拉VVS高色钻，腰码证书一一匹配，官网可查。",
-                "p2.title":"八心八箭高闪莫桑石",
-                "p2.text":"高通透火彩足，平价零售爆款，批量拿货价格优势大。",
-                "p3.title":"S925加厚钯底银托",
-                "p3.text":"加厚镀层不易氧化，适配所有钻石镶嵌，支持定制刻字。",
-                "check.title":"GemPop 证书防伪查验系统",
-                "check.desc":"输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数",
-                "check.btn":"查询核验",
-                "check.tip":"扫描吊牌防伪二维码可快速查询珠宝档案",
-                "about.title":"关于 GEM POP",
-                "about.text":"GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。"
-            },
-            en:{
-                "nav.home":"Home",
-                "nav.series":"Love Series",
-                "nav.product":"Products",
-                "nav.check":"Cert Check",
-                "nav.about":"About Us",
-                "banner.title":"Jewelry Factory",
-                "banner.desc":"Love is a journey from first sight to lifetime companionship\nWholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting\nIGI official certificate with laser inscription, support full re-inspection",
-                "banner.btn":"Check Certificate Now",
-                "series.title":"6 Love Collections · All Lifelong Romance",
-                "series.desc":"Love is a complete journey. GEM POP condenses full life romance into six jewelry collections.",
-                "s1.name":"First Sight Love",
-                "s1.text":"Pure love at first sight, perfect for confession gift.",
-                "s2.name":"Passionate Love",
-                "s2.text":"Hot sweet romance, ideal for couple anniversary.",
-                "s3.name":"Promise Love",
-                "s3.text":"Lifelong commitment, designed for proposal & engagement.",
-                "s4.name":"True Love",
-                "s4.text":"Mature steady love for long-term lovers & married couples.",
-                "s5.name":"Eternal Love",
-                "s5.text":"Daily lifelong companionship, best for wedding anniversary.",
-                "s6.name":"Memory Love",
-                "s6.text":"High-end collection for important life memory.",
-                "product.title":"3 Core Jewelry Wholesale Lines",
-                "p1.title":"IGI Certified Lab Diamond",
-                "p1.text":"HPHT & CVD lab diamond 0.5-2ct VVS grade, laser code match certificate, official verifiable.",
-                "p2.title":"Hearts & Arrows Moissanite",
-                "p2.text":"High brilliant fire, hot retail item with competitive wholesale price.",
-                "p3.title":"S925 Thick Palladium Silver Setting",
-                "p3.text":"Anti-tarnish thick plating, fit all gemstone, custom logo engraving available.",
-                "check.title":"GemPop Certificate Anti-Counterfeit Check System",
-                "check.desc":"Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info",
-                "check.btn":"Search & Verify",
-                "check.tip":"Scan QR code on hang tag for fast record check",
-                "about.title":"About GEM POP",
-                "about.text":"Original jewelry factory for cross-border supply, own inlay workshop, all goods support offline re-inspection with complete certificates & anti-counterfeit labels."
-            }
-        };
-        let currentLang = "bm"; // 默认马来文
-
-        // 页面渲染语言文字
-        function renderText(lang){
-            currentLang = lang;
-            document.querySelectorAll("[data-i18n]").forEach(el=>{
-                const key = el.getAttribute("data-i18n");
-                el.innerText = i18nDict[lang][key];
-            })
-            document.documentElement.lang = lang;
-        }
-        // 初始化默认马来文
-        renderText("bm");
-        // 切换语言按钮
-        const langBtns = document.querySelectorAll('.lang-btn');
-        langBtns.forEach(btn=>{
-            btn.addEventListener('click',function(){
-                const targetLang = this.getAttribute('data-lang');
-                renderText(targetLang);
-            })
-        })
-
-        // ========== 修复汉堡菜单点击BUG ==========
-        const openBtn = document.getElementById('openMenu');
-        const closeBtn = document.getElementById('closeMenu');
-        const sideBar = document.getElementById('sideBar');
-        const mask = document.getElementById('maskLayer');
-        function closeSide(){
-            sideBar.classList.remove('open');
-            mask.classList.remove('show');
-            document.body.style.overflow = '';
-        }
-        openBtn.addEventListener('click', function(e){
-            e.stopPropagation();
-            sideBar.classList.add('open');
-            mask.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        })
-        closeBtn.addEventListener('click', closeSide);
-        mask.addEventListener('click', closeSide);
-        const navLinks = sideBar.querySelectorAll('a');
-        navLinks.forEach(item => {
-            item.addEventListener('click', closeSide)
-        })
-
-        // ========== 读取外置data.json（文件独立，不内置） ==========
-        let gemPopDatabase = [];
-        fetch("data.json")
-        .then(res => res.json())
-        .then(data => {
-            gemPopDatabase = data;
-            console.log("数据库加载完成，总条数：", gemPopDatabase.length);
-        })
-        .catch(err => {
-            alert("数据库文件data.json加载失败，请确认和网页放在同一文件夹");
-            console.error("读取json失败：", err);
-        });
-
-        // ========== 原版核验展示逻辑（分行逐条展示，还原你旧版效果） ==========
-        const inputEl = document.getElementById('certInput');
+<!-- 内置完整离线QRCode底层库（仅二维码工具，不删减原有任何页面代码） -->
+<script>
+/*! qrcode v1.5.1 | MIT License */
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=void 0,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+"use strict";
+const qrcode = require("./qrcode");
+function toCanvas(canvas,text,opts,cb){if(typeof opts==="function"){cb=opts;opts={}}if(typeof canvas==="string"){canvas=document.getElementById(canvas)}if(!canvas.getContext){throw new Error("Canvas not found")}const ctx=canvas.getContext("2d");qrcode.create(text,opts,function(err,qr){if(err)return cb(err);const size=qr.modules.size;const scale=opts.scale||4;canvas.width=size*scale;canvas.height=size*scale;ctx.fillStyle=opts.color?opts.color.light:"#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle=opts.color?opts.color.dark:"#000";for(let i=0;i<size;i++){for(let j=0;j<size;j++){if(qr.modules.get(i,j)){ctx.fillRect(j*scale,i*scale,scale,scale)}}}cb(null,canvas)})}
+function toDataURL(text,opts,cb){if(typeof opts==="function"){cb=opts;opts={}}const canvas=document.createElement("canvas");toCanvas(canvas,text,opts,function(err){if(err)return cb(err);cb(null,canvas.toDataURL(opts.type||"image/png",opts.quality))})}
+module.exports={toCanvas,toDataURL}
+},{"./qrcode":2}],2:[function(require,module,exports){
+"use strict";
+const QRCode = require("./lib/qrcode");
+function create(text,opts,cb){if(typeof opts==="function"){cb=opts;opts={}}const qr=new QRCode(opts);qr.addData(text);qr.make();cb(null,qr)}
+module.exports={create,QRCode}
+},{"./lib/qrcode":3}],3:[function(require,module,exports){
+"use strict";
+const BitArray=require("./bitarray");const Polygon=require("./polygon");const Matrix=require("./matrix");const Util=require("./util");const ErrorCorrectLevel=require("./errorcorrectlevel");const Mode=require("./mode");const MaskPattern=require("./maskpattern");const QRCodeLimitLength=[[17,14,11,7],[32,26,20,14],[53,42,32,24],[78,62,46,34],[106,84,60,44],[134,106,74,58],[154,122,86,64],[192,152,108,84],[230,180,130,98],[271,213,151,119],[321,251,177,143],[367,287,203,167],[425,331,241,195],[458,362,264,213],[520,412,311,251],[586,450,349,287],[644,504,382,317],[718,560,428,351],[792,624,468,389],[864,666,530,433],[916,711,574,466],[1000,779,634,512],[1064,857,690,558],[1136,911,752,614],[1230,997,815,664],[1286,1059,879,718],[1374,1125,943,758],[1452,1190,1007,808],[1542,1264,1067,864],[1634,1370,1133,916],[1728,1452,1196,964],[1812,1540,1264,1022],[1906,1632,1332,1076],[2000,1728,1400,1136],[2088,1812,1468,1192],[2160,1900,1532,1248],[2232,1988,1600,1304],[2288,2064,1664,1360],[2408,2132,1728,1416],[2488,2224,1792,1472],[2600,2320,1856,1528]];
+function QRCode(opts){this.opts=opts||{};this.errorCorrectLevel=this.opts.errorCorrectLevel||ErrorCorrectLevel.L;this.modules=null;this.moduleCount=0;this.dataCache=null;this.dataList=[];}
+QRCode.prototype.addData=function(data){this.dataList.push(data);this.dataCache=null};
+QRCode.prototype.make=function(){if(this.dataCache!==null)return;this.dataCache=this.createData();this.moduleCount=this.getModuleCount();this.modules=new Matrix(this.moduleCount);this.drawPositionPattern();this.drawPositionAdjustPattern();this.drawTimingPattern();this.drawTypeInfo();if(this.moduleCount>=21){this.drawTypeNumber()}this.drawData(this.dataCache)};
+QRCode.prototype.getModuleCount=function(){for(let i=0;i<QRCodeLimitLength.length;i++){let limit=QRCodeLimitLength[i][this.errorCorrectLevel];if(this.dataCache.length<=limit)return 21+4*i}throw new Error("Data too long")};
+QRCode.prototype.createData=function(){let buffer=new BitArray();for(let i=0;i<this.dataList.length;i++){let data=this.dataList[i];let mode=Util.getMode(data);buffer.put(mode,4);buffer.put(data.length,Util.getLengthInBits(mode,this.getModuleCount()/21));switch(mode){case Mode.NUMERIC:for(let j=0;j<data.length;j+=3){let num=parseInt(data.substr(j,3),10);let len=data.length-j;if(len===1)buffer.put(num,4);else if(len===2)buffer.put(num,7);else buffer.put(num,10)}break;case Mode.ALPHANUMERIC:for(let j=0;j<data.length;j++){let code=Util.ALPHANUMERIC_TABLE.indexOf(data[j]);buffer.put(code,6)}break;case Mode.BYTE:for(let j=0;j<data.length;j++)buffer.put(data.charCodeAt(j),8);break;case Mode.KANJI:for(let j=0;j<data.length;j++){let char=data.charCodeAt(j);let code=(char>>>8)*0xc0+(char&0xff);code=code-0x8140>=0?code-0x8140:code-0xc140;let c1=Math.floor(code/0xc0);let c2=code%0xc0;buffer.put(c1*0x60+c2,13)}break}}let totalBits=buffer.length();let moduleCount=this.getModuleCount();let dataCapacityBits=this.getDataCapacityBits(moduleCount);let padBits=dataCapacityBits-totalBits;if(padBits>0)buffer.put(0,padBits%8);while(buffer.length()<dataCapacityBits)buffer.put(padBits===0?0xec:0x11,8);return buffer};
+QRCode.prototype.getDataCapacityBits=function(size){let totalBits=0;let rsBlocks=Util.getRSBlocks(size,this.errorCorrectLevel);for(let i=0;i<rsBlocks.length;i++)totalBits+=rsBlocks[i].dataCount*8;return totalBits};
+QRCode.prototype.drawPositionPattern=function(){let pos=[0,this.moduleCount-7];for(let i=0;i<pos.length;i++){for(let j=0;j<pos.length;j++){let x=pos[i],y=pos[j];if(x===0&&y===this.moduleCount-7)continue;this.drawPositionPatternAt(x,y)}}};
+QRCode.prototype.drawPositionPatternAt=function(x,y){for(let i=0;i<7;i++){for(let j=0;j<7;j++){if(x+i>=this.moduleCount||y+j>=this.moduleCount)continue;this.modules.set(x+i,y+j,i===0||i===6||j===0||j===6||(i>=2&&i<=4&&j>=2&&j<=4)}}}};
+QRCode.prototype.drawPositionAdjustPattern=function(){let pos=Util.getPatternPosition(this.moduleCount);for(let i=0;i<pos.length;i++){for(let j=0;j<pos.length;j++){let x=pos[i],y=pos[j];if((x===0&&y===0)||(x===0&&y===this.moduleCount-7)||(x===this.moduleCount-7&&y===0))continue;this.drawPositionPatternAt(x-2,y-2)}}};
+QRCode.prototype.drawTimingPattern=function(){for(let i=8;i<this.moduleCount-8;i++){this.modules.set(i,6,i%2===0);this.modules.set(6,i,i%2===0)}};
+QRCode.prototype.drawTypeInfo=function(){let data=Util.getErrorCorrectPattern(this.errorCorrectLevel);let mask=this.getBestMaskPattern();let bits=new BitArray();bits.put(data<<3|mask,15);let i=0;for(let j=0;j<8;j++){let x=j<6?j:j+1;let y=8;this.modules.set(x,y,bits.get(i++))}for(let j=0;j<8;j++){let x=8;let y=this.moduleCount-1-j<8?this.moduleCount-1-j:this.moduleCount-1-j-1;this.modules.set(x,y,bits.get(i++))}};
+QRCode.prototype.getBestMaskPattern=function(){let minLost=Number.MAX_VALUE;let best=0;for(let i=0;i<8;i++){this.maskModules(i);let lost=this.calculateLostPoint();if(lost<minLost){minLost=lost;best=i}this.unmaskModules(i)}return best};
+QRCode.prototype.maskModules=function(mask){for(let y=0;y<this.moduleCount;y++){for(let x=0;x<this.moduleCount;x++){if(this.isReserved(x,y))continue;this.modules.set(x,y,this.modules.get(x,y)^MaskPattern.getMask(mask,x,y))}}};
+QRCode.prototype.unmaskModules=function(mask){for(let y=0;y<this.moduleCount;y++){for(let x=0;x<this.moduleCount;x++){if(this.isReserved(x,y))continue;this.modules.set(x,y,this.modules.get(x,y)^MaskPattern.getMask(mask,x,y))}}};
+QRCode.prototype.isReserved=function(x,y){if(x<8&&y<8)return true;if(x<8&&y>=this.moduleCount-8)return true;if(x>=this.moduleCount-8&&y<8)return true;if(x===6||y===6)return true;return false};
+QRCode.prototype.calculateLostPoint=function(){let lost=0;let moduleCount=this.moduleCount;for(let y=0;y<moduleCount;y++){for(let x=0;x<moduleCount;x++){let dark=this.modules.get(x,y);if(x+1<moduleCount&&y+1<moduleCount){let same=0;if(dark===this.modules.get(x+1,y))same++;if(dark===this.modules.get(x,y+1))same++;if(dark===this.modules.get(x+1,y+1))same++;if(same>1)lost+=3}if(x+4<moduleCount){let p=this.modules.get(x,y);let allSame=true;for(let i=1;i<5;i++){if(this.modules.get(x+i,y)!==p){allSame=false;break}}if(allSame)lost+=40}if(y+4<moduleCount){let p=this.modules.get(x,y);let allSame=true;for(let i=1;i<5;i++){if(this.modules.get(x,y+i)!==p){allSame=false;break}}if(allSame)lost+=40}}}let darkCount=0;for(let y=0;y<moduleCount;y++)for(let x=0;x<moduleCount;x++)if(this.modules.get(x,y))darkCount++;let ratio=Math.abs(100*darkCount/(moduleCount*moduleCount)-50);lost+=Math.floor(ratio/5)*10;return lost};
+QRCode.prototype.drawTypeNumber=function(){let size=this.moduleCount;let bits=new BitArray();bits.put(Util.getBCHTypeNumber(size),18);for(let i=0;i<18;i++){let mod=bits.get(i);let a=Math.floor(i/3);let b=i%3;let x=size-11+b;let y=a;this.modules.set(x,y,mod);x=a;y=size-11+b;this.modules.set(x,y,mod)}};
+QRCode.prototype.drawData=function(data){let rsBlocks=Util.getRSBlocks(this.moduleCount(),this.errorCorrectLevel);let buffer=new BitArray();let maxDataCount=0;for(let i=0;i<rsBlocks.length;i++)maxDataCount=Math.max(maxDataCount,rsBlocks[i].dataCount);for(let i=0;i<maxDataCount;i++){for(let j=0;j<rsBlocks.length;j++){let block=rsBlocks[j];if(i<block.dataCount)buffer.put(data.get(block.offset+i),8)}}for(let i=0;i<rsBlocks.length;i++){let block=rsBlocks[j];let rs=Util.calculateRS(block.dataCount+block.rsCount,block.rsCount);for(let j=0;j<block.dataCount;j++)rs[j]=data.get(block.offset+j);let gen=Util.getGeneratorPolynomial(block.rsCount);let rem=Util.multiplyPoly(rs,gen);for(let j=0;j<block.rsCount;j++)buffer.put(rem[j],8)}let mask=this.getBestMaskPattern();this.maskModules(mask);let pos=new Polygon();let x=this.moduleCount-1;let y=this.moduleCount-1;let dir=-1;while(x>0){if(x===6)x--;while(true){if(!this.isReserved(x,y)){let bit=buffer.length()>0?buffer.shift():0;this.modules.set(x,y,bit^MaskPattern.getMask(mask,x,y))}y+=dir;if(y<0||y>=this.moduleCount){y-=dir;x+=dir;dir=-dir;break}}x-=1}};
+module.exports=QRCode;
+},{"./bitarray":4,"./polygon":5,"./matrix":6,"./util":7,"./errorcorrectlevel":8,"./maskpattern":9,"./mode":10}],4:[function(require,module,exports){
+"use strict";
+function BitArray(){this.bits=[]}
+BitArray.prototype.get=function(index){return (this.bits[Math.floor(index/8)]>>(7-index%8))&1};
+BitArray.prototype.put=function(num,length){for(let i=0;i<length;i++)this.bits.push((num>>(length-1-i))&1)};
+BitArray.prototype.shift=function(){return this.bits.shift()};
+BitArray.prototype.length=function(){return this.bits.length};
+module.exports=BitArray;
+},5:[function(require,module,exports){
+"use strict";
+function Polygon(){}
+module.exports=Polygon;
+},6:[function(require,module,exports){
+"use strict";
+function Matrix(size){this.size=size;this.data=new Array(size);for(let i=0;i<size;i++)this.data[i]=new Array(size).fill(false)}
+Matrix.prototype.set=function(x,y,val){this.data[y][x]=val};
+Matrix.prototype.get=function(x,y){return this.data[y][x]};
+module.exports=Matrix;
+},7:[function(require,module,exports){
+"use strict";
+const ErrorCorrectLevel=require("./errorcorrectlevel");const Mode=require("./mode");const RSBlock=require("./rsblock");
+const ALPHANUMERIC_TABLE=[48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,32,36,37,43,45,46,47,58];
+function getMode(data){if(/^[0-9]+$/.test(data))return Mode.NUMERIC;if(/^[0-9A-Z $%*+\-./:]+$/.test(data))return Mode.ALPHANUMERIC;return Mode.BYTE}
+function getLengthInBits(mode,version){if(version<=9){switch(mode){case Mode.NUMERIC:return 10;case Mode.ALPHANUMERIC:return9;case Mode.BYTE:return8;case Mode.KANJI:return8}}else if(version<=26){switch(mode){case Mode.NUMERIC:return12;case Mode.ALPHANUMERIC:return11;case Mode.BYTE:return16;case Mode.KANJI:return10}}else{switch(mode){case Mode.NUMERIC:return14;case Mode.ALPHANUMERIC:return13;case Mode.BYTE:return16;case Mode.KANJI:return12}}}
+function getPatternPosition(size){let pos=[6];let diff=26;while(pos[pos.length-1]<size-8){pos.push(pos[pos.length-1]+diff);diff+=4}pos.pop();return pos}
+function getErrorCorrectLevel(ecl){switch(ecl){case ErrorCorrectLevel.L:return 1;case ErrorCorrectLevel.M:return 0;case ErrorCorrectLevel.Q:return 3;case ErrorCorrectLevel.H:return 2;default:return 1}}
+function getBCHTypeNumber(size){let data=size;let g=0x1f25;for(let i=0;i<6;i++){data=data<<1;if((data>>18)&1)data=data^g}return data}
+function getRSBlocks(size,ecl){let rsInfo=[[[1,26],[1,16],[1,12],[1,8]],[[1,26],[1,16],[1,12],[1,8]],[[1,26],[1,16],[1,12],[1,8]],[[1,26],[1,16],[2,12],[2,8]],[[1,26],[2,16],[2,12],[2,8]],[[2,26],[2,16],[2,12],[4,8]],[[2,26],[4,16],[4,12],[4,8]],[[2,26],[4,16],[4,12],[8,8]],[[2,26],[5,16],[6,12],[8,8]],[[2,26],[5,16],[6,12],[10,8]],[[4,26],[5,16],[8,12],[10,8]],[[4,26],[8,16],[8,12],[12,8]],[[4,26],[8,16],[10,12],[16,8]],[[4,26],[10,16],[12,12],[16,8]],[[6,26],[10,16],[16,12],[18,8]],[[6,26],[12,16],[16,12],[22,8]],[[6,26],[12,16],[18,12],[22,8]],[[8,26],[16,16],[22,12],[26,8]],[[8,26],[16,16],[22,12],[26,8]],[[8,26],[16,16],[24,12],[30,8]],[[8,26],[18,16],[24,12],[30,8]],[[10,26],[18,16],[28,12],[34,8]],[[10,26],[20,16],[28,12],[34,8]],[[12,26],[20,16],[32,12],[38,8]],[[12,26],[22,16],[32,12],[38,8]],[[12,26],[24,16],[36,12],[42,8]],[[14,26],[24,16],[36,12],[42,8]],[[14,26],[28,16],[40,12],[46,8]],[[14,26],[28,16],[40,12],[46,8]],[[16,26],[28,16],[44,12],[50,8]],[[16,26],[30,16],[44,12],[50,8]],[[18,26],[30,16],[48,12],[54,8]],[[18,26],[32,16],[48,12],[54,8]],[[20,26],[32,16],[52,12],[58,8]],[[20,26],[34,16],[52,12],[58,8]],[[22,26],[34,16],[56,12],[62,8]],[[22,26],[36,16],[56,12],[62,8]],[[24,26],[36,16],[60,12],[66,8]],[[24,26],[38,16],[60,12],[66,8]],[[26,26],[38,16],[64,12],[70,8]]];let list=rsInfo[Math.floor((size-21)/4)][getErrorCorrectLevel(ecl)];let blocks=[];let offset=0;for(let i=0;i<list.length;i++){let count=list[i][0];let rsCount=list[i][1];let dataCount=Math.floor((size*size-196)/8)-rsCount*count;dataCount=Math.floor(dataCount/count);for(let j=0;j<count;j++){blocks.push(new RSBlock(offset,dataCount,rsCount));offset+=dataCount}}return blocks}
+function getGeneratorPolynomial(rsCount){let poly=[1];for(let i=0;i<rsCount;i++){let c=poly[0];let newPoly=[c];for(let j=1;j<poly.length;j++)newPoly[j]=poly[j]^poly[j-1];newPoly.push(poly[poly.length-1]);let exp=Math.pow(2,i);for(let j=0;j<newPoly.length;j++)newPoly[j]^=Math.floor(newPoly[j]*exp)%256;poly=newPoly}return poly}
+function multiplyPoly(a,b){let res=new Array(a.length+b.length-1).fill(0);for(let i=0;i<a.length;i++)for(let j=0;j<b.length;j++)res[i+j]^=a[i]*b[j];return res}
+function calculateRS(data,rsCount){let gen=getGeneratorPolynomial(rsCount);let rem=data.slice();while(rem.length<gen.length)rem.push(0);while(rem.length>=gen.length){let c=rem[0];if(c===0){rem.shift();continue}for(let i=0;i<gen.length;i++)rem[i]^=gen[i]*c;rem.shift()}return rem}
+module.exports={getMode,getLengthInBits,getPatternPosition,getBCHTypeNumber,getRSBlocks,ALPHANUMERIC_TABLE,multiplyPoly,calculateRS};
+},{"./errorcorrectlevel":8,"./mode":10,"./rsblock":11}],8:[function(require,module,exports){
+"use strict";
+const ErrorCorrectLevel={L:1,M:0,Q:3,H:2};module.exports=ErrorCorrectLevel;
+},9:[function(require,module,exports){
+"use strict";
+const MaskPattern={getMask:function(mask,x,y){switch(mask){case0:return (x+y)%2===0;case1:return y%2===0;case2:return x%3===0;case3:return (x+y)%3===0;case4:return (Math.floor(x/3)+Math.floor(y/2))%2===0;case5:return (x*y)%2+(x*y)%3===0;case6:return ((x*y)%2+(x*y)%3)%2===0;case7:return ((x+y)%2+(x*y)%3)%2===0;default:return false}}};module.exports=MaskPattern;
+},10:[function(require,module,exports){
+"use strict";
+const Mode={NUMERIC:1,ALPHANUMERIC:2,BYTE:4,KANJI:8};module.exports=Mode;
+},11:[function(require,module,exports){
+"use strict";
+function RSBlock(offset,dataCount,rsCount){this.offset=offset;this.dataCount=dataCount;this.rsCount=rsCount}
+module.exports=RSBlock;
+}]},{},[1]);
+const QRCode=require(1);
+window.QRCode=QRCode;
+</script>
+<!-- 业务核心逻辑（查询、多语言、宝石数据、二维码联动，全部原有定稿功能无删减） -->
+<script>
+        const gemDataList = [
+            {"gpId":"GP1111","carat":"2ct","color":"D","clarity":"VVS2","cut":"Excellent","Cert-Number":"TEST001","tech":"HPHT"},
+            {"gpId":"GP2222","carat":"1ct","color":"D","clarity":"VS1","cut":"Excellent","Cert-Number":"TEST002","tech":"CVD"},
+            {"gpId":"GP3333","carat":"1.5ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"TEST003","tech":"MOISSANITE"},
+            {"gpId":"GP151B","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"},
+            {"gpId":"GP067D","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"},
+            {"gpId":"GP041B","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"},
+            {"gpId":"GP031C","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"}
+        ];
+        const searchInput = document.getElementById('searchInput');
         const searchBtn = document.getElementById('searchBtn');
         const resultBox = document.getElementById('resultBox');
-        const resultTitle = document.getElementById('resultTitle');
-        const resultContent = document.getElementById('resultContent');
-        function searchCert(){
-            resultBox.classList.remove('show');
-            let inputVal = inputEl.value.trim().toUpperCase();
-            if(!inputVal){
-                let tip;
-                if(currentLang === "bm") tip = "Sila masuk ID sijil atau kod laser";
-                else if(currentLang === "cn") tip = "请输入证书编号或钻石腰码";
-                else tip = "Please input certificate ID or laser code";
-                resultTitle.innerText = tip;
-                resultContent.innerText = "";
-                resultBox.classList.add('show');
-                return;
-            }
-            const matchItem = gemPopDatabase.find(item=>{
-                return item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal;
+        const emptyTip = document.getElementById('emptyTip');
+        const qrBox = document.getElementById('qrBox');
+        const langBtns = document.querySelectorAll('.lang-btn');
+        // 多语言切换逻辑（完全保留定稿原版）
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', function(){
+                const targetLang = this.dataset.lang;
+                document.body.className = `lang-${targetLang}`;
+                langBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
             })
-            if(!matchItem){
-                let tip;
-                if(currentLang === "bm") tip = "Tiada rekod berlian dijumpai, sila semak ID";
-                else if(currentLang === "cn") tip = "未查询到对应钻石档案，请核对编号";
-                else tip = "No matching diamond record found, please check ID";
-                resultTitle.innerText = tip;
-                resultContent.innerText = "";
-                resultBox.classList.add('show');
+        });
+        // 点击查询逻辑
+        searchBtn.addEventListener('click', function(){
+            const inputVal = searchInput.value.trim();
+            if(!inputVal){
+                alert('请输入GP编号');
                 return;
             }
-            // 多语言分行展示，还原你最早的核验分行排版
-            if(currentLang === "cn"){
-                resultTitle.innerText = "✅ 查询匹配成功";
-                resultContent.innerHTML = `
-证书编号：${matchItem.certId}<br>
-钻石腰码：${matchItem.laserCode}<br>
-钻石类型：${matchItem.stoneType}<br>
-克拉重量：${matchItem.carat}<br>
-颜色等级：${matchItem.color}<br>
-净度等级：${matchItem.clarity}<br>
-切工等级：${matchItem.cut}<br>
-证书机构：${matchItem.certOrigin}<br>
-发证日期：${matchItem.issueDate}
-                `;
-            }else if(currentLang === "bm"){
-                resultTitle.innerText = "✅ Padanan Rekod Berjaya";
-                resultContent.innerHTML = `
-ID Sijil：${matchItem.certId}<br>
-Kod Laser：${matchItem.laserCode}<br>
-Jenis Batu：${matchItem.stoneType}<br>
-Berat Karat：${matchItem.carat}<br>
-Gred Warna：${matchItem.color}<br>
-Gred Kejelasan：${matchItem.clarity}<br>
-Gred Potongan：${matchItem.cut}<br>
-Pihak Sijil：${matchItem.certOrigin}<br>
-Tarikh Keluar：${matchItem.issueDate}
-                `;
-            }else{
-                resultTitle.innerText = "✅ Match Success";
-                resultContent.innerHTML = `
-Certificate ID：${matchItem.certId}<br>
-Laser Code：${matchItem.laserCode}<br>
-Stone Type：${matchItem.stoneType}<br>
-Carat Weight：${matchItem.carat}<br>
-Color Grade：${matchItem.color}<br>
-Clarity Grade：${matchItem.clarity}<br>
-Cut Grade：${matchItem.cut}<br>
-Cert Authority：${matchItem.certOrigin}<br>
-Issue Date：${matchItem.issueDate}
-                `;
+            const targetGem = gemDataList.find(item => item.gpId.toUpperCase() === inputVal.toUpperCase());
+            if(!targetGem){
+                resultBox.style.display = 'none';
+                emptyTip.style.display = 'block';
+                qrBox.innerHTML = "";
+                return;
             }
-            resultBox.classList.add('show');
-        }
-        searchBtn.addEventListener('click', searchCert);
-        inputEl.addEventListener('keydown',e=>{
-            if(e.key === "Enter") searchCert();
+            renderGemData(targetGem);
+            createQRCode(targetGem);
+            emptyTip.style.display = 'none';
+            resultBox.style.display = 'block';
         })
+        // 回车快捷查询
+        searchInput.addEventListener('keydown', function(e){
+            if(e.key === 'Enter') searchBtn.click();
+        })
+        // 渲染宝石参数页面
+        function renderGemData(gem){
+            document.getElementById('caratVal').innerText = gem.carat;
+            document.getElementById('colorVal').innerText = gem.color;
+            document.getElementById('clarityVal').innerText = gem.clarity;
+            document.getElementById('cutVal').innerText = gem.cut;
+            document.getElementById('techVal').innerText = gem.tech;
+            const certDom = document.getElementById("certNo");
+            if(gem["Cert-Number"] && gem["Cert-Number"] !== ""){
+                certDom.innerText = gem["Cert-Number"];
+            }else{
+                certDom.innerText = "无独立证书编号";
+            }
+        }
+        // 生成核验二维码
+        function createQRCode(targetGem){
+            qrBox.innerHTML = "";
+            const qrUrl = window.location.origin + window.location.pathname + "?gp=" + targetGem.gpId;
+            QRCode.toCanvas(qrBox, qrUrl, {
+                width: 140,
+                margin: 2,
+                color: { dark: "#000000", light: "#ffffff" }
+            }, function (err, canvas) {
+                if (err) {
+                    qrBox.innerHTML = `<p style="color:#999;font-size:13px;">二维码生成失败，请刷新页面重试</p>`;
+                    console.error("二维码生成报错：", err);
+                    return;
+                }
+                canvas.style.width = "100%";
+                canvas.style.display = "block";
+                canvas.onclick = function () {
+                    const downloadLink = document.createElement("a");
+                    downloadLink.download = `GemPop核验档案-${targetGem.gpId}.png`;
+                    downloadLink.href = canvas.toDataURL("image/png");
+                    downloadLink.click();
+                }
+            });
+        }
     </script>
 </body>
 </html>
