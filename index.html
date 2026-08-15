@@ -136,39 +136,6 @@
         .igi-full {
             grid-column: 1 / -1;
         }
-        .qr-section {
-            margin-top: 22px;
-            padding-top: 22px;
-            border-top: 1px dashed #e2d9c0;
-            text-align: center;
-        }
-        .qr-display-box {
-            width: 140px;
-            height: 140px;
-            border: 1px solid #dddddd;
-            margin: 0 auto 10px;
-            padding: 6px;
-            border-radius: 6px;
-            cursor: pointer;
-            background: #ffffff;
-        }
-        @media(min-width:600px){
-            .qr-display-box {
-                width:160px;
-                height:160px;
-            }
-        }
-        .qr-display-box canvas {
-            width:100% !important;
-            height:auto !important;
-            display:block;
-        }
-        .qr-tip {
-            font-size:14px;
-            color:#666;
-            margin:0;
-            line-height:1.5;
-        }
         .aftersale-page-title {
             font-size: 28px;
             color: #b8860b;
@@ -301,14 +268,7 @@
                     <div class="igi-param-value" id="techVal">MOISSANITE</div>
                 </div>
             </div>
-            <div class="qr-section">
-                <div class="qr-display-box" id="qrBox"></div>
-                <p class="qr-tip">
-                    <span lang="zh">扫码可重新核验本证书 | 点击二维码保存核验档案</span>
-                    <span lang="en">Scan QR to recheck certificate | Click QR to save record</span>
-                    <span lang="bm">Imbas QR semak sijil | Klik QR simpan rekod</span>
-                </p>
-            </div>
+            <!-- 彻底删除二维码区块，不再渲染 -->
         </div>
         <h2 class="aftersale-page-title">
             <span lang="zh">售后保养与质保说明</span>
@@ -358,10 +318,7 @@
     </footer>
 
 <script>
-// 极简独立二维码库，无域名读取逻辑
-(function(){function e(e,t,n){this._data=e,this._size=t,this._level=n||0,this._modules=[];var i=Math.floor(this._size/8+2);for(var r=0;r<this._size;r++){this._modules[r]=[];for(var o=0;o<this._size;o++)this._modules[r][o]=!1}this._drawFinder(),this._drawAlign(),this._drawTiming(),this._encode(),this._mask(),this._drawBits()}e.prototype={_get:function(e,t){return this._modules[t][e]},_set:function(e,t,n){this._modules[t][e]=n},_drawFinder:function(){var e=[0,this._size-7];for(var t=0;t<e.length;t++)for(var n=0;n<e.length;n++)this._drawFinderAt(e[t],e[n])},_drawFinderAt:function(e,t){for(var n=0;n<7;n++)for(var i=0;i<7;i++){var r=e+n,o=t+i;if(r<this._size&&o<this._size){var s=0===n||6===n||0===i||6===i||n>=2&&n<=4&&i>=2&&i<=4;this._set(r,o,s)}}},_drawAlign:function(){var e=this._size-8;for(var t=0;t<=e;t+=4)for(var n=0;n<=e;n+=4){if(0===t&&0===n||0===t&&e===n||e===t&&0===n)continue;this._drawFinderAt(t,n)}},_drawTiming:function(){for(var e=8;e<this._size-8;e++)this._set(e,6,0!==e%2),this._set(6,e,0!==e%2)},_encode:function(){var e=[];for(var t=0;t<this._data.length;t++){var n=this._data.charCodeAt(t);for(var i=7;i>=0;i--)e.push(1&n>>i)}var t=e.length%8;if(0!==t)for(var n=0;n<8-t;n++)e.push(0);while(e.length+8<this._getMaxBits()){e.push(1),e.push(0)}for(var t=0;t<e.length;t+=8){var n=0;for(var i=0;i<8;i++)n=n<<1|(e[t+i]&1);this._writeByte(n)}},_writeByte:function(e){var t=this._size-1,n=this._size-1,i=!0;while(t>6){if(6===t)t--;while(1){if(!this._isReserved(t,n)){var r=0;for(var o=0;o<8;o++)r=r<<1|(e&1),e=e>>1;this._set(t,n,1&r),n=n+i}else n=n+i;if(n<0||n>=this._size){n=n-i;t--;i=!i;break}}t--}},_isReserved:function(e,t){return e<8&&t<8||e<8&&t>=this._size-8||e>=this._size-8&&t<8||6===e||6===t},_getMaxBits:function(){return Math.floor((this._size*this._size-196)/8)*8},_mask:function(){var e=0,t=9999,n=0;for(var i=0;i<8;i++){this._applyMask(i);var r=this._getScore();if(r<t)t=r,e=i;this._applyMask(i)}this._applyMask(e)},_applyMask:function(e){for(var t=0;t<this._size;t++)for(var n=0;n<this._size;n++)if(!this._isReserved(t,n)){var i=0===e?(t+n)%2===0:1===e?t%2===0:2===e?t%3===0:3===e?(t+n)%3===0:4===e?(Math.floor(t/3)+Math.floor(n/2))%2===0:5===e?(t*n)%2+(t*n)%3===0:6===e?((t*n)%2+(t*n)%3)%2===0:((t+n)%2+(t*n)%3)%2===0;this._set(t,n,this._get(t,n)^i}},_getScore:function(){var e=0;for(var t=0;t<this._size;t++)for(var n=0;n<this._size;n++){var i=this._get(t,n);if(t+1<this._size&&n+1<this._size){var r=0;if(i===this._get(t+1,n))r++;if(i===this._get(t,n+1))r++;if(i===this._get(t+1,n+1))r++;if(r>1)e+=3}if(t+4<this._size){var o=1;for(var s=1;s<5;s++)if(this._get(t+s,n)!==i){o=0;break}o&&(e+=40)}if(n+4<this._size){var o=1;for(var s=1;s<5;s++)if(this._get(t,n+s)!==i){o=0;break}o&&(e+=40)}}var t=0;for(var n=0;n<this._size;n++)for(var i=0;i<this._size;i++)this._get(n,i)&&t++;var n=Math.abs(100*t/(this._size*this._size)-50);return e+=Math.floor(n/5)*10,e},render:function(e,t){var n=document.createElement("canvas"),i=n.getContext("2d"),r=t||4;n.width=this._size*r;n.height=this._size*r;i.fillStyle="#fff";i.fillRect(0,0,n.width,n.height);i.fillStyle="#000";for(var o=0;o<this._size;o++)for(var s=0;s<this._size;s++)this._get(o,s)&&i.fillRect(o*r,s*r,r,r);e.innerHTML="";e.appendChild(n);return n}};window.QRCode=function(t,n,i){return new e(t,n,i)}})();
-
-// 宝石数据
+// 仅保留基础查询、语言切换JS，无任何二维码库
 const gemDataList = [
     {"gpId":"GP1111","carat":"2ct","color":"D","clarity":"VVS2","cut":"Excellent","Cert-Number":"TEST001","tech":"HPHT"},
     {"gpId":"GP2222","carat":"1ct","color":"D","clarity":"VS1","cut":"Excellent","Cert-Number":"TEST002","tech":"CVD"},
@@ -372,12 +329,10 @@ const gemDataList = [
     {"gpId":"GP031C","carat":"1ct","color":"D","clarity":"VVS1","cut":"Excellent","Cert-Number":"","tech":"MOISSANITE"}
 ];
 
-// 页面元素
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const resultBox = document.getElementById('resultBox');
 const emptyTip = document.getElementById('emptyTip');
-const qrBox = document.getElementById('qrBox');
 const langBtns = document.querySelectorAll('.lang-btn');
 
 // 语言切换
@@ -390,7 +345,7 @@ langBtns.forEach(btn => {
     })
 });
 
-// 查询按钮
+// 查询点击
 searchBtn.addEventListener('click', function(){
     const inputVal = searchInput.value.trim();
     if(!inputVal){
@@ -401,11 +356,9 @@ searchBtn.addEventListener('click', function(){
     if(!targetGem){
         resultBox.style.display = 'none';
         emptyTip.style.display = 'block';
-        qrBox.innerHTML = "";
         return;
     }
     renderGemData(targetGem);
-    createQRCode(targetGem);
     emptyTip.style.display = 'none';
     resultBox.style.display = 'block';
 })
@@ -415,7 +368,7 @@ searchInput.addEventListener('keydown', function(e){
     if(e.key === 'Enter') searchBtn.click();
 })
 
-// 填充宝石数据
+// 填充参数
 function renderGemData(gem){
     document.getElementById('caratVal').innerText = gem.carat;
     document.getElementById('colorVal').innerText = gem.color;
@@ -424,26 +377,6 @@ function renderGemData(gem){
     document.getElementById('techVal').innerText = gem.tech;
     const certDom = document.getElementById("certNo");
     certDom.innerText = gem["Cert-Number"] ? gem["Cert-Number"] : "无独立证书编号";
-}
-
-// 二维码生成（修复点：固定文本，不读取域名）
-function createQRCode(targetGem){
-    qrBox.innerHTML = "";
-    // 这里写入你自己的网站域名，后续替换即可，不会报错
-    const staticDomain = "https://你的网站域名.com";
-    const qrContent = staticDomain + "/?gp=" + targetGem.gpId;
-    try{
-        const qrObj = new QRCode(qrContent,25);
-        const canvas = qrObj.render(qrBox,5);
-        canvas.onclick = function () {
-            const downloadLink = document.createElement("a");
-            downloadLink.download = `GemPop核验档案-${targetGem.gpId}.png`;
-            downloadLink.href = canvas.toDataURL("image/png");
-            downloadLink.click();
-        }
-    }catch(err){
-        qrBox.innerHTML = `<p style="color:#999;font-size:13px;">二维码生成失败</p>`;
-    }
 }
 </script>
 </body>
