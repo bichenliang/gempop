@@ -1,685 +1,672 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="bm">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GEM POP 宝石证书查验系统</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Helvetica,sans-serif;}
-.top-nav{
-    width:100%;
-    background:#000;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:16px 20px;
-}
-.logo-text{
-    color:#F2C820;
-    font-size:32px;
-    font-weight:700;
-}
-.menu-icon{
-    color:#fff;
-    font-size:28px;
-    cursor:pointer;
-}
-/* 侧边弹出菜单 */
-.side-popup-menu{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100vh;
-    background:#000;
-    z-index:9999;
-    padding:60px 30px;
-    display:none;
-}
-.side-popup-menu.show{display:block;}
-.close-popup{
-    position:absolute;
-    top:16px;
-    right:20px;
-    color:#fff;
-    font-size:32px;
-    cursor:pointer;
-}
-.menu-item{
-    color:#fff;
-    font-size:24px;
-    margin:32px 0;
-    text-decoration:none;
-    display:block;
-}
-.lang-button-group{
-    display:flex;
-    gap:16px;
-    margin-top:60px;
-}
-.lang-btn{
-    border:2px solid #F2C820;
-    background:transparent;
-    color:#F2C820;
-    font-size:18px;
-    padding:10px 36px;
-    cursor:pointer;
-}
-.lang-btn.active{
-    background:#F2C820;
-    color:#000;
-}
-/* 首页样式 */
-.home-page{
-    width:100%;
-    min-height:calc(100vh - 70px);
-    background:#000;
-    padding:40px 24px;
-}
-.yellow-block-box{
-    width:180px;
-    height:60px;
-    background:#F2C820;
-    margin:24px 0 40px;
-}
-.home-desc-text{
-    color:#ccc;
-    font-size:17px;
-    line-height:2;
-    margin-bottom:36px;
-}
-.home-rule-text{
-    color:#aaa;
-    font-size:15px;
-    line-height:1.8;
-    border-top:1px solid #444;
-    padding-top:24px;
-}
-/* 六大系列页面 */
-.series-page{
-    width:100%;
-    min-height:calc(100vh - 70px);
-    background:#fff;
-    padding:24px 20px;
-    display:none;
-}
-.series-card{
-    border:1px solid #EAEAEA;
-    border-radius:6px;
-    padding:28px 24px;
-    margin-bottom:22px;
-}
-.series-name-text{
-    color:#947622;
-    font-size:22px;
-}
-.series-slogan{
-    color:#333;
-    margin:12px 0 8px;
-    font-style:italic;
-    font-size:16px;
-}
-.series-desc{
-    color:#666;
-    line-height:1.7;
-    font-size:15px;
-}
-/* 查询页双框布局 */
-.check-cert-page{
-    width:100%;
-    min-height:calc(100vh - 70px);
-    background:#fff;
-    padding:32px 20px;
-    display:none;
-}
-.search-input-row{
-    display:flex;
-    margin-bottom:36px;
-}
-#cert-code-input{
-    flex:1;
-    padding:18px 16px;
-    border:1px solid #ccc;
-    border-right:none;
-    font-size:16px;
-}
-#search-submit-btn{
-    background:#000;
-    color:#F2C820;
-    border:1px solid #000;
-    padding:0 24px;
-    font-size:16px;
-    cursor:pointer;
-}
-.info-box{
-    border:2px solid #F2C820;
-    padding:24px;
-    margin-bottom:24px;
-}
-.keep-box{
-    border:2px solid #888;
-    padding:24px;
-    margin-bottom:24px;
-}
-.legal-box{
-    border:1px solid #ddd;
-    padding:24px;
-}
-.info-title{
-    font-size:20px;
-    margin-bottom:16px;
-}
-.info-text{
-    color:#666;
-    font-size:15px;
-    line-height:1.8;
-}
-.result-container{
-    margin-top:40px;
-    border:1px solid #F2C820;
-    padding:24px;
-    display:none;
-}
-.result-container.show{display:block;}
-.footer-bottom-text{
-    width:100%;
-    background:#000;
-    color:#AAA;
-    text-align:center;
-    padding:24px 12px;
-    font-size:15px;
-}
-.page-container{display:none;}
-.page-container.active{display:block;}
-/* 多语言切换控制 */
-[lang-bm],[lang-zh],[lang-en]{display:none;}
-body.lang-bm [lang-bm]{display:block;}
-body.lang-zh [lang-zh]{display:block;}
-body.lang-en [lang-en]{display:block;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEM POP | Borong Berlian Makmal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+        :root {
+            --black: #121212;
+            --gold: #D4AF37;
+            --light-gold: #FFD700;
+            --gray: #f7f7f7;
+            --text-gray: #555;
+            --white: #ffffff;
+        }
+        /* 导航栏 */
+        .header-nav {
+            background: var(--black);
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .logo-text {
+            color: var(--light-gold);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .pc-menu {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .pc-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .pc-menu a:hover {
+            color: var(--gold);
+        }
+        .lang-switch-group{
+            display:flex;
+            gap:8px;
+        }
+        .lang-btn{
+            border:1px solid var(--gold);
+            color:var(--gold);
+            background:transparent;
+            padding:4px 8px;
+            cursor:pointer;
+        }
+        /* 移动端汉堡按钮 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 2px;
+            background: #fff;
+            display:block;
+        }
+        /* 移动端侧边栏 */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: var(--black);
+            padding: 40px 30px;
+            transition: right 0.4s ease;
+            z-index: 1000;
+        }
+        .mobile-sidebar.open {
+            right: 0;
+        }
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
+        }
+        .mobile-sidebar a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 17px;
+            margin: 22px 0;
+        }
+        .mobile-sidebar a:hover {
+            color: var(--gold);
+        }
+        .mask {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 998;
+        }
+        .mask.show {
+            display: block;
+        }
+        /* 首屏横幅 */
+        .banner-box {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), #222;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+        .banner-box h1 {
+            color: var(--light-gold);
+            font-size: 40px;
+            margin-bottom: 18px;
+        }
+        .banner-desc {
+            font-size: 18px;
+            max-width: 750px;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+        .banner-btn {
+            padding: 14px 36px;
+            background: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+        .banner-btn:hover {
+            background: var(--light-gold);
+        }
+        /* 通用区块 */
+        .section-wrap {
+            padding: 70px 5%;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 30px;
+            color: var(--black);
+            margin-bottom: 48px;
+        }
+        .story-text {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            text-align: center;
+            line-height: 2;
+            font-size: 17px;
+            color: var(--text-gray);
+        }
+        /* 爱情系列布局 */
+        .love-series-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 36px;
+            margin-bottom: 70px;
+        }
+        .series-card {
+            border: 1px solid #eee;
+            padding: 32px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .series-card:hover {
+            box-shadow: 0 8px 24px #ddd;
+        }
+        .series-card h3 {
+            color: var(--gold);
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .series-card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        /* 产品板块 */
+        .product-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin: 60px 0;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            padding: 28px;
+            border-radius: 8px;
+        }
+        .product-card h3 {
+            color: var(--gold);
+            margin-bottom: 14px;
+            font-size: 20px;
+        }
+        .product-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+        /* 证书查验区 */
+        .check-module {
+            background: var(--gray);
+            padding: 55px 5%;
+            text-align: center;
+            margin: 50px 0;
+        }
+        .check-input {
+            width: 340px;
+            padding: 14px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+        .check-btn {
+            padding: 14px 28px;
+            background: var(--black);
+            color: var(--light-gold);
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .check-result{
+            max-width:700px;
+            margin:30px auto 0;
+            padding:25px;
+            background:#fff;
+            border:1px solid var(--gold);
+            text-align:left;
+            display:none;
+            line-height:2;
+        }
+        .check-result.show{
+            display:block;
+        }
+        .check-tip {
+            margin-top: 18px;
+            color: #666;
+        }
+        .about-text {
+            max-width: 920px;
+            margin: 0 auto;
+            line-height: 1.9;
+            font-size: 16px;
+            color: var(--text-gray);
+            text-align: center;
+        }
+        /* 页脚精简 */
+        footer {
+            background: var(--black);
+            color: #aaa;
+            padding: 36px 5%;
+            text-align: center;
+            margin-top: 50px;
+        }
+        /* 移动端适配 */
+        @media(max-width: 860px) {
+            .pc-menu {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .check-input {
+                width: 80%;
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+            .banner-box h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
 </head>
-<body class="lang-bm">
-<!-- 顶部导航 -->
-<div class="top-nav">
-    <div class="logo-text">GEM POP</div>
-    <div class="menu-icon" id="openMenuBtn">☰</div>
-</div>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header-nav">
+        <div class="logo-text">GEM POP</div>
+        <div class="pc-menu">
+            <a href="#home" data-i18n="nav.home"></a>
+            <a href="#loveSeries" data-i18n="nav.series"></a>
+            <a href="#goods" data-i18n="nav.product"></a>
+            <a href="#check" data-i18n="nav.check"></a>
+            <a href="#about" data-i18n="nav.about"></a>
+            <div class="lang-switch-group">
+                <button class="lang-btn" data-lang="bm">BM</button>
+                <button class="lang-btn" data-lang="cn">中文</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+        </div>
+        <div class="hamburger" id="openMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
 
-<!-- 侧边菜单 -->
-<div class="side-popup-menu" id="popupMenu">
-    <div class="close-popup" id="closeMenuBtn">×</div>
-    <a href="#home" class="menu-item" data-page="home">
-        <span lang-bm>Laman Utama</span>
-        <span lang-zh>首页</span>
-        <span lang-en>Home</span>
-    </a>
-    <a href="#series" class="menu-item" data-page="series">
-        <span lang-bm>6 Siri Cinta</span>
-        <span lang-zh>六大爱情系列</span>
-        <span lang-en>Six Love Series</span>
-    </a>
-    <a href="#check" class="menu-item" data-page="check">
-        <span lang-bm>Pengesahan Sijil Batu Permata</span>
-        <span lang-zh>宝石证书查验</span>
-        <span lang-en>Gemstone Certificate Check</span>
-    </a>
-    <div class="lang-button-group">
-        <button class="lang-btn active" data-lang="bm">BM</button>
-        <button class="lang-btn" data-lang="zh">中文</button>
-        <button class="lang-btn" data-lang="en">EN</button>
-    </div>
-</div>
-
-<!-- 首页内容（补齐完整一年质保、保修卡、保养条款） -->
-<div id="home" class="page-container home-page active">
-    <div class="logo-text">GEM POP</div>
-    <div class="yellow-block-box"></div>
-    <div class="home-desc-text">
-        <span lang-zh>
-        GEM POP 原厂宝石查验平台，仅收录实验室培育钻石与莫桑石产品信息。
-        产品分为三类：HPHT高温高压培育钻石、CVD气相培育钻石、高通透莫桑石，不售卖天然钻石。
-        每颗宝石都刻有专属激光腰码，一石一码匹配对应证书，方便大家线下拿放大镜核对，杜绝套证假货。
-        店内一共有六款常驻钻戒系列，另有三款节日限定款，日常佩戴、求婚订婚、婚礼纪念送礼都能适配。
-        所有订单随货附赠纸质保修保养卡，宝石主体享受一整年官方质保。
-        </span>
-        <span lang-bm>
-        Platform pengesahan batu permata kilang GEM POP, hanya merekod maklumat berlian kultur makmal dan batu moissanite.
-        Terdapat tiga jenis produk: Berlian kultur HPHT, berlian kultur CVD, moissanite jernih tinggi. Kami tidak menjual berlian semulajadi.
-        Setiap batu permata diukir kod pinggang laser unik, satu kod untuk satu batu sepadan sijil, pelanggan boleh semak dengan kanta pembesar elak sijil palsu.
-        Terdapat enam siri cincin utama, tiga siri edisi perayaaan, sesuai dipakai sehari-hari, lamaran, perkahwinan dan hadiah ulang tahun.
-        Setiap pesanan akan disertakan kad jaminan & penjagaan kertas, batu permata dilindungi jaminan kilang selama setahun penuh.
-        </span>
-        <span lang-en>
-        GEM POP original gemstone verification platform, only records lab-grown diamond and moissanite data.
-        Three product types: HPHT lab diamond, CVD lab diamond, high-clarity moissanite. Natural diamonds are not sold.
-        Every stone has unique laser girdle code, one stone matches one certificate. Customers can check with magnifier to avoid fake certificates.
-        Six regular ring collections plus three holiday limited editions, suitable for daily wear, proposal, wedding and anniversary gifts.
-        Every order comes with physical warranty & care card, all gemstones carry 1 full year official factory warranty.
-        </span>
-    </div>
-    <div class="home-rule-text">
-        <span lang-zh>
-        使用、保修与保养完整说明
-        一、证书查询服务
-        1、平台证书核验永久免费，只要保存好腰码，证书丢失也能查询对应记录；
-        2、本查验页面可用于商品详情、线下门店核对、直播展示使用。
-
-        二、一年官方质保规则（凭随货保修卡生效）
-        1、宝石主体质保期限自签收当日起12个月，非人为脱落、开裂可免费补石维修；
-        2、银戒镀层自然氧化损耗不属于质量问题，不在宝石质保范围内；
-        3、人为磕碰、自行修改戒托尺寸、改造款式造成宝石破损，不享受免费维修；
-
-        三、日常保养建议（保修卡同步印刷同款内容）
-        1、做家务、游泳、洗澡、接触化妆品/消毒液时建议摘下戒指；
-        2、长期不佩戴时放入密封首饰盒，减少空气氧化；
-        3、可线下门店享受免费清洗抛光保养服务。
-        </span>
-        <span lang-bm>
-        Maklumat penggunaan, jaminan dan penjagaan penuh
-        1. Perkhidmatan semak sijil
-        1. Pengesahan sijil di platform ini percuma selamanya, anda boleh cari rekod dengan kod pinggang jika sijil hilang;
-        2. Laman pengesahan ini boleh guna untuk halaman produk, pemeriksaan kedai fizikal dan paparan siaran langsung.
-
-        2. Peraturan jaminan kilang setahun (berkuat kuasa dengan kad jaminan pesanan)
-        1. Batu permata dilindungi jaminan 12 bulan dari tarikh terima barang, batu tanggal atau retak tanpa kerosakan manusia boleh dibaiki percuma;
-        2. Pengoksidaan lapisan perak secara semulajadi bukan kerosakan produk, tidak dilindungi jaminan batu;
-        3. Kerosakan batu akibat hentakan, ubah saiz cincin atau ubah reka bentuk tidak layak baiki percuma.
-
-        3. Cadangan penjagaan harian (teks sama dicetak pada kad penjagaan)
-        1. Tanggalkan cincin semasa buat kerja rumah, mandi, berenang atau sentuh kosmetik & cecair pembersih;
-        2. Simpan dalam kotak barang kemas tertutup jika tidak dipakai lama-lama, kurangkan pengoksidaan;
-        3. Anda boleh datang ke kedai untuk perkhidmatan cuci & gilap percuma.
-        </span>
-        <span lang-en>
-        Full Usage, Warranty & Care Guide
-        1. Certificate Check Service
-        1. Certificate verification is free forever, you can search records by girdle code if certificate lost;
-        2. This verification page can be used for product page, offline store check and livestream display.
-
-        2. 1-Year Official Warranty (valid with physical warranty card included with order)
-        1. Gemstone covered under 12-month warranty from delivery date, free stone re-set for natural stone falling/cracking without human damage;
-        2. Natural silver plating oxidation is not a product defect, excluded from gem warranty;
-        3. Stone damage from collision, resizing or redesign is not eligible for free repair.
-
-        3. Daily Care Tips (identical text printed on physical care card)
-        1. Remove rings during housework, shower, swimming, or contact with cosmetics & disinfectants;
-        2. Store in sealed jewelry box when not wearing long-term to slow oxidation;
-        3. Free cleaning & polishing service available at offline stores.
-        </span>
-    </div>
-</div>
-
-<!-- 六大爱情系列（完整保留近一个月全部沟通敲定文案，无删减） -->
-<div id="series" class="page-container series-page">
-    <div class="series-card">
-        <div class="series-name-text">
-            <span lang-zh>初见系列</span>
-            <span lang-bm>Siri Pertemuan</span>
-            <span lang-en>First Sight Series</span>
-        </div>
-        <div class="series-slogan">
-            <span lang-zh>初见心动，温柔日常款</span>
-            <span lang-bm>Cinta pada pertemuan pertama, sesuai dipakai sehari-hari</span>
-            <span lang-en>Love at first sight, gentle daily style</span>
-        </div>
-        <div class="series-desc">
-        <span lang-zh>经典六爪简约款式，佩戴轻薄不勾衣服、不磨手，学生和上班族日常佩戴最合适，培育钻石两种材质都能搭配。长期通勤佩戴耐磨省心，全套款式均附赠保修保养卡，享受一年宝石质保。</span>
-        <span lang-bm>Reka bentuk enam cakar klasik ringkas, nipis dipakai tidak mengait pakaian, sesuai untuk pelajar dan pekerja, boleh padan kedua-dua jenis berlian kultur. Tahan calar dipakai setiap hari, semua model disertakan kad jaminan dengan perlindungan batu setahun.</span>
-        <span lang-en>Classic simple 6-prong design, lightweight, snag-free, perfect for students and office workers, match both types of lab diamond. Scratch-resistant for daily commute, all styles come with warranty card with 1-year gem coverage.</span>
-        </div>
-    </div>
-    <div class="series-card">
-        <div class="series-name-text">
-            <span lang-zh>甜蜜系列</span>
-            <span lang-bm>Siri Manis</span>
-            <span lang-en>Sweet Series</span>
-        </div>
-        <div class="series-slogan">
-            <span lang-zh>细碎星光，藏着温柔氛围感</span>
-            <span lang-bm>Cahaya batu kecil membawa suasana romantis</span>
-            <span lang-en>Tiny stone sparkles bring romantic vibe</span>
-        </div>
-        <div class="series-desc">
-        <span lang-zh>环绕副石提亮整体火彩，上手柔和闪亮，生日、纪念日送礼很合适，莫桑石和培育钻两种选择。送礼配套完整礼盒+纸质保修卡，收货后12个月宝石问题均可售后处理。</span>
-        <span lang-bm>Batu sampingan sekeliling menambah kilauan, cantik dipakai, sesuai hadiah hari jadi dan ulang tahun, pilihan moissanite dan berlian kultur tersedia. Set hadiah lengkap kotak & kad jaminan, masalah batu boleh dibaiki dalam 12 bulan selepas terima barang.</span>
-        <span lang-en>Halo side stones enhance shine, beautiful on hand, ideal gift for birthday & anniversary, moissanite and lab diamond options available. Gift set includes full box + physical warranty card, gem issues supported within 12 months of delivery.</span>
-        </div>
-    </div>
-    <div class="series-card">
-        <div class="series-name-text">
-            <span lang-zh>承诺系列</span>
-            <span lang-bm>Siri Janji</span>
-            <span lang-en>Promise Series</span>
-        </div>
-        <div class="series-slogan">
-            <span lang-zh>一枚戒指，许下长久承诺</span>
-            <span lang-bm>Satu cincin untuk janji seumur hidup</span>
-            <span lang-en>One ring for lifelong promise</span>
-        </div>
-        <div class="series-desc">
-        <span lang-zh>扭臂设计修饰手型，上手显手指纤细，门店最热门订婚款式，附带纸质证书支持线上核验。订婚款全部标配一年宝石质保卡，线下可免费清洗保养。</span>
-        <span lang-bm>Lengkungan pemegang memanjangkan jari, model pertunangan paling popular, disertai sijil kertas untuk pengesahan dalam talian. Semua model pertunangan disediakan kad jaminan setahun, perkhidmatan cuci percuma di kedai.</span>
-        <span lang-en>Twist band slims fingers, top popular engagement style, paper certificate included for online check. All engagement styles include 1-year gem warranty card, free cleaning service in store.</span>
-        </div>
-    </div>
-    <div class="series-card">
-        <div class="series-name-text">
-            <span lang-zh>挚爱系列</span>
-            <span lang-bm>Siri Cinta Sejati</span>
-            <span lang-en>True Love Series</span>
-        </div>
-        <div class="series-slogan">
-            <span lang-zh>满心热忱，专属于婚礼仪式</span>
-            <span lang-bm>Penuh kasih untuk majlis perkahwinan</span>
-            <span lang-en>Full romance for wedding ceremony</span>
-        </div>
-        <div class="series-desc">
-        <span lang-zh>整圈满镶款式仪式感十足，适合婚礼交换戒指，标配高净度VVS等级宝石。婚礼成套对戒统一配备保修保养卡，一整年宝石脱落、开裂免费维修。</span>
-        <span lang-bm>Cincin penuh batu untuk majlis perkahwinan, disediakan batu gred VVS jernih tinggi. Set cincin pasangan perkahwinan disertakan kad jaminan penuh, baiki batu tanggal & retak percuma dalam setahun.</span>
-        <span lang-en>Full pave band for wedding exchange, matched with standard high-clarity VVS stones. Wedding couple ring sets include full warranty care card, free repair for stone falling & cracking within one year.</span>
-        </div>
-    </div>
-    <div class="series-card">
-        <div class="series-name-text">
-            <span lang-zh>永恒系列</span>
-            <span lang-bm>Siri Abadi</span>
-            <span lang-en>Eternal Series</span>
-        </div>
-        <div class="series-slogan">
-            <span lang-zh>简约耐看，日常长久陪伴</span>
-            <span lang-bm>Minimalis cantik untuk dipakai setiap hari lama-lama</span>
-            <span lang-en>Timeless minimal design for daily long-term wear</span>
-        </div>
-        <div class="series-desc">
-        <span lang-zh>单钻素圈耐磨耐用，做家务不用频繁摘下，长期通勤佩戴首选。基础简约款质保政策统一，凭保修卡享受全年宝石维护服务。</span>
-        <span lang-bm>Cincin satu batu tahan calar, boleh dipakai buat kerja rumah tanpa tanggalkan, pilihan terbaik dipakai setiap hari. Polisi jaminan sama untuk semua model ringkas, gunakan kad jaminan untuk perkhidmatan penjagaan batu sepanjang tahun.</span>
-        <span lang-en>Solitaire band scratch-resistant, no need to take off during housework, best for daily long wear. Uniform warranty policy for basic minimalist styles, use warranty card for full-year gem maintenance service.</span>
-        </div>
-    </div>
-    <div class="series-card">
-        <div class="series-name-text">
-            <span lang-zh>回忆系列</span>
-            <span lang-bm>Siri Kenangan</span>
-            <span lang-en>Memory Series</span>
-        </div>
-        <div class="series-slogan">
-            <span lang-zh>小众独特，留存专属纪念</span>
-            <span lang-bm>Reka bentuk unik untuk simpan kenangan istimewa</span>
-            <span lang-en>Unique rare design for exclusive memories</span>
-        </div>
-        <div class="series-desc">
-        <span lang-zh>不对称小众设计不容易撞款，情侣对戒、单人纪念戒指尺寸齐全可选。小众定制款同样附赠全套保修保养卡，质保时效一年不变。</span>
-        <span lang-bm>Reka bentuk tidak simetri jarang dilihat, saiz lengkap untuk cincin pasangan dan cincin peringatan individu. Model reka bentuk unik juga disertakan kad jaminan lengkap, tempoh jaminan setahun tidak berubah.</span>
-        <span lang-en>Unique asymmetric design hard to duplicate, full sizes for couple rings and solo memorial rings. Unique custom styles also include complete warranty care card, 1-year warranty term unchanged.</span>
-        </div>
-    </div>
-</div>
-
-<!-- 证书查验页面（新增独立保修保养板块，三分区完整） -->
-<div id="check" class="page-container check-cert-page">
-    <div class="search-input-row">
-        <input id="cert-code-input" placeholder="
-        <span lang-zh>输入证书/宝石编号查询</span>
-        <span lang-bm>Masuk kod sijil / batu permata untuk cari</span>
-        <span lang-en>Enter certificate / gem code to search</span>
-        ">
-        <button id="search-submit-btn">
-            <span lang-zh>查询</span>
-            <span lang-bm>Cari</span>
-            <span lang-en>Search</span>
-        </button>
-    </div>
-
-    <!-- 1、上方产品说明金框（原有保留） -->
-    <div class="info-box">
-        <div class="info-title">
-            <span lang-zh>平台产品说明</span>
-            <span lang-bm>Maklumat Produk Platform</span>
-            <span lang-en>Platform Product Info</span>
-        </div>
-        <div class="info-text">
-            <span lang-zh>
-            1、本平台仅录入HPHT培育钻、CVD培育钻、莫桑石三类产品数据，无天然钻石记录；
-            2、每颗宝石激光腰码与证书编号一一对应，可线下放大镜核对；
-            3、查询到的数据为产品出厂基础参数，包含重量、颜色、净度、切工、材质工艺。
-            </span>
-            <span lang-bm>
-            1. Platform ini hanya simpan data tiga jenis produk: berlian kultur HPHT, berlian kultur CVD, moissanite, tiada rekod berlian semulajadi;
-            2. Kod pinggang laser setiap batu padan dengan nombor sijil, boleh semak dengan kanta pembesar secara fizikal;
-            3. Data carian adalah parameter kilang asal termasuk berat, warna, kejelasan, potongan dan jenis bahan.
-            </span>
-            <span lang-en>
-            1. This platform only stores 3 types of products: HPHT lab diamond, CVD lab diamond, moissanite, no natural diamond records;
-            2. Laser girdle code matches certificate number one by one, physical check with magnifier available;
-            3. Search results show factory original data: carat, color, clarity, cut, material craft.
-            </span>
+    <div class="mask" id="maskLayer"></div>
+    <div class="mobile-sidebar" id="sideBar">
+        <div class="sidebar-close" id="closeMenu">×</div>
+        <a href="#home" data-i18n="nav.home"></a>
+        <a href="#loveSeries" data-i18n="nav.series"></a>
+        <a href="#goods" data-i18n="nav.product"></a>
+        <a href="#check" data-i18n="nav.check"></a>
+        <a href="#about" data-i18n="nav.about"></a>
+        <div class="lang-switch-group" style="margin-top:20px;">
+            <button class="lang-btn" data-lang="bm">BM</button>
+            <button class="lang-btn" data-lang="cn">中文</button>
+            <button class="lang-btn" data-lang="en">EN</button>
         </div>
     </div>
 
-    <!-- 2、新增独立保修保养板块（今日全部新增质保、保养卡内容） -->
-    <div class="keep-box">
-        <div class="info-title">
-            <span lang-zh>保修与保养说明</span>
-            <span lang-bm>Maklumat Jaminan & Penjagaan</span>
-            <span lang-en>Warranty & Care Information</span>
+    <!-- 首屏 -->
+    <section class="banner-box" id="home">
+        <h1>GEM POP <span data-i18n="banner.title"></span></h1>
+        <p class="banner-desc" data-i18n="banner.desc"></p>
+        <a href="#check" class="banner-btn" data-i18n="banner.btn"></a>
+    </section>
+
+    <!-- 爱情系列 -->
+    <section class="section-wrap" id="loveSeries">
+        <h2 class="section-title" data-i18n="series.title"></h2>
+        <p class="story-text" data-i18n="series.desc"></p>
+        <div class="love-series-wrap">
+            <div class="series-card">
+                <h3>Falling Love · <span data-i18n="s1.name"></span></h3>
+                <p data-i18n="s1.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Sweet Love · <span data-i18n="s2.name"></span></h3>
+                <p data-i18n="s2.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Promise Love · <span data-i18n="s3.name"></span></h3>
+                <p data-i18n="s3.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>True Love · <span data-i18n="s4.name"></span></h3>
+                <p data-i18n="s4.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Eternal Love · <span data-i18n="s5.name"></span></h3>
+                <p data-i18n="s5.text"></p>
+            </div>
+            <div class="series-card">
+                <h3>Memory Love · <span data-i18n="s6.name"></span></h3>
+                <p data-i18n="s6.text"></p>
+            </div>
         </div>
-        <div class="info-text">
-            <span lang-zh>
-            1、所有货品随货发放纸质保修保养卡，宝石主体享受签收起12个月官方质保；
-            2、质保范围：非人为造成宝石脱落、开裂，可免费补石、重新镶嵌；
-            3、日常保养：避免化学品、海水、汗水长期接触，可线下门店免费清洗抛光；
-            4、镀层氧化、人为磕碰改款、自行改戒托尺寸不在免费保修范围。
-            </span>
-            <span lang-bm>
-            1. Semua pesanan disertakan kad jaminan kertas, batu dilindungi jaminan kilang 12 bulan dari tarikh terima;
-            2. Skop jaminan: Batu tanggal atau retak tanpa kerosakan manusia boleh dipasang semula percuma;
-            3. Penjagaan harian: Elak sentuhan lama bahan kimia, air laut dan peluh, perkhidmatan cuci percuma di kedai fizikal;
-            4. Pengoksidaan lapisan, kerosakan hentakan & ubah suai tidak dilindungi jaminan percuma.
-            </span>
-            <span lang-en>
-            1. All orders come with physical warranty care card, gemstones covered 12-month factory warranty upon delivery;
-            2. Warranty coverage: Free re-setting for naturally fallen or cracked stones without human damage;
-            3. Daily care: Avoid long contact with chemicals, seawater and sweat, free polishing cleaning in offline stores;
-            4. Silver oxidation, collision damage & self-resizing are excluded from free warranty.
-            </span>
+    </section>
+
+    <!-- 产品板块 -->
+    <section class="section-wrap" id="goods" style="background:var(--gray);">
+        <h2 class="section-title" data-i18n="product.title"></h2>
+        <div class="product-wrap">
+            <div class="product-card">
+                <h3><span data-i18n="p1.title"></span></h3>
+                <p data-i18n="p1.text"></p>
+            </div>
+            <div class="product-card">
+                <h3><span data-i18n="p2.title"></span></h3>
+                <p data-i18n="p2.text"></p>
+            </div>
+            <div class="product-card">
+                <h3><span data-i18n="p3.title"></span></h3>
+                <p data-i18n="p3.text"></p>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- 3、下方独立免责浅灰框（原有通俗免责保留） -->
-    <div class="legal-box">
-        <div class="info-title">
-            <span lang-zh>查验免责提示</span>
-            <span lang-bm>Peringatan Penafian</span>
-            <span lang-en>Disclaimer Notice</span>
+    <!-- 证书查验（原版分行展示逻辑） -->
+    <section class="check-module" id="check">
+        <h2 class="section-title" data-i18n="check.title"></h2>
+        <p data-i18n="check.desc"></p>
+        <input class="check-input" id="certInput" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
+        <button class="check-btn" id="searchBtn" data-i18n="check.btn"></button>
+        <p class="check-tip" data-i18n="check.tip"></p>
+        <div class="check-result" id="resultBox">
+            <h4 id="resultTitle"></h4>
+            <div id="resultContent"></div>
         </div>
-        <div class="info-text">
-            <span lang-zh>
-            1、本线上系统仅做出厂数据核对，不能替代专业珠宝检测机构实物鉴定；
-            2、若人为磨损、打磨抹除宝石腰码，会导致平台无法匹配查询记录；
-            3、请勿将页面信息用于虚假宣传、冒充天然钻石售卖。
-            </span>
-            <span lang-bm>
-            1. Sistem dalam talian hanya untuk semak data kilang, tidak ganti ujian barang kemas profesional;
-            2. Jika kod pinggang batu dipadamkan atau calar, platform tidak dapat padan rekod carian;
-            3. Jangan guna maklumat laman untuk promosi palsu atau jual barang sebagai berlian semulajadi.
-            </span>
-            <span lang-en>
-            1. This online system only verifies factory data, cannot replace professional physical gem appraisal;
-            2. Worn or polished-off girdle codes will lead to unmatched search records;
-            3. Do not use page info for false marketing or sell items as natural diamonds.
-            </span>
-        </div>
-    </div>
+    </section>
 
-    <!-- 查询结果展示区域 -->
-    <div class="result-container" id="resultBox">
-        <div class="info-title">
-            <span lang-zh>宝石详细信息</span>
-            <span lang-bm>Maklumat Lengkap Batu Permata</span>
-            <span lang-en>Full Gemstone Details</span>
-        </div>
-        <div class="info-text" id="resultContent"></div>
-        <!-- 二维码展示位预留 -->
-        <div style="margin-top:20px;text-align:center;" id="qrcodeBox"></div>
-    </div>
-</div>
+    <!-- 品牌介绍 -->
+    <section class="section-wrap" id="about">
+        <h2 class="section-title" data-i18n="about.title"></h2>
+        <p class="about-text" data-i18n="about.text"></p>
+    </section>
 
-<!-- 底部页脚 -->
-<div class="footer-bottom-text">
-    GEM POP Gemstone Verification System
-</div>
+    <!-- 页脚 -->
+    <footer>
+        <p>GEM POP Jewelry Factory | GemPop Cert Check System</p>
+    </footer>
 
-<script>
-// 宝石数据库（你提供的Excel对应JSON数据）
-const gemData = [
-    {
-        gpId:"GP1111",
-        carat:"2ct",
-        color:"D",
-        clarity:"VVS2",
-        cut:"Excellent",
-        certNum:"TEST001",
-        tech:"HPHT"
-    },
-    {
-        gpId:"GP2222",
-        carat:"1ct",
-        color:"D",
-        clarity:"VS1",
-        cut:"Excellent",
-        certNum:"TEST002",
-        tech:"CVD"
-    },
-    {
-        gpId:"GP3333",
-        carat:"1.5ct",
-        color:"D",
-        clarity:"VVS1",
-        cut:"Excellent",
-        certNum:"TEST003",
-        tech:"MOISSANITE"
-    },
-    {
-        gpId:"GP151B",
-        carat:"1ct",
-        color:"D",
-        clarity:"VVS1",
-        cut:"Excellent",
-        certNum:"",
-        tech:"MOISSANITE"
-    },
-    {
-        gpId:"GP067D",
-        carat:"1ct",
-        color:"D",
-        clarity:"VVS1",
-        cut:"Excellent",
-        certNum:"",
-        tech:"MOISSANITE"
-    },
-    {
-        gpId:"GP041B",
-        carat:"1ct",
-        color:"D",
-        clarity:"VVS1",
-        cut:"Excellent",
-        certNum:"",
-        tech:"MOISSANITE"
-    },
-    {
-        gpId:"GP031C",
-        carat:"1ct",
-        color:"D",
-        clarity:"VVS1",
-        cut:"Excellent",
-        certNum:"",
-        tech:"MOISSANITE"
-    }
-];
+    <script>
+        // 多语言词典，默认马来文
+        const i18nDict = {
+            bm:{
+                "nav.home":"Laman Utama",
+                "nav.series":"Siri Cinta",
+                "nav.product":"Produk",
+                "nav.check":"Semak Sijil",
+                "nav.about":"Tentang Kami",
+                "banner.title":"Kilang Barang Kemas",
+                "banner.desc":"Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup\nBorong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal\nSijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula penuh",
+                "banner.btn":"Semak Sijil Sekarang",
+                "series.title":"6 Koleksi Cinta · Semua Romansa Sepanjang Hayat",
+                "series.desc":"Cinta adalah perjalanan lengkap dari pertemuan hingga akhir hayat. GEM POP ringkas seluruh fasa cinta manusia kepada enam koleksi barang kemas.",
+                "s1.name":"Cinta Pertama",
+                "s1.text":"Cinta tulen pandangan pertama, sesuai hadiah pengakuan cinta.",
+                "s2.name":"Cinta Ghairah",
+                "s2.text":"Romansa hangat untuk pasangan, sesuai ulang tahun cinta.",
+                "s3.name":"Cinta Janji",
+                "s3.text":"Janji seumur hidup untuk lamaran dan pertunangan.",
+                "s4.name":"Cinta Sejati",
+                "s4.text":"Cinta matang untuk pasangan suami isteri jangka panjang.",
+                "s5.name":"Cinta Abadi",
+                "s5.text":"Persahabatan harian untuk ulang tahun perkahwinan.",
+                "s6.name":"Cinta Kenangan",
+                "s6.text":"Koleksi mewah untuk peringatan penting hidup.",
+                "product.title":"3 Barisan Borong Barang Kemas Teras",
+                "p1.title":"Berlian Makmal Bersijil IGI",
+                "p1.text":"Berlian makmal HPHT/CVD 0.5-2ct gred VVS, kod laser padan sijil, boleh sahkan laman rasmi.",
+                "p2.title":"Moissanit Hati & Anak Panah",
+                "p2.text":"Kilauan terang, produk popular runcit dengan harga borong murah.",
+                "p3.title":"Pemasang Perak S925 Paladium Tebal",
+                "p3.text":"Salutan tahan karat, sesuai semua batu permata, boleh ukir logo khas.",
+                "check.title":"Sistem Semak Anti-Palsu Sijil GemPop",
+                "check.desc":"Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian penuh",
+                "check.btn":"Cari & Sahkan",
+                "check.tip":"Imbas kod QR tag gantung untuk semak rekod pantas",
+                "about.title":"Tentang GEM POP",
+                "about.text":"Kilang barang kemas asal untuk bekalan rentas sempadan, bengkel pemasangan sendiri, semua barang sokong pemeriksaan luar talian dengan sijil lengkap & label anti-palsu."
+            },
+            cn:{
+                "nav.home":"首页",
+                "nav.series":"六大爱情系列",
+                "nav.product":"主营产品",
+                "nav.check":"证书查验",
+                "nav.about":"工厂介绍",
+                "banner.title":"珠宝源头工厂",
+                "banner.desc":"爱是一场从初见走到余生的漫长旅程\n专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货\nIGI官方证书、腰码一一对应，支持全复检",
+                "banner.btn":"立即查验证书防伪",
+                "series.title":"六大爱情篇章 · 藏尽一生温柔爱意",
+                "series.desc":"爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。",
+                "s1.name":"初遇之恋",
+                "s1.text":"一眼万年纯粹心动，适合告白、初恋送礼。",
+                "s2.name":"热恋之恋",
+                "s2.text":"双向奔赴的热烈甜蜜，情侣纪念日专用。",
+                "s3.name":"承诺之恋",
+                "s3.text":"共度余生的郑重约定，适配求婚、订婚。",
+                "s4.name":"笃定真爱",
+                "s4.text":"磨合过后不离不弃，适合稳定情侣、婚后馈赠。",
+                "s5.name":"永恒相守",
+                "s4.text":"柴米烟火朝夕相伴，结婚周年纪念首选。",
+                "s6.name":"余生纪念",
+                "s6.text":"封存半生爱意，高端典藏、人生重大纪念。",
+                "product.title":"三大核心珠宝货源系列",
+                "p1.title":"IGI认证培育钻石",
+                "p1.text":"HPHT/CVD双工艺，0.5-2克拉VVS高色钻，腰码证书一一匹配，官网可查。",
+                "p2.title":"八心八箭高闪莫桑石",
+                "p2.text":"高通透火彩足，平价零售爆款，批量拿货价格优势大。",
+                "p3.title":"S925加厚钯底银托",
+                "p3.text":"加厚镀层不易氧化，适配所有钻石镶嵌，支持定制刻字。",
+                "check.title":"GemPop 证书防伪查验系统",
+                "check.desc":"输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数",
+                "check.btn":"查询核验",
+                "check.tip":"扫描吊牌防伪二维码可快速查询珠宝档案",
+                "about.title":"关于 GEM POP",
+                "about.text":"GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。"
+            },
+            en:{
+                "nav.home":"Home",
+                "nav.series":"Love Series",
+                "nav.product":"Products",
+                "nav.check":"Cert Check",
+                "nav.about":"About Us",
+                "banner.title":"Jewelry Factory",
+                "banner.desc":"Love is a journey from first sight to lifetime companionship\nWholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting\nIGI official certificate with laser inscription, support full re-inspection",
+                "banner.btn":"Check Certificate Now",
+                "series.title":"6 Love Collections · All Lifelong Romance",
+                "series.desc":"Love is a complete journey. GEM POP condenses full life romance into six jewelry collections.",
+                "s1.name":"First Sight Love",
+                "s1.text":"Pure love at first sight, perfect for confession gift.",
+                "s2.name":"Passionate Love",
+                "s2.text":"Hot sweet romance, ideal for couple anniversary.",
+                "s3.name":"Promise Love",
+                "s3.text":"Lifelong commitment, designed for proposal & engagement.",
+                "s4.name":"True Love",
+                "s4.text":"Mature steady love for long-term lovers & married couples.",
+                "s5.name":"Eternal Love",
+                "s5.text":"Daily lifelong companionship, best for wedding anniversary.",
+                "s6.name":"Memory Love",
+                "s6.text":"High-end collection for important life memory.",
+                "product.title":"3 Core Jewelry Wholesale Lines",
+                "p1.title":"IGI Certified Lab Diamond",
+                "p1.text":"HPHT & CVD lab diamond 0.5-2ct VVS grade, laser code match certificate, official verifiable.",
+                "p2.title":"Hearts & Arrows Moissanite",
+                "p2.text":"High brilliant fire, hot retail item with competitive wholesale price.",
+                "p3.title":"S925 Thick Palladium Silver Setting",
+                "p3.text":"Anti-tarnish thick plating, fit all gemstone, custom logo engraving available.",
+                "check.title":"GemPop Certificate Anti-Counterfeit Check System",
+                "check.desc":"Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info",
+                "check.btn":"Search & Verify",
+                "check.tip":"Scan QR code on hang tag for fast record check",
+                "about.title":"About GEM POP",
+                "about.text":"Original jewelry factory for cross-border supply, own inlay workshop, all goods support offline re-inspection with complete certificates & anti-counterfeit labels."
+            }
+        };
+        let currentLang = "bm"; // 默认马来文
 
-// 语言切换逻辑
-const langBtns = document.querySelectorAll('.lang-btn');
-const body = document.body;
-langBtns.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        let lang = btn.dataset.lang;
-        langBtns.forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        body.className = '';
-        body.classList.add(`lang-${lang}`);
-    })
-})
+        // 页面渲染语言文字
+        function renderText(lang){
+            currentLang = lang;
+            document.querySelectorAll("[data-i18n]").forEach(el=>{
+                const key = el.getAttribute("data-i18n");
+                el.innerText = i18nDict[lang][key];
+            })
+            document.documentElement.lang = lang;
+        }
+        // 初始化默认马来文
+        renderText("bm");
+        // 切换语言按钮
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn=>{
+            btn.addEventListener('click',function(){
+                const targetLang = this.getAttribute('data-lang');
+                renderText(targetLang);
+            })
+        })
 
-// 侧边菜单开关
-const openMenuBtn = document.getElementById('openMenuBtn');
-const closeMenuBtn = document.getElementById('closeMenuBtn');
-const popupMenu = document.getElementById('popupMenu');
-openMenuBtn.onclick = ()=> popupMenu.classList.add('show');
-closeMenuBtn.onclick = ()=> popupMenu.classList.remove('show');
+        // ========== 修复汉堡菜单点击BUG ==========
+        const openBtn = document.getElementById('openMenu');
+        const closeBtn = document.getElementById('closeMenu');
+        const sideBar = document.getElementById('sideBar');
+        const mask = document.getElementById('maskLayer');
+        function closeSide(){
+            sideBar.classList.remove('open');
+            mask.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        openBtn.addEventListener('click', function(e){
+            e.stopPropagation();
+            sideBar.classList.add('open');
+            mask.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        })
+        closeBtn.addEventListener('click', closeSide);
+        mask.addEventListener('click', closeSide);
+        const navLinks = sideBar.querySelectorAll('a');
+        navLinks.forEach(item => {
+            item.addEventListener('click', closeSide)
+        })
 
-// 页面切换（首页/系列/查验）
-const menuItems = document.querySelectorAll('.menu-item');
-const pageContainers = document.querySelectorAll('.page-container');
-menuItems.forEach(item=>{
-    item.addEventListener('click',(e)=>{
-        e.preventDefault();
-        let targetPage = item.dataset.page;
-        popupMenu.classList.remove('show');
-        pageContainers.forEach(page=> page.classList.remove('active'));
-        document.getElementById(targetPage).classList.add('active');
-    })
-})
+        // ========== 读取外置data.json（文件独立，不内置） ==========
+        let gemPopDatabase = [];
+        fetch("data.json")
+        .then(res => res.json())
+        .then(data => {
+            gemPopDatabase = data;
+            console.log("数据库加载完成，总条数：", gemPopDatabase.length);
+        })
+        .catch(err => {
+            alert("数据库文件data.json加载失败，请确认和网页放在同一文件夹");
+            console.error("读取json失败：", err);
+        });
 
-// 查询功能逻辑
-const searchBtn = document.getElementById('search-submit-btn');
-const inputBox = document.getElementById('cert-code-input');
-const resultBox = document.getElementById('resultBox');
-const resultContent = document.getElementById('resultContent');
-const qrcodeBox = document.getElementById('qrcodeBox');
-
-searchBtn.addEventListener('click',searchGem);
-inputBox.addEventListener('keydown',e=>{
-    if(e.key === 'Enter') searchGem();
-})
-
-function searchGem(){
-    let keyword = inputBox.value.trim().toUpperCase();
-    resultBox.classList.remove('show');
-    qrcodeBox.innerHTML = '';
-    if(!keyword) return alert('请输入编号');
-    let matchItem = gemData.find(item=>{
-        return item.gpId === keyword || item.certNum === keyword;
-    })
-    if(!matchItem){
-        return resultContent.innerHTML = `<span lang-zh>未查询到对应宝石记录</span><span lang-bm>Tiada rekod batu permata ditemui</span><span lang-en>No matching gem record found</span>`;
-    }
-    let techTextZh,techTextBm,techTextEn;
-    if(matchItem.tech === 'HPHT'){
-        techTextZh = "HPHT高温高压培育钻石";
-        techTextBm = "Berlian Kultur HPHT";
-        techTextEn = "HPHT Lab-Grown Diamond";
-    }else if(matchItem.tech === 'CVD'){
-        techTextZh = "CVD气相沉积培育钻石";
-        techTextBm = "Berlian Kultur CVD";
-        techTextEn = "CVD Lab-Grown Diamond";
-    }else{
-        techTextZh = "高透莫桑石";
-        techTextBm = "Moissanite Jernih Tinggi";
-        techTextEn = "High-Clarity Moissanite";
-    }
-    resultContent.innerHTML = `
-    <p><span lang-zh>产品编号：</span><span lang-bm>Kod Produk：</span><span lang-en>Product ID：</span>${matchItem.gpId}</p>
-    <p><span lang-zh>材质类型：</span><span lang-bm>Jenis Bahan：</span><span lang-en>Material Type：</span><span lang-zh>${techTextZh}</span><span lang-bm>${techTextBm}</span><span lang-en>${techTextEn}</span></p>
-    <p><span lang-zh>克拉重量：</span><span lang-bm>Berat Karat：</span><span lang-en>Carat：</span>${matchItem.carat}</p>
-    <p><span lang-zh>颜色等级：</span><span lang-bm>Gred Warna：</span><span lang-en>Color：</span>${matchItem.color}</p>
-    <p><span lang-zh>净度等级：</span><span lang-bm>Gred Kejelasan：</span><span lang-en>Clarity：</span>${matchItem.clarity}</p>
-    <p><span lang-zh>切工等级：</span><span lang-bm>Gred Potongan：</span><span lang-en>Cut：</span>${matchItem.cut}</p>
-    <p><span lang-zh>证书编号：</span><span lang-bm>Nombor Sijil：</span><span lang-en>Certificate No.：</span>${matchItem.certNum || "无"}</p>
-    <p style="margin-top:12px;color:#555;"><span lang-zh>质保说明：凭随货保修卡享受1年宝石官方质保</span><span lang-bm>Maklumat jaminan: Gunakan kad jaminan untuk perlindungan batu 1 tahun</span><span lang-en>Warranty Info: 1-year official gem warranty with physical care card</span></p>
-    `;
-    resultBox.classList.add('show');
-    qrcodeBox.innerHTML = `<p style="color:#333;margin-bottom:8px;"><span lang-zh>核验二维码</span><span lang-bm>Kod QR Pengesahan</span><span lang-en>Verification QR Code</span></p><div style="width:160px;height:160px;background:#eee;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#666;">QR CODE</div>`;
-}
-</script>
+        // ========== 原版核验展示逻辑（分行逐条展示，还原你旧版效果） ==========
+        const inputEl = document.getElementById('certInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultBox = document.getElementById('resultBox');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultContent = document.getElementById('resultContent');
+        function searchCert(){
+            resultBox.classList.remove('show');
+            let inputVal = inputEl.value.trim().toUpperCase();
+            if(!inputVal){
+                let tip;
+                if(currentLang === "bm") tip = "Sila masuk ID sijil atau kod laser";
+                else if(currentLang === "cn") tip = "请输入证书编号或钻石腰码";
+                else tip = "Please input certificate ID or laser code";
+                resultTitle.innerText = tip;
+                resultContent.innerText = "";
+                resultBox.classList.add('show');
+                return;
+            }
+            const matchItem = gemPopDatabase.find(item=>{
+                return item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal;
+            })
+            if(!matchItem){
+                let tip;
+                if(currentLang === "bm") tip = "Tiada rekod berlian dijumpai, sila semak ID";
+                else if(currentLang === "cn") tip = "未查询到对应钻石档案，请核对编号";
+                else tip = "No matching diamond record found, please check ID";
+                resultTitle.innerText = tip;
+                resultContent.innerText = "";
+                resultBox.classList.add('show');
+                return;
+            }
+            // 多语言分行展示，还原你最早的核验分行排版
+            if(currentLang === "cn"){
+                resultTitle.innerText = "✅ 查询匹配成功";
+                resultContent.innerHTML = `
+证书编号：${matchItem.certId}<br>
+钻石腰码：${matchItem.laserCode}<br>
+钻石类型：${matchItem.stoneType}<br>
+克拉重量：${matchItem.carat}<br>
+颜色等级：${matchItem.color}<br>
+净度等级：${matchItem.clarity}<br>
+切工等级：${matchItem.cut}<br>
+证书机构：${matchItem.certOrigin}<br>
+发证日期：${matchItem.issueDate}
+                `;
+            }else if(currentLang === "bm"){
+                resultTitle.innerText = "✅ Padanan Rekod Berjaya";
+                resultContent.innerHTML = `
+ID Sijil：${matchItem.certId}<br>
+Kod Laser：${matchItem.laserCode}<br>
+Jenis Batu：${matchItem.stoneType}<br>
+Berat Karat：${matchItem.carat}<br>
+Gred Warna：${matchItem.color}<br>
+Gred Kejelasan：${matchItem.clarity}<br>
+Gred Potongan：${matchItem.cut}<br>
+Pihak Sijil：${matchItem.certOrigin}<br>
+Tarikh Keluar：${matchItem.issueDate}
+                `;
+            }else{
+                resultTitle.innerText = "✅ Match Success";
+                resultContent.innerHTML = `
+Certificate ID：${matchItem.certId}<br>
+Laser Code：${matchItem.laserCode}<br>
+Stone Type：${matchItem.stoneType}<br>
+Carat Weight：${matchItem.carat}<br>
+Color Grade：${matchItem.color}<br>
+Clarity Grade：${matchItem.clarity}<br>
+Cut Grade：${matchItem.cut}<br>
+Cert Authority：${matchItem.certOrigin}<br>
+Issue Date：${matchItem.issueDate}
+                `;
+            }
+            resultBox.classList.add('show');
+        }
+        searchBtn.addEventListener('click', searchCert);
+        inputEl.addEventListener('keydown',e=>{
+            if(e.key === "Enter") searchCert();
+        })
+    </script>
 </body>
 </html>
