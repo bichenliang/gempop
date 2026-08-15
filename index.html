@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GEM POP | Borong Berlian Makmal</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -253,10 +252,6 @@
         .check-result.show{
             display:block;
         }
-        .qrcode-box{
-            margin:20px 0;
-            text-align:center;
-        }
         .check-tip {
             margin-top: 18px;
             color: #666;
@@ -424,7 +419,6 @@
         <p class="check-tip" data-i18n="check.tip"></p>
         <div class="check-result" id="resultBox">
             <h4 id="resultTitle"></h4>
-            <div class="qrcode-box" id="qrWrap"></div>
             <div id="resultContent"></div>
         </div>
     </section>
@@ -439,7 +433,7 @@
             <div class="care-block">
                 <h3 data-i18n="warranty.careTitle"></h3>
                 <p data-i18n="warranty.careText"></p>
-                <ul data-i18n="warranty.careList"></ul>
+                <ul id="careListBox"></ul>
             </div>
         </div>
     </section>
@@ -494,13 +488,18 @@
                 "check.title":"Sistem Semak Anti-Palsu Sijil GemPop",
                 "check.desc":"Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian penuh",
                 "check.btn":"Cari & Sahkan",
-                "check.tip":"Imbas kod QR tag gantung untuk semak rekod pantas",
+                "check.tip":"Masukkan kod dengan teliti untuk mengelakkan carian tidak tepat",
                 "warranty.title":"Waranti & Arahan Penjagaan Barang Kemas",
                 "warranty.warrantyTitle":"Waranti Terhad Satu Tahun",
                 "warranty.warrantyText":"<strong>GemPop</strong><br>Cinta Tulen · Kilau Tulen<br>Waranti ini hanya meliputi kecacatan pembuatan kilang sahaja.<br>Haus penggunaan biasa, calar, perubahan warna akibat geseran tidak dilindungi.<br>Perkhidmatan salutan semula & penyelenggaraan berbayar disediakan.<br>Pembeli bertanggungjawab untuk kos penghantaran pulang.",
                 "warranty.careTitle":"Arahan Penjagaan Barang Kemas",
                 "warranty.careText":"Ini adalah cincin moissanit perak S925 bersalut rodium S925. Salutan rodium mungkin haus perlahan selepas dipakai setiap hari lama disebabkan peluh & bahan kimia. Luntur sedikit akibat penggunaan harian adalah haus biasa.",
-                "warranty.careList":"Elak minyak wangi, losyen, sabun, air laut & air kolam.<br>Tanggalkan sebelum mandi, bersukan atau buat kerja rumah. Peluh & bahan kimia akan percepat luntur salutan.<br>Simpan dalam beg tertutup kering apabila tidak dipakai, elak persekitaran lembap.<br>Elak hentakan berat atau picit cakar batu, elak batu longgar.",
+                "warranty.careList":[
+                    "Elak minyak wangi, losyen, sabun, air laut & air kolam.",
+                    "Tanggalkan sebelum mandi, bersukan atau buat kerja rumah. Peluh & bahan kimia akan percepat luntur salutan.",
+                    "Simpan dalam beg tertutup kering apabila tidak dipakai, elak persekitaran lembap.",
+                    "Elak hentakan berat atau picit cakar batu, elak batu longgar."
+                ],
                 "about.title":"Tentang GEM POP",
                 "about.text":"Kilang barang kemas asal untuk bekalan rentas sempadan, bengkel pemasangan sendiri, semua barang sokong pemeriksaan luar talian dengan sijil lengkap & label anti-palsu.",
                 "footer.email":"E-mel Sokongan Rasmi: support@gempop.cn",
@@ -540,13 +539,18 @@
                 "check.title":"GemPop 证书防伪查验系统",
                 "check.desc":"输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数",
                 "check.btn":"查询核验",
-                "check.tip":"扫描吊牌防伪二维码可快速查询珠宝档案",
+                "check.tip":"请仔细输入编号，避免查询结果不准确",
                 "warranty.title":"质保与首饰保养说明",
                 "warranty.warrantyTitle":"一年有限质保",
                 "warranty.warrantyText":"<strong>GemPop</strong><br>纯粹爱意 · 璀璨光泽<br>本质保仅覆盖出厂工艺缺陷。<br>正常佩戴损耗、划痕、摩擦褪色均不在质保范围内。<br>可提供付费重新镀铑及养护服务，来回寄回运费由买家自行承担。",
                 "warranty.careTitle":"首饰保养须知",
                 "warranty.careText":"本款为S925纯银镀铑莫桑石戒指，长期日常佩戴时，汗液、化学品会导致表层铑镀层缓慢磨损，轻微褪色属于正常使用损耗。",
-                "warranty.careList":"远离香水、护肤乳、肥皂、海水、泳池水。<br>洗澡、运动、做家务前务必摘下，汗液与化学物质会加速镀层褪色。<br>闲置时放入干燥密封袋存放，避免潮湿环境。<br>避免大力磕碰、挤压镶爪，防止宝石松动脱落。",
+                "warranty.careList":[
+                    "远离香水、护肤乳、肥皂、海水、泳池水。",
+                    "洗澡、运动、做家务前务必摘下，汗液与化学物质会加速镀层褪色。",
+                    "闲置时放入干燥密封袋存放，避免潮湿环境。",
+                    "避免大力磕碰、挤压镶爪，防止宝石松动脱落。"
+                ],
                 "about.title":"关于 GEM POP",
                 "about.text":"GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。",
                 "footer.email":"官方售后邮箱：support@gempop.cn",
@@ -586,31 +590,54 @@
                 "check.title":"GemPop Certificate Anti-Counterfeit Check System",
                 "check.desc":"Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info",
                 "check.btn":"Search & Verify",
-                "check.tip":"Scan QR code on hang tag for fast record check",
+                "check.tip":"Please enter the code carefully to avoid inaccurate search results",
                 "warranty.title":"Warranty & Jewelry Care Instruction",
                 "warranty.warrantyTitle":"One-Year Limited Warranty",
                 "warranty.warrantyText":"<strong>GemPop</strong><br>Pure love · Pure sparkle<br>This warranty covers manufacturing defects only.<br>Normal wear-and-tear, scratches, discoloration from friction are not covered.<br>Paid re-plating & maintenance service is available.<br>Buyer is responsible for return shipping cost.",
                 "warranty.careTitle":"Jewelry Care Instruction",
                 "warranty.careText":"This is S925 sterling-silver rhodium-plated moissanite ring.<br>Rhodium plating may gradually wear after long-term daily wear due to sweat & chemicals. Minor fading from daily use is normal wear and tear.",
-                "warranty.careList":"Keep away from perfume, lotion, soap, seawater & pool water.<br>Please take off before shower, sport or housework. Sweat & chemical will speed-up plating fade.<br>Store in dry sealed bag when not in use, avoid humid environment.<br>Avoid heavy impact or squeezing the prongs, prevent stone loose.",
+                "warranty.careList":[
+                    "Keep away from perfume, lotion, soap, seawater & pool water.",
+                    "Please take off before shower, sport or housework. Sweat & chemical will speed-up plating fade.",
+                    "Store in dry sealed bag when not in use, avoid humid environment.",
+                    "Avoid heavy impact or squeezing the prongs, prevent stone loose."
+                ],
                 "about.title":"About GEM POP",
                 "about.text":"Original jewelry factory for cross-border supply, own inlay workshop, all goods support offline re-inspection with complete certificates & anti-counterfeit labels.",
                 "footer.email":"Official Support Email: support@gempop.cn",
                 "footer.service":"Customer Service Hours: 9:00 - 18:00 Daily"
             }
         };
+
         let currentLang = "bm";
+        let lastSearchInput = "";
 
         function renderText(lang){
             currentLang = lang;
+
             document.querySelectorAll("[data-i18n]").forEach(el=>{
                 const key = el.getAttribute("data-i18n");
                 el.innerHTML = i18nDict[lang][key];
-            })
+            });
+
             document.documentElement.lang = lang;
-            document.getElementById('qrWrap').innerHTML = "";
+
+            const careListBox = document.getElementById("careListBox");
+            const careList = i18nDict[lang]["warranty.careList"] || [];
+            careListBox.innerHTML = "";
+            careList.forEach(item=>{
+                const li = document.createElement("li");
+                li.textContent = item;
+                careListBox.appendChild(li);
+            });
+
+            if(lastSearchInput){
+                searchCert();
+            }
         }
+
         renderText("bm");
+
         const langBtns = document.querySelectorAll('.lang-btn');
         langBtns.forEach(btn=>{
             if(btn.dataset.lang === currentLang) btn.classList.add('active');
@@ -619,32 +646,37 @@
                 this.classList.add('active');
                 const targetLang = this.getAttribute('data-lang');
                 renderText(targetLang);
-            })
-        })
+            });
+        });
 
         const openBtn = document.getElementById('openMenu');
         const closeBtn = document.getElementById('closeMenu');
         const sideBar = document.getElementById('sideBar');
         const mask = document.getElementById('maskLayer');
+
         function closeSide(){
             sideBar.classList.remove('open');
             mask.classList.remove('show');
             document.body.style.overflow = '';
         }
+
         openBtn.addEventListener('click', function(e){
             e.stopPropagation();
             sideBar.classList.add('open');
             mask.classList.add('show');
             document.body.style.overflow = 'hidden';
-        })
+        });
+
         closeBtn.addEventListener('click', closeSide);
         mask.addEventListener('click', closeSide);
+
         const navLinks = sideBar.querySelectorAll('a');
         navLinks.forEach(item => {
-            item.addEventListener('click', closeSide)
-        })
+            item.addEventListener('click', closeSide);
+        });
 
         let gemPopDatabase = [];
+
         fetch("data.json")
         .then(res => res.json())
         .then(data => {
@@ -661,46 +693,40 @@
         const resultBox = document.getElementById('resultBox');
         const resultTitle = document.getElementById('resultTitle');
         const resultContent = document.getElementById('resultContent');
-        const qrWrap = document.getElementById('qrWrap');
 
         function searchCert(){
             resultBox.classList.remove('show');
-            qrWrap.innerHTML = "";
+
             let inputVal = inputEl.value.trim().toUpperCase();
+            lastSearchInput = inputVal;
+
             if(!inputVal){
                 let tip;
                 if(currentLang === "bm") tip = "Sila masuk ID sijil atau kod laser";
                 else if(currentLang === "cn") tip = "请输入证书编号或钻石腰码";
                 else tip = "Please input certificate ID or laser code";
+
                 resultTitle.innerText = tip;
                 resultContent.innerText = "";
                 resultBox.classList.add('show');
                 return;
             }
+
             const matchItem = gemPopDatabase.find(item=>{
                 return item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal;
-            })
+            });
+
             if(!matchItem){
                 let tip;
                 if(currentLang === "bm") tip = "Tiada rekod berlian dijumpai, sila semak ID";
                 else if(currentLang === "cn") tip = "未查询到对应钻石档案，请核对编号";
                 else tip = "No matching diamond record found, please check ID";
+
                 resultTitle.innerText = tip;
                 resultContent.innerText = "";
                 resultBox.classList.add('show');
                 return;
             }
-            const qrUrl = window.location.href + "?cert=" + matchItem.certId;
-            QRCode.toCanvas(qrUrl, { width:160 }, function (error, canvas) {
-                if (error) console.error(error);
-                qrWrap.innerHTML = "";
-                qrWrap.append(canvas);
-                let qrTip;
-                if(currentLang === "bm") qrTip = "Imbas QR untuk semak sijil";
-                else if(currentLang === "cn") qrTip = "扫描二维码可快速核验证书";
-                else qrTip = "Scan QR to verify certificate";
-                qrWrap.innerHTML += `<p style="margin-top:8px;font-size:13px;color:#666;">${qrTip}</p>`;
-            })
 
             if(currentLang === "cn"){
                 resultTitle.innerText = "✅ 查询匹配成功";
@@ -742,12 +768,14 @@ Cert Authority：${matchItem.certOrigin}<br>
 Issue Date：${matchItem.issueDate}
                 `;
             }
+
             resultBox.classList.add('show');
         }
+
         searchBtn.addEventListener('click', searchCert);
         inputEl.addEventListener('keydown',e=>{
             if(e.key === "Enter") searchCert();
-        })
+        });
     </script>
 </body>
 </html>
