@@ -395,7 +395,6 @@
 
     <section class="section-wrap" id="goods" style="background:var(--gray);">
         <h2 class="section-title" data-i18n="product.title"></h2>
-        <!-- 已修改为4张卡片，保留原有i18n结构，无多余元素 -->
         <div class="product-wrap">
             <div class="product-card">
                 <h3><span data-i18n="p1.title"></span></h3>
@@ -419,7 +418,7 @@
     <section class="check-module" id="check">
         <h2 class="section-title" data-i18n="check.title"></h2>
         <p data-i18n="check.desc"></p>
-        <input class="check-input" id="certInput" placeholder="Cert ID / Laser Code (JP/IGI/MO)">
+        <input class="check-input" id="certInput" placeholder="Cert ID / Laser Code (GP/IGI/MO)">
         <button class="check-btn" id="searchBtn" data-i18n="check.btn"></button>
         <p class="check-tip" data-i18n="check.tip"></p>
         <div class="check-result" id="resultBox">
@@ -467,7 +466,8 @@
                 "nav.warranty":"Waranti & Penjagaan",
                 "nav.about":"Tentang Kami",
                 "banner.title":"Kilang Barang Kemas",
-                "banner.desc":"Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup\nBorong berlian makmal HPHT/CVD, moissanit dan pemasang perak paladium tebal\nSijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula penuh",
+                // 【已修正】马来横幅，完整Lab Grown Diamond，无简写
+                "banner.desc":"Cinta adalah perjalanan dari pertemuan pertama hingga seumur hidup\nBorong HPHT & CVD Lab Grown Diamond, moissanit dan pemasang perak paladium tebal\nSijil rasmi IGI dengan ukiran laser, sokong pemeriksaan semula penuh",
                 "banner.btn":"Semak Sijil Sekarang",
                 "series.title":"6 Koleksi Cinta · Semua Romansa Sepanjang Hayat",
                 "series.desc":"Cinta adalah perjalanan lengkap dari pertemuan hingga akhir hayat. GEM POP ringkas seluruh fasa cinta manusia kepada enam koleksi barang kemas.",
@@ -484,16 +484,16 @@
                 "s6.name":"Cinta Kenangan",
                 "s6.text":"Koleksi mewah untuk peringatan penting hidup.",
                 "product.title":"4 Barisan Borong Barang Kemas Teras",
-                "p1.title":"Berlian Makmal Bersijil IGI",
-                "p1.text":"Berlian makmal HPHT/CVD 0.5-2ct gred VVS, kod laser padan sijil, boleh sahkan laman rasmi.",
+                "p1.title":"Lab Grown Diamond Bersijil IGI",
+                "p1.text":"Lab Grown Diamond HPHT & CVD gred VVS 0.5-2karat, kod laser sepadan sijil, boleh sahkan laman rasmi.",
                 "p2.title":"Moissanit Hati & Anak Panah",
                 "p2.text":"Kilauan terang, produk popular runcit dengan harga borong murah.",
                 "p3.title":"Pemasang Logam Berharga Au750/PT950",
-                "p3.text":"Dua bahan 18K emas & platinum, kukuh untuk pemasangan, keutamaan untuk berlian makmal, moissanit juga boleh naik taraf, sokong ukiran khas.",
+                "p3.text":"Dua bahan 18K emas & platinum, kukuh untuk pemasangan, keutamaan untuk Lab Grown Diamond, moissanit juga boleh naik taraf, sokong ukiran khas.",
                 "p4.title":"Pemasang Perak S925 Paladium Tebal",
-                "p4.text":"Tapak perak S925, lapisan paladium tengah, salutan rodium tebal luar, ketahanan karat meningkat tinggi, standard untuk moissanit, berlian makmal juga boleh guna mengikut keperluan, sokong ukiran khas.",
+                "p4.text":"Tapak perak S925, lapisan paladium tengah, salutan rodium tebal luar, ketahanan karat meningkat tinggi, standard untuk moissanit, Lab Grown Diamond juga boleh guna mengikut keperluan, sokong ukiran khas.",
                 "check.title":"Sistem Semak Anti-Palsu Sijil GemPop",
-                "check.desc":"Masuk ID sijil/kod laser (sokong awalan JP/IGI/MO) sahkan data berlian penuh",
+                "check.desc":"Masuk ID sijil/kod laser (sokong awalan GP/IGI/MO) sahkan data berlian penuh",
                 "check.btn":"Cari & Sahkan",
                 "check.tip":"Masukkan kod dengan teliti untuk mengelakkan carian tidak tepat",
                 "warranty.title":"Waranti & Arahan Penjagaan Barang Kemas",
@@ -520,7 +520,7 @@
                 "nav.warranty":"质保与保养说明",
                 "nav.about":"工厂介绍",
                 "banner.title":"珠宝源头工厂",
-                "banner.desc":"爱是一场从初见走到余生的漫长旅程\n专业HPHT/CVD培育钻、莫桑石、加厚钯底银托批量供货\nIGI官方证书、腰码一一对应，支持全复检",
+                "banner.desc":"爱是一场从初见走到余生的漫长旅程\n专业HPHT、CVD Lab Grown Diamond培育钻、莫桑石、加厚钯底银托批量供货\nIGI官方证书、腰码一一对应，支持全复检",
                 "banner.btn":"立即查验证书防伪",
                 "series.title":"六大爱情篇章 · 藏尽一生温柔爱意",
                 "series.desc":"爱是一场从初见走到余生的漫长旅程。GEM POP 将人的一生完整爱情，凝练为六大珠宝篇章。",
@@ -537,16 +537,16 @@
                 "s6.name":"余生纪念",
                 "s6.text":"封存半生爱意，高端典藏、人生重大纪念。",
                 "product.title":"四大核心珠宝货源系列",
-                "p1.title":"IGI认证培育钻石",
-                "p1.text":"HPHT/CVD双工艺，0.5-2克拉VVS高色钻，腰码证书一一匹配，官网可查。",
+                "p1.title":"IGI认证Lab Grown Diamond",
+                "p1.text":"HPHT、CVD双工艺，0.5-2克拉VVS级Lab Grown Diamond，腰码证书一一匹配，官网可查。",
                 "p2.title":"八心八箭高闪莫桑石",
                 "p2.text":"高通透火彩足，平价零售爆款，批量拿货价格优势大。",
                 "p3.title":"Au750/PT950贵金属底托",
-                "p3.text":"18K金、铂金双材质，硬度高镶嵌稳固，培育钻石优先选配，莫桑石亦可升级选用，支持定制刻字。",
+                "p3.text":"18K金、铂金双材质，硬度高镶嵌稳固，Lab Grown Diamond优先选配，莫桑石亦可升级选用，支持定制刻字。",
                 "p4.title":"S925加厚钯底银托",
-                "p4.text":"S925银基底，钯金属中间打底，外层加厚镀铑，大幅提升抗氧化能力，莫桑石默认标配，培育钻石也可按需选用，支持定制刻字。",
+                "p4.text":"S925银基底，钯金属中间打底，外层加厚镀铑，大幅提升抗氧化能力，莫桑石默认标配，Lab Grown Diamond也可按需选用，支持定制刻字。",
                 "check.title":"GemPop 证书防伪查验系统",
-                "check.desc":"输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数",
+                "check.desc":"输入证书编号/钻石腰码（支持GP/IGI/MO开头）核验钻石全部参数",
                 "check.btn":"查询核验",
                 "check.tip":"请仔细输入编号，避免查询结果不准确",
                 "warranty.title":"质保与首饰保养说明",
@@ -573,7 +573,8 @@
                 "nav.warranty":"Warranty & Care Guide",
                 "nav.about":"About Us",
                 "banner.title":"Jewelry Factory",
-                "banner.desc":"Love is a journey from first sight to lifetime companionship\nWholesale HPHT/CVD lab diamond, moissanite & thick palladium silver setting\nIGI official certificate with laser inscription, support full re-inspection",
+                // 【核心修复】英文首页横幅，彻底删除简写lab diamond，完整合规词汇
+                "banner.desc":"Love is a journey from first sight to lifetime companionship\nWholesale HPHT & CVD Lab Grown Diamond, moissanite & thick palladium silver setting\nIGI official certificate with laser inscription, support full re-inspection",
                 "banner.btn":"Check Certificate Now",
                 "series.title":"6 Love Collections · All Lifelong Romance",
                 "series.desc":"Love is a complete journey. GEM POP condenses full life romance into six jewelry collections.",
@@ -590,16 +591,16 @@
                 "s6.name":"Memory Love",
                 "s6.text":"High-end collection for important life memory.",
                 "product.title":"4 Core Jewelry Wholesale Lines",
-                "p1.title":"IGI Certified Lab Diamond",
-                "p1.text":"HPHT & CVD lab diamond 0.5-2ct VVS grade, laser code match certificate, official verifiable.",
+                "p1.title":"IGI Certified Lab Grown Diamond",
+                "p1.text":"0.5-2ct VVS grade HPHT & CVD Lab Grown Diamond, laser inscription matches certificate, official verifiable.",
                 "p2.title":"Hearts & Arrows Moissanite",
                 "p2.text":"High brilliant fire, hot retail item with competitive wholesale price.",
                 "p3.title":"Au750/PT950 Precious Metal Setting",
-                "p3.text":"Two materials:18K gold & platinum, hard & stable for inlay, priority match for lab diamond, moissanite can also upgrade, custom engraving available.",
+                "p3.text":"Two materials:18K gold & platinum, hard & stable for inlay, priority match for Lab Grown Diamond, moissanite can also upgrade, custom engraving available.",
                 "p4.title":"S925 Thick Palladium Silver Setting",
-                "p4.text":"S925 silver base with palladium middle layer, thick outer rhodium plating, greatly improved anti-tarnish performance, default match for moissanite, lab diamond can also be used as needed, custom engraving available.",
+                "p4.text":"S925 silver base with palladium middle layer, thick outer rhodium plating, greatly improved anti-tarnish performance, default match for moissanite, Lab Grown Diamond can also be used as needed, custom engraving available.",
                 "check.title":"GemPop Certificate Anti-Counterfeit Check System",
-                "check.desc":"Input cert ID / laser code (JP/IGI/MO prefix supported) to verify diamond info",
+                "check.desc":"Input cert ID / laser code (GP/IGI/MO prefix supported) to verify diamond info",
                 "check.btn":"Search & Verify",
                 "check.tip":"Please enter the code carefully to avoid inaccurate search results",
                 "warranty.title":"Warranty & Jewelry Care Instruction",
