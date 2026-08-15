@@ -1,46 +1,35 @@
 [
-  {
-    "certId": "JP2600101",
-    "laserCode": "JP00101",
-    "stoneType": "HPHT Lab Diamond",
-    "carat": "1.00ct",
-    "color": "D",
-    "clarity": "VVS1",
-    "cut": "Excellent",
-    "certOrigin": "India IGI",
-    "issueDate": "2026-01-15"
-  },
-  {
-    "certId": "JP2600102",
-    "laserCode": "JP00102",
-    "stoneType": "CVD Lab Diamond",
-    "carat": "0.80ct",
-    "color": "F",
-    "clarity": "VVS2",
-    "cut": "Excellent",
-    "certOrigin": "Shanghai IGI",
-    "issueDate": "2026-02-10"
-  },
-  {
-    "certId": "MO000001",
-    "laserCode": "MO001",
-    "stoneType": "Moissanite 8 Hearts & Arrows",
-    "carat": "1.00ct",
-    "color": "D",
-    "clarity": "VVS",
-    "cut": "Excellent",
-    "certOrigin": "GemPop Moissan Cert",
-    "issueDate": "2026-08-01"
-  },
-  {
-    "certId": "MO000002",
-    "laserCode": "MO002",
-    "stoneType": "Moissanite 8 Hearts & Arrows",
-    "carat": "1.50ct",
-    "color": "DF",
-    "clarity": "VVS",
-    "cut": "Excellent",
-    "certOrigin": "GemPop Moissan Cert",
-    "issueDate": "2026-08-02"
-  }
+    {
+        "certId":"TEST001",
+        "laserCode":"GP1111",
+        "stoneType":"HPHT Lab Diamond",
+        "carat":"2ct",
+        "color":"D",
+        "clarity":"VVS2",
+        "cut":"Excellent",
+        "certOrigin":"IGI",
+        "issueDate":"2026-01-10"
+    },
+    {
+        "certId":"TEST002",
+        "laserCode":"GP2222",
+        "stoneType":"CVD Lab Diamond",
+        "carat":"1ct",
+        "color":"D",
+        "clarity":"VS1",
+        "cut":"Excellent",
+        "certOrigin":"IGI",
+        "issueDate":"2026-02-05"
+    },
+    {
+        "certId":"TEST003",
+        "laserCode":"GP3333",
+        "stoneType":"Moissanite",
+        "carat":"1.5ct",
+        "color":"D",
+        "clarity":"VVS1",
+        "cut":"Excellent",
+        "certOrigin":"GemPop",
+        "issueDate":"2026-03-12"
+    }
 ]
