@@ -1,9 +1,9 @@
 [
     {
-        "certId": "001",
-        "laserCode": "001",
+        "certId": "GP1111",
+        "laserCode": "GP1111",
         "tech": "MOISSANITE",
-        "stoneType": "莫桑石",
+        "stoneType": "Moissanite",
         "carat": "1ct",
         "color": "D",
         "clarity": "VVS1",
@@ -12,10 +12,10 @@
         "issueDate": "2026-08-15"
     },
     {
-        "certId": "111",
-        "laserCode": "111",
+        "certId": "GP2222",
+        "laserCode": "GP2222",
         "tech": "HPHT",
-        "stoneType": "HPHT培育钻",
+        "stoneType": "HPHT Lab Grown Diamond",
         "carat": "2ct",
         "color": "D",
         "clarity": "VVS2",
@@ -24,10 +24,10 @@
         "issueDate": "2026-08-15"
     },
     {
-        "certId": "222",
-        "laserCode": "222",
+        "certId": "GP3333",
+        "laserCode": "GP3333",
         "tech": "CVD",
-        "stoneType": "CVD培育钻",
+        "stoneType": "CVD Lab Grown Diamond",
         "carat": "1.5ct",
         "color": "E",
         "clarity": "VS1",
