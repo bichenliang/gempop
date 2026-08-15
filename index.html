@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GemPop 证书防伪查验系统</title>
+<style>
+/* 全局通用基础样式 原版完整保留，无删减 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #222222;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+/* 顶部导航头部样式 */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -40px -24px 40px -24px;
+    padding: 16px 24px;
+    background-color: #000000;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.logo-main {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ffd343;
+    letter-spacing: 1px;
+}
+
+.menu-toggle {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* 侧边汉堡弹窗菜单样式完整原版 */
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -330px;
+    width: 310px;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 9999;
+    padding: 60px 32px;
+    transition: right 0.35s ease-in-out;
+}
+
+.sidebar-menu.active {
+    right: 0;
+}
+
+.close-menu {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* 语言切换按钮区域 */
+.lang-switch-group {
+    display: flex;
+    gap: 14px;
+    margin-top: 35px;
+    margin-bottom: 40px;
+}
+
+.lang-button {
+    border: 2px solid #ffd343;
+    background: transparent;
+    color: #ffd343;
+    padding: 9px 18px;
+    font-size: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.lang-button.active {
+    background-color: #ffd343;
+    color: #000000;
+}
+
+/* 菜单导航列表 */
+.menu-item-list {
+    margin-top: 20px;
+}
+
+.menu-nav-item {
+    display: block;
+    padding: 18px 0;
+    border-bottom: 1px solid #333333;
+    color: #ffffff;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+/* 页面容器通用控制样式 */
+.page-container {
+    display: none;
+}
+
+.page-container.show {
+    display: block;
+    margin-top: 30px;
+}
+
+/* 首页标题样式 */
+.page-title {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+/* 搜索区域整体容器 */
+.search-wrap {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.search-tip {
+    font-size: 17px;
+    color: #333333;
+    margin-bottom: 14px;
+    line-height: 1.6;
+}
+
+#certInput {
+    width: 100%;
+    padding: 16px 14px;
+    font-size: 16px;
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
+    margin-bottom: 18px;
+}
+
+#searchBtn {
+    width: 180px;
+    padding: 16px 0;
+    background-color: #000000;
+    color: #ffd343;
+    border: none;
+    font-size: 18px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.qr-scan-tip {
+    font-size: 15px;
+    color: #555555;
+    margin-top: 16px;
+}
+
+/* 查询结果展示框 */
+.result-box {
+    border: 1px solid #d4b866;
+    padding: 22px;
+    border-radius: 4px;
+    margin: 40px 0;
+    min-height: 70px;
+    text-align: center;
+    font-size: 17px;
+    color: #990000;
+    line-height: 1.7;
+}
+
+/* 品牌关于区块 */
+.about-block {
+    margin-top: 70px;
+}
+
+.about-title {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 22px;
+    color: #111111;
+}
+
+.about-desc {
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: center;
+    color: #333333;
+}
+
+/* 页面底部版权信息 */
+.footer-info {
+    margin-top: 90px;
+    text-align: center;
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.6;
+}
+
+/* 产品系列卡片样式 完整保留 */
+.series-card-item {
+    border: 1px solid #eeeeee;
+    border-radius: 6px;
+    padding: 26px;
+    margin-bottom: 24px;
+}
+
+.series-name-en {
+    font-size: 27px;
+    color: #b8860b;
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.series-text-desc {
+    font-size: 16px;
+    color: #444444;
+    line-height: 1.7;
+}
+
+/* 售后质保页面专属样式 新增完整 */
+.aftersale-page-title {
+    font-size: 27px;
+    color: #b8860b;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.aftersale-text-content {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #333333;
+}
+
+/* 二维码展示框样式 */
+.qr-display-box {
+    width: 190px;
+    height: 190px;
+    border: 1px solid #dddddd;
+    margin: 14px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 14px;
+}
+
+/* 多语言隐藏显示控制 原版完整逻辑 */
+[lang-zh],
+[lang-en],
+[lang-ms] {
+    display: none;
+}
+
+body.lang-zh [lang-zh] {
+    display: block;
+}
+
+body.lang-en [lang-en] {
+    display: block;
+}
+
+body.lang-ms [lang-ms] {
+    display: block;
+}
+</style>
+</head>
+<body class="lang-zh">
+<!-- 顶部导航栏 -->
+<div class="top-header">
+    <div class="logo-main">GEM POP</div>
+    <button class="menu-toggle" id="openSideMenu">☰</button>
+</div>
+
+<!-- 侧边汉堡菜单 -->
+<div class="sidebar-menu" id="sideMenuBox">
+    <button class="close-menu" id="closeSideMenu">×</button>
+    <div class="lang-switch-group">
+        <button class="lang-button active" data-setlang="zh">中文</button>
+        <button class="lang-button" data-setlang="en">English</button>
+        <button class="lang-button" data-setlang="ms">Bahasa Melayu</button>
+    </div>
+    <div class="menu-item-list">
+        <div class="menu-nav-item" data-targetpage="home">证书查验首页</div>
+        <div class="menu-nav-item" data-targetpage="series">产品系列介绍</div>
+        <div class="menu-nav-item" data-targetpage="aftersale">售后保养与质保说明</div>
+    </div>
+</div>
+
+<!-- 首页主页面 -->
+<div id="page-home" class="page-container show">
+    <h1 class="page-title" lang-zh>GemPop 证书防伪查验系统</h1>
+    <h1 class="page-title" lang-en>GemPop Certificate Verification System</h1>
+    <h1 class="page-title" lang-ms>Sistem Pengesahan Sijil GemPop</h1>
+
+    <div class="search-wrap">
+        <p class="search-tip" lang-zh>输入证书编号/钻石腰码（支持JP/IGI/MO开头）核验钻石全部参数</p>
+        <p class="search-tip" lang-en>Enter certificate number / diamond laser inscription code to view full gemstone parameters</p>
+        <p class="search-tip" lang-ms>Masukkan nombor sijil / kod laser berlian untuk melihat semua parameter batu permata</p>
+
+        <input type="text" id="certInput" placeholder="GP151B / TEST001">
+        <button id="searchBtn" lang-zh>查询核验</button>
+        <button id="searchBtn" lang-en>Check Verification</button>
+        <button id="searchBtn" lang-ms>Semak Pengesahan</button>
+
+        <p class="qr-scan-tip" lang-zh>扫描吊牌防伪二维码可快速查询珠宝档案</p>
+        <p class="qr-scan-tip" lang-en>Scan anti-counterfeit QR code on tag to quickly query jewelry records</p>
+        <p class="qr-scan-tip" lang-ms>Scan kod QR anti-palsu pada tag untuk cari rekod barang kemas dengan pantas</p>
+    </div>
+
+    <div class="result-box" id="resultShowBox"></div>
+
+    <div class="about-block">
+        <h2 class="about-title" lang-zh>关于 GEM POP</h2>
+        <h2 class="about-title" lang-en>About GEM POP</h2>
+        <h2 class="about-title" lang-ms>Tentang GEM POP</h2>
+        <p class="about-desc" lang-zh>
+            GEM POP源头珠宝工厂，专业跨境珠宝供货，自有镶嵌车间，所有货品支持线下复检，全套合规证书、防伪标签配套。<br>
+            售后咨询邮箱：support@gempop.vip
+        </p>
+        <p class="about-desc" lang-en>
+            GEM POP original jewelry factory, professional cross-border jewelry supplier, own inlay workshop, all goods support offline re-inspection, complete set of compliant certificates and anti-counterfeiting labels.<br>
+            Service Email: support@gempop.vip
+        </p>
+        <p class="about-desc" lang-ms>
+            Kilang barang kemas asal GEM POP, pembekal barang kemas rentas sempadan profesional, bengkel pemasangan sendiri, semua produk boleh diperiksa semula luar talian, set lengkap sijil patuh undang-undang dan label anti-palsu.<br>
+            Emel Perkhidmatan: support@gempop.vip
+        </p>
+    </div>
+
+    <div class="footer-info">
+        GEM POP Jewelry Factory | GemPop Cert Check System<br>
+        Official Service Mail：support@gempop.vip
+    </div>
+</div>
+
+<!-- 产品系列介绍页面 -->
+<div id="page-series" class="page-container">
+    <div class="series-card-item">
+        <div class="series-name-en">Eternal Love · 永恒相守</div>
+        <div class="series-text-desc" lang-zh>柴米烟火朝夕相伴，结婚周年纪念首选。</div>
+        <div class="series-text-desc" lang-en>Accompany day and night through trivial life, the first choice for wedding anniversary commemoration.</div>
+        <div class="series-text-desc" lang-ms>Bersama setiap hari dalam kehidupan biasa, pilihan utama untuk peringatan ulang tahun perkahwinan.</div>
+    </div>
+    <div class="series-card-item">
+        <div class="series-name-en">Memory Love · 余生纪念</div>
+        <div class="series-text-desc" lang-zh>封存半生爱意，高端典藏、人生重大纪念。</div>
+        <div class="series-text-desc" lang-en>Seal lifelong love, high-end collection for important life commemorations.</div>
+        <div class="series-text-desc" lang-ms>Simpan cinta seumur hidup, koleksi mewah untuk peristiwa penting dalam hidup.</div>
+    </div>
+</div>
+
+<!-- 售后保养与质保说明页面 新增完整三语内容 -->
+<div id="page-aftersale" class="page-container">
+    <h2 class="aftersale-page-title" lang-zh>售后保养与质保说明</h2>
+    <h2 class="aftersale-page-title" lang-en>Warranty & Jewelry Maintenance Service</h2>
+    <h2 class="aftersale-page-title" lang-ms>Waranti & Perkhidmatan Penyelenggaraan Barang Kemas</h2>
+    <div class="aftersale-text-content" lang-zh>
+        1. 本店全部珠宝产品统一享有一年官方质保，非人为造成的质量问题免费维修；<br>
+        2. 自购买之日起1年内，可享受免费清洗、抛光、宝石加固保养服务；<br>
+        3. 人为磕碰损坏、宝石丢失、化学品腐蚀不在质保保障范围；<br>
+        4. 售后沟通官方邮箱：support@gempop.vip
+    </div>
+    <div class="aftersale-text-content" lang-en>
+        1. All jewelry products enjoy a 1-year official warranty, free repair for non-artificial quality defects;<br>
+        2. Free cleaning, polishing and stone tightening maintenance within 1 year from purchase date;<br>
+        3. Damage caused by manual collision, stone loss, chemical corrosion is not covered by warranty;<br>
+        4. Official service email: support@gempop.vip
+    </div>
+    <div class="aftersale-text-content" lang-ms>
+        1. Semua produk barang kemas mendapat waranti rasmi 1 tahun, pembaikan percuma untuk kerosakan kualiti bukan buatan manusia;<br>
+        2. Perkhidmatan pembersihan, penggilapan dan pengikatan batu percuma dalam tempoh 1 tahun dari tarikh beli;<br>
+        3. Kerosakan akibat hentakan, kehilangan batu, kakisan kimia tidak dilindungi oleh waranti;<br>
+        4. Emel perkhidmatan rasmi: support@gempop.vip
+    </div>
+</div>
+
+<script>
+// 完整宝石数据库 所有样品数据完整保留，无删减
+const gemDatabase = [
+    {gpId:"GP1111",carat:"2ct",color:"D",clarity:"VVS2",cut:"Excellent",certNum:"TEST001",tech:"HPHT"},
+    {gpId:"GP2222",carat:"1ct",color:"D",clarity:"VS1",cut:"Excellent",certNum:"TEST002",tech:"CVD"},
+    {gpId:"GP3333",carat:"1.5ct",color:"D",clarity:"VVS1",cut:"Excellent",certNum:"TEST003",tech:"MOISSANITE"},
+    {gpId:"GP151B",carat:"1ct",color:"D",clarity:"VVS1",cut:"Excellent",certNum:"",tech:"MOISSANITE"},
+    {gpId:"GP067D",carat:"1ct",color:"D",clarity:"VVS1",cut:"Excellent",certNum:"",tech:"MOISSANITE"},
+    {gpId:"GP041B",carat:"1ct",color:"D",clarity:"VVS1",cut:"Excellent",certNum:"",tech:"MOISSANITE"},
+    {gpId:"GP031C",carat:"1ct",color:"D",clarity:"VVS1",cut:"Excellent",certNum:"",tech:"MOISSANITE"},
+];
+
+// 侧边菜单打开关闭事件绑定
+const openSideMenu = document.getElementById("openSideMenu");
+const closeSideMenu = document.getElementById("closeSideMenu");
+const sideMenuBox = document.getElementById("sideMenuBox");
+openSideMenu.addEventListener("click", function() {
+    sideMenuBox.classList.add("active");
+});
+closeSideMenu.addEventListener("click", function() {
+    sideMenuBox.classList.remove("active");
+});
+
+// 菜单页面切换逻辑
+const allMenuNav = document.querySelectorAll(".menu-nav-item");
+const allPageDom = document.querySelectorAll(".page-container");
+allMenuNav.forEach(function(navItem) {
+    navItem.addEventListener("click", function() {
+        const targetPageId = navItem.getAttribute("data-targetpage");
+        sideMenuBox.classList.remove("active");
+        allPageDom.forEach(function(page) {
+            page.classList.remove("show");
+        });
+        document.getElementById(`page-${targetPageId}`).classList.add("show");
+    });
+});
+
+// 多语言切换逻辑 原版完整无修改
+const allLangBtn = document.querySelectorAll(".lang-button");
+allLangBtn.forEach(function(langBtn) {
+    langBtn.addEventListener("click", function() {
+        allLangBtn.forEach(function(btn) {
+            btn.classList.remove("active");
+        });
+        langBtn.classList.add("active");
+        const setLangCode = langBtn.getAttribute("data-setlang");
+        document.body.className = `lang-${setLangCode}`;
+    });
+});
+
+// 查询核验完整逻辑，修复大小写、空格兼容，修复GP151B查询失效
+const searchBtnDom = document.getElementById("searchBtn");
+const inputCertDom = document.getElementById("certInput");
+const resultShowBox = document.getElementById("resultShowBox");
+searchBtnDom.addEventListener("click", function() {
+    let searchValue = inputCertDom.value.trim().toUpperCase();
+    resultShowBox.innerHTML = "";
+    let matchGemItem = null;
+    for(let gemItem of gemDatabase) {
+        const gpUp = gemItem.gpId.toUpperCase();
+        const certUp = gemItem.certNum ? gemItem.certNum.toUpperCase() : "";
+        if(gpUp === searchValue || certUp === searchValue) {
+            matchGemItem = gemItem;
+            break;
+        }
+    }
+    if(!matchGemItem) {
+        resultShowBox.innerHTML = `
+        <span lang-zh>未查询到对应钻石档案，请核对编号</span>
+        <span lang-en>No matching gem record found, please check your number</span>
+        <span lang-ms>Rekod batu permata tidak dijumpai, sila semak nombor anda</span>
+        `;
+        return;
+    }
+    let zhMaterial,enMaterial,msMaterial;
+    if(matchGemItem.tech === "HPHT" || matchGemItem.tech === "CVD") {
+        zhMaterial = "HPHT/CVD人工培育钻石";
+        enMaterial = "HPHT/CVD Lab Grown Diamond";
+        msMaterial = "Berlian Dibuat Makmal HPHT/CVD";
+    }else{
+        zhMaterial = "莫桑石";
+        enMaterial = "Moissanite";
+        msMaterial = "Moissanit";
+    }
+    resultShowBox.innerHTML = `
+    <div style="font-size:19px;margin-bottom:12px;">
+        <span lang-zh>核验成功 · 档案匹配无误</span>
+        <span lang-en>Verification Passed · Record Matched</span>
+        <span lang-ms>Pengesahan Berjaya · Rekod Padan</span>
+    </div>
+    <div style="text-align:left;display:inline-block;line-height:1.9;">
+        GP编号：${matchGemItem.gpId}<br>
+        <span lang-zh>材质：${zhMaterial}</span>
+        <span lang-en>Material: ${enMaterial}</span>
+        <span lang-ms>Bahan: ${msMaterial}</span><br>
+        克拉重量：${matchGemItem.carat}｜颜色：${matchGemItem.color}｜净度：${matchGemItem.clarity}｜切工：${matchGemItem.cut}<br>
+        ${matchGemItem.certNum ? `证书编号：${matchGemItem.certNum}` : `<span lang-zh>无独立证书编号</span><span lang-en>No independent certificate number</span><span lang-ms>Tiada nombor sijil berasingan</span>`}
+    </div>
+    <div class="qr-display-box">QR 防伪核验码</div>
+    <div style="margin-top:10px;font-size:14px;color:#666;">Service Mail: support@gempop.vip</div>
+    `;
+});
+</script>
+</body>
+</html>
