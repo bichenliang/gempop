@@ -1,35 +1,46 @@
 [
     {
-        "certId":"TEST001",
-        "laserCode":"GP1111",
-        "stoneType":"HPHT Lab Diamond",
-        "carat":"2ct",
-        "color":"D",
-        "clarity":"VVS2",
-        "cut":"Excellent",
-        "certOrigin":"IGI",
-        "issueDate":"2026-01-10"
+        "certId": "IGI-202608001",
+        "laserCode": "GEM202608001",
+        "stoneType": "Moissanite",
+        "carat": "1.0ct",
+        "color": "D",
+        "clarity": "VVS1",
+        "cut": "Excellent",
+        "certOrigin": "IGI",
+        "issueDate": "2026-08-04"
     },
     {
-        "certId":"TEST002",
-        "laserCode":"GP2222",
-        "stoneType":"CVD Lab Diamond",
-        "carat":"1ct",
-        "color":"D",
-        "clarity":"VS1",
-        "cut":"Excellent",
-        "certOrigin":"IGI",
-        "issueDate":"2026-02-05"
+        "certId": "JP-202608002",
+        "laserCode": "GEM202608002",
+        "stoneType": "Lab Grown Diamond",
+        "carat": "0.8ct",
+        "color": "E",
+        "clarity": "VVS2",
+        "cut": "Ideal",
+        "certOrigin": "JP",
+        "issueDate": "2026-08-02"
     },
     {
-        "certId":"TEST003",
-        "laserCode":"GP3333",
-        "stoneType":"Moissanite",
-        "carat":"1.5ct",
-        "color":"D",
-        "clarity":"VVS1",
-        "cut":"Excellent",
-        "certOrigin":"GemPop",
-        "issueDate":"2026-03-12"
+        "certId": "MO-202608003",
+        "laserCode": "GEM202608003",
+        "stoneType": "Moissanite",
+        "carat": "1.5ct",
+        "color": "F",
+        "clarity": "VS1",
+        "cut": "Excellent",
+        "certOrigin": "MO",
+        "issueDate": "2026-08-03"
+    },
+    {
+        "certId": "IGI-202608004",
+        "laserCode": "GEM202608004",
+        "stoneType": "Lab Grown Diamond",
+        "carat": "2.0ct",
+        "color": "G",
+        "clarity": "VS2",
+        "cut": "Ideal",
+        "certOrigin": "IGI",
+        "issueDate": "2026-08-01"
     }
 ]
