@@ -697,7 +697,8 @@
 
         let gemPopDatabase = [];
 
-        fetch("https://gem-api.12056.workers.dev/data.json")
+        // 唯一修改处：修正完整Worker域名
+        fetch("https://gem-api.1205638884.workers.dev/data.json")
         .then(res => res.json())
         .then(data => {
             gemPopDatabase = data;
