@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GEM POP | Borong Berlian Makmal</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -252,6 +253,10 @@
         .check-result.show{
             display:block;
         }
+        #qrcode-box{
+            margin-top:20px;
+            text-align:center;
+        }
         .check-tip {
             margin-top: 18px;
             color: #666;
@@ -424,6 +429,7 @@
         <div class="check-result" id="resultBox">
             <h4 id="resultTitle"></h4>
             <div id="resultContent"></div>
+            <div id="qrcode-box"></div>
         </div>
     </section>
 
@@ -612,7 +618,6 @@
                 "warranty.title":"Warranty & Jewelry Care Instruction",
                 "warranty.warrantyTitle":"One-Year Limited Warranty",
                 "warranty.warrantyText":"<strong>GemPop</strong><br>Pure love · Pure sparkle<br>This warranty covers manufacturing defects only.<br>Normal wear-and-tear, scratches, discoloration from friction are not covered.<br>Paid re-plating & maintenance service is available.<br>Buyer is responsible for return shipping cost.",
-                "warranty.careTitle":"Jewelry Care Instruction",
                 "warranty.careText":"We provide four types of ring settings with different maintenance requirements:<br>1. S925 sterling silver with thick palladium base & rhodium plating, white AU750 (white 18K gold): Covered with rhodium coating. Long-term exposure to sweat, perfume, lotion, soap, seawater and pool water will wear the coating gradually. Faint discoloration is normal wear and tear, paid rhodium re-plating service is available;<br>2. Natural yellow / rose AU750: No rhodium plating. Only scratches and dullness occur after wearing, polishing is enough to refresh luster without re-plating;<br>3. PT950 platinum: Naturally silver-white metal without plating. It only turns matte after wear, polish restores shine and no repeated plating is needed forever.",
                 "warranty.careList":[
                     "Keep away from perfume, body lotion, soap, seawater and pool water with chlorine;",
@@ -631,17 +636,15 @@
 
         let currentLang = "bm";
         let lastSearchInput = "";
+        let gemPopDatabase = [];
 
         function renderText(lang){
             currentLang = lang;
-
             document.querySelectorAll("[data-i18n]").forEach(el=>{
                 const key = el.getAttribute("data-i18n");
                 el.innerHTML = i18nDict[lang][key];
             });
-
             document.documentElement.lang = lang;
-
             const careListBox = document.getElementById("careListBox");
             const careList = i18nDict[lang]["warranty.careList"] || [];
             careListBox.innerHTML = "";
@@ -650,7 +653,6 @@
                 li.textContent = item;
                 careListBox.appendChild(li);
             });
-
             if(lastSearchInput){
                 searchCert();
             }
@@ -673,44 +675,38 @@
         const closeBtn = document.getElementById('closeMenu');
         const sideBar = document.getElementById('sideBar');
         const mask = document.getElementById('maskLayer');
-
         function closeSide(){
             sideBar.classList.remove('open');
             mask.classList.remove('show');
             document.body.style.overflow = '';
         }
-
         openBtn.addEventListener('click', function(e){
             e.stopPropagation();
             sideBar.classList.add('open');
             mask.classList.add('show');
             document.body.style.overflow = 'hidden';
         });
-
         closeBtn.addEventListener('click', closeSide);
         mask.addEventListener('click', closeSide);
-
         const navLinks = sideBar.querySelectorAll('a');
         navLinks.forEach(item => {
             item.addEventListener('click', closeSide);
         });
 
-        let gemPopDatabase = [];
-
-        // 修复1：增加请求头禁止压缩，解决跨域读取空白
-        fetch("https://gem-api.1205638884.workers.dev/data.json", {
+        // 接口请求：关闭压缩，读取Worker接口
+        fetch("/data.json", {
             cache: "no-cache",
             headers: {
                 "Accept-Encoding": "identity"
             }
         })
         .then(res => {
-            if (!res.ok) throw new Error("接口返回异常");
+            if (!res.ok) throw new Error("接口异常");
             return res.text();
         })
         .then(rawText => {
             gemPopDatabase = JSON.parse(rawText);
-            console.log("数据库加载完成，总条数：", gemPopDatabase.length);
+            console.log("数据加载完成，总条数：", gemPopDatabase.length);
         })
         .catch(err => {
             let tip;
@@ -718,7 +714,7 @@
             else if(currentLang === "bm") tip = "Gagal memuat data talian, sila cuba kemudian";
             else tip = "Failed to load online data, please try again later";
             alert(tip);
-            console.error("读取线上接口失败：", err);
+            console.error("读取失败：", err);
         });
 
         const inputEl = document.getElementById('certInput');
@@ -726,54 +722,53 @@
         const resultBox = document.getElementById('resultBox');
         const resultTitle = document.getElementById('resultTitle');
         const resultContent = document.getElementById('resultContent');
+        const qrBox = document.getElementById("qrcode-box");
 
         function searchCert(){
             resultBox.classList.remove('show');
-
+            qrBox.innerHTML = "";
             let inputVal = inputEl.value.trim().toUpperCase();
             lastSearchInput = inputVal;
-
             if(!inputVal){
                 let tip;
                 if(currentLang === "bm") tip = "Sila masuk ID sijil atau kod laser";
                 else if(currentLang === "cn") tip = "请输入证书编号或钻石腰码";
                 else tip = "Please input certificate ID or laser code";
-
                 resultTitle.innerText = tip;
                 resultContent.innerText = "";
                 resultBox.classList.add('show');
                 return;
             }
-
-            // 修复2：匹配JSON字段 gpId / Cert-Number，兼容你提供的数据表
+            // 匹配gpId / Cert-Number 双字段，大小写兼容
             const matchItem = gemPopDatabase.find(item=>{
                 const gpId = (item.gpId || "").toUpperCase();
                 const certNo = (item["Cert-Number"] || "").toUpperCase();
                 return gpId === inputVal || certNo === inputVal;
             });
-
             if(!matchItem){
                 let tip;
                 if(currentLang === "bm") tip = "Tiada rekod berlian dijumpai, sila semak ID";
                 else if(currentLang === "cn") tip = "未查询到对应钻石档案，请核对编号";
                 else tip = "No matching diamond record found, please check ID";
-
                 resultTitle.innerText = tip;
                 resultContent.innerText = "";
                 resultBox.classList.add('show');
                 return;
             }
-
+            // 自动区分宝石类型文案
             let stoneShowName = "";
             if(matchItem.tech === "HPHT" || matchItem.tech === "CVD"){
                 stoneShowName = "Lab Grown Diamond 培育钻石";
             }else if(matchItem.tech === "MOISSANITE"){
                 stoneShowName = "Moissanite 莫桑石";
             }
-
-            // 兜底日期，无issueDate显示--
             const issueDate = matchItem.issueDate || "--";
-
+            // 生成二维码（当前页面链接+GP编号）
+            const qrUrl = window.location.origin + window.location.pathname + "?gp=" + matchItem.gpId;
+            QRCode.toCanvas(qrUrl, { width:160 }, function (error, canvas) {
+                if (!error) qrBox.appendChild(canvas);
+            });
+            // 多语言渲染结果
             if(currentLang === "cn"){
                 resultTitle.innerText = "✅ 查询匹配成功";
                 resultContent.innerHTML = `
@@ -785,7 +780,8 @@ GP编号：${matchItem.gpId}<br>
 净度等级：${matchItem.clarity}<br>
 切工等级：${matchItem.cut}<br>
 证书机构：IGI<br>
-发证日期：${issueDate}
+发证日期：${issueDate}<br>
+下方二维码：分享当前查验页面
                 `;
             }else if(currentLang === "bm"){
                 resultTitle.innerText = "✅ Padanan Rekod Berjaya";
@@ -798,7 +794,8 @@ Gred Warna：${matchItem.color}<br>
 Gred Kejelasan：${matchItem.clarity}<br>
 Gred Potongan：${matchItem.cut}<br>
 Pihak Sijil：IGI<br>
-Tarikh Keluar：${issueDate}
+Tarikh Keluar：${issueDate}<br>
+QR kod di bawah: Kongsi halaman semakan ini
                 `;
             }else{
                 resultTitle.innerText = "✅ Match Success";
@@ -811,13 +808,12 @@ Color Grade：${matchItem.color}<br>
 Clarity Grade：${matchItem.clarity}<br>
 Cut Grade：${matchItem.cut}<br>
 Cert Authority：IGI<br>
-Issue Date：${issueDate}
+Issue Date：${issueDate}<br>
+QR Code below: Share this verify page
                 `;
             }
-
             resultBox.classList.add('show');
         }
-
         searchBtn.addEventListener('click', searchCert);
         inputEl.addEventListener('keydown',e=>{
             if(e.key === "Enter") searchCert();
