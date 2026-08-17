@@ -453,7 +453,6 @@
             <p data-i18n="footer.email"></p>
             <p data-i18n="footer.service"></p>
         </div>
-        <!-- 免责声明固定区域，无改动 -->
         <div style="margin:30px 0 20px; padding-top:24px; border-top:1px solid #444;">
             <h4 style="color:#FFD700; font-size:16px; margin-bottom:12px;" data-i18n="disclaimer.title"></h4>
             <p style="font-size:13px; line-height:1.8; color:#cccccc; white-space:pre-line; text-align:left;" data-i18n="disclaimer.text"></p>
@@ -594,7 +593,7 @@
                 "s4.name":"True Love",
                 "s4.text":"Mature steady love for long-term lovers & married couples.",
                 "s5.name":"Eternal Love",
-                "s5.text":"Daily lifelong companionship, best for wedding anniversary.",
+                "s4.text":"Daily lifelong companionship, best for wedding anniversary.",
                 "s6.name":"Memory Love",
                 "s6.text":"High-end collection for important life memory.",
                 "product.title":"4 Core Jewelry Wholesale Lines",
@@ -698,16 +697,19 @@
 
         let gemPopDatabase = [];
 
-        // ==========仅此处一行修改，其余全部原样保留==========
-        fetch("https://gem-api.120563888.workers.dev/data.json")
+        fetch("https://gem-api.12056.workers.dev/data.json")
         .then(res => res.json())
         .then(data => {
             gemPopDatabase = data;
             console.log("数据库加载完成，总条数：", gemPopDatabase.length);
         })
         .catch(err => {
-            alert("数据库文件data.json加载失败，请确认和网页放在同一文件夹");
-            console.error("读取json失败：", err);
+            let tip;
+            if(currentLang === "cn") tip = "线上数据接口加载失败，请稍后重试";
+            else if(currentLang === "bm") tip = "Gagal memuat data talian, sila cuba kemudian";
+            else tip = "Failed to load online data, please try again later";
+            alert(tip);
+            console.error("读取线上接口失败：", err);
         });
 
         const inputEl = document.getElementById('certInput');
@@ -750,17 +752,24 @@
                 return;
             }
 
+            let stoneShowName = "";
+            if(matchItem.tech === "HPHT" || matchItem.tech === "CVD"){
+                stoneShowName = "Lab Grown Diamond 培育钻石";
+            }else if(matchItem.tech === "MOISSANITE"){
+                stoneShowName = "Moissanite 莫桑石";
+            }
+
             if(currentLang === "cn"){
                 resultTitle.innerText = "✅ 查询匹配成功";
                 resultContent.innerHTML = `
 证书编号：${matchItem.certId}<br>
 钻石腰码：${matchItem.laserCode}<br>
-钻石类型：${matchItem.stoneType}<br>
+宝石类型：${stoneShowName}（${matchItem.tech}）<br>
 克拉重量：${matchItem.carat}<br>
 颜色等级：${matchItem.color}<br>
 净度等级：${matchItem.clarity}<br>
 切工等级：${matchItem.cut}<br>
-证书机构：${matchItem.certOrigin}<br>
+证书机构：IGI<br>
 发证日期：${matchItem.issueDate}
                 `;
             }else if(currentLang === "bm"){
@@ -768,12 +777,12 @@
                 resultContent.innerHTML = `
 ID Sijil：${matchItem.certId}<br>
 Kod Laser：${matchItem.laserCode}<br>
-Jenis Batu：${matchItem.stoneType}<br>
+Jenis Batu：${stoneShowName}（${matchItem.tech}）<br>
 Berat Karat：${matchItem.carat}<br>
 Gred Warna：${matchItem.color}<br>
 Gred Kejelasan：${matchItem.clarity}<br>
 Gred Potongan：${matchItem.cut}<br>
-Pihak Sijil：${matchItem.certOrigin}<br>
+Pihak Sijil：IGI<br>
 Tarikh Keluar：${matchItem.issueDate}
                 `;
             }else{
@@ -781,12 +790,12 @@ Tarikh Keluar：${matchItem.issueDate}
                 resultContent.innerHTML = `
 Certificate ID：${matchItem.certId}<br>
 Laser Code：${matchItem.laserCode}<br>
-Stone Type：${matchItem.stoneType}<br>
+Stone Type：${stoneShowName}（${matchItem.tech}）<br>
 Carat Weight：${matchItem.carat}<br>
 Color Grade：${matchItem.color}<br>
 Clarity Grade：${matchItem.clarity}<br>
 Cut Grade：${matchItem.cut}<br>
-Cert Authority：${matchItem.certOrigin}<br>
+Cert Authority：IGI<br>
 Issue Date：${matchItem.issueDate}
                 `;
             }
