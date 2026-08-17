@@ -697,11 +697,19 @@
 
         let gemPopDatabase = [];
 
-        // 唯一修改处：修正完整Worker域名
-        fetch("https://gem-api.1205638884.workers.dev/data.json")
-        .then(res => res.json())
-        .then(data => {
-            gemPopDatabase = data;
+        // 修复1：增加请求头禁止压缩，解决跨域读取空白
+        fetch("https://gem-api.1205638884.workers.dev/data.json", {
+            cache: "no-cache",
+            headers: {
+                "Accept-Encoding": "identity"
+            }
+        })
+        .then(res => {
+            if (!res.ok) throw new Error("接口返回异常");
+            return res.text();
+        })
+        .then(rawText => {
+            gemPopDatabase = JSON.parse(rawText);
             console.log("数据库加载完成，总条数：", gemPopDatabase.length);
         })
         .catch(err => {
@@ -737,8 +745,11 @@
                 return;
             }
 
+            // 修复2：匹配JSON字段 gpId / Cert-Number，兼容你提供的数据表
             const matchItem = gemPopDatabase.find(item=>{
-                return item.certId.toUpperCase() === inputVal || item.laserCode.toUpperCase() === inputVal;
+                const gpId = (item.gpId || "").toUpperCase();
+                const certNo = (item["Cert-Number"] || "").toUpperCase();
+                return gpId === inputVal || certNo === inputVal;
             });
 
             if(!matchItem){
@@ -760,44 +771,47 @@
                 stoneShowName = "Moissanite 莫桑石";
             }
 
+            // 兜底日期，无issueDate显示--
+            const issueDate = matchItem.issueDate || "--";
+
             if(currentLang === "cn"){
                 resultTitle.innerText = "✅ 查询匹配成功";
                 resultContent.innerHTML = `
-证书编号：${matchItem.certId}<br>
-钻石腰码：${matchItem.laserCode}<br>
+GP编号：${matchItem.gpId}<br>
+证书编号：${matchItem["Cert-Number"] || "无"}<br>
 宝石类型：${stoneShowName}（${matchItem.tech}）<br>
 克拉重量：${matchItem.carat}<br>
 颜色等级：${matchItem.color}<br>
 净度等级：${matchItem.clarity}<br>
 切工等级：${matchItem.cut}<br>
 证书机构：IGI<br>
-发证日期：${matchItem.issueDate}
+发证日期：${issueDate}
                 `;
             }else if(currentLang === "bm"){
                 resultTitle.innerText = "✅ Padanan Rekod Berjaya";
                 resultContent.innerHTML = `
-ID Sijil：${matchItem.certId}<br>
-Kod Laser：${matchItem.laserCode}<br>
+Nombor GP：${matchItem.gpId}<br>
+ID Sijil：${matchItem["Cert-Number"] || "Tiada"}<br>
 Jenis Batu：${stoneShowName}（${matchItem.tech}）<br>
 Berat Karat：${matchItem.carat}<br>
 Gred Warna：${matchItem.color}<br>
 Gred Kejelasan：${matchItem.clarity}<br>
 Gred Potongan：${matchItem.cut}<br>
 Pihak Sijil：IGI<br>
-Tarikh Keluar：${matchItem.issueDate}
+Tarikh Keluar：${issueDate}
                 `;
             }else{
                 resultTitle.innerText = "✅ Match Success";
                 resultContent.innerHTML = `
-Certificate ID：${matchItem.certId}<br>
-Laser Code：${matchItem.laserCode}<br>
+GP ID：${matchItem.gpId}<br>
+Certificate ID：${matchItem["Cert-Number"] || "None"}<br>
 Stone Type：${stoneShowName}（${matchItem.tech}）<br>
 Carat Weight：${matchItem.carat}<br>
 Color Grade：${matchItem.color}<br>
 Clarity Grade：${matchItem.clarity}<br>
 Cut Grade：${matchItem.cut}<br>
 Cert Authority：IGI<br>
-Issue Date：${matchItem.issueDate}
+Issue Date：${issueDate}
                 `;
             }
 
