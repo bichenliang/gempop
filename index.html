@@ -698,7 +698,8 @@
 
         let gemPopDatabase = [];
 
-        fetch("data.json")
+        // ==========仅此处一行修改，其余全部原样保留==========
+        fetch("https://gem-api.120563888.workers.dev/data.json")
         .then(res => res.json())
         .then(data => {
             gemPopDatabase = data;
